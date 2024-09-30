@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Create an Account</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
         }
         .image-container {
             width: 50%;
-            background: url('login.jpg') no-repeat center center;
+            background: url('children.jpg') no-repeat center center;
             background-size: cover;
         }
         .form-container {
@@ -80,16 +80,28 @@
     <div class="container">
         <div class="image-container"></div>
         <div class="form-container">
-            <h2>Login</h2>
-            <form action="#">
-                <input type="text" placeholder="Email atau Nomor HP" required>
+            <h2>Create an Account</h2>
+            <form onsubmit="return goToRegister2(event)">
+                <input type="email" placeholder="Email address" required>
                 <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-                <a href="#">Lupa password?</a>
-                <a href="Register1">Belum punya akun? Daftar</a>
+                <input type="password" placeholder="Confirm password" required>
+                <input type="text" placeholder="Nomor handphone" required>
+                <button type="submit">Buat Akun!</button>
+                <a href="Login">Sudah Memiliki Akun? Log in</a>
+                <a href="#">Atau Gunakan Google</a>
             </form>
         </div>
     </div>
+
+    <script>
+        function goToRegister2(event) {
+            // Menghentikan aksi submit default
+            event.preventDefault();
+
+            // Arahkan ke halaman register2.html
+            window.location.href = "Register2";
+        }
+    </script>
 
 </body>
 </html>

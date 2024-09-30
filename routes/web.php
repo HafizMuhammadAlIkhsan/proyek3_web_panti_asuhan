@@ -21,3 +21,11 @@ Route::get('/Donasi', function () {
 Route::get('/Login', function () {
     return view('login');
 });
+
+Route::get('/Register1', function () {
+    return view('register1');
+});
+
+Route::get('/Register2', function () {
+    return view('register2');
+});
