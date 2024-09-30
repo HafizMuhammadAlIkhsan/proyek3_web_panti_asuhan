@@ -12,12 +12,14 @@
     --button-hover: #eef2ff;
     --hover-clr: #f1e8fd;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
 body {
     min-height: 100vh;
     display: flex;
@@ -26,10 +28,7 @@ body {
     background-color: var(--bg-clr);
     margin: 0;
 }
-.container {
-    display: flex; /* Menggunakan flexbox untuk sidebar dan kontainer grid */
-    height: 100vh; /* Menjaga tinggi kontainer tetap sama dengan tinggi viewport */
-}
+
 .sidebar {
     width: 280px;
     min-height: 100vh;
@@ -44,9 +43,11 @@ body {
     background-color: var(--white-bg);
     transition: all 0.3s ease;
 }
+
 .sidebar.active {
     width: 250px;
 }
+
 .sidebar .logo {
     position: relative;
     display: flex;
@@ -55,19 +56,23 @@ body {
     width: 100%;
     margin-bottom: 30px;
 }
+
 .sidebar .logo img {
     margin-right: 10px;
 }
+
 .sidebar .logo span {
     font-size: 20px;
     font-weight: 600;
 }
+
 .sidebar ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .sidebar ul li a {
     display: flex;
     align-items: center;
@@ -81,16 +86,19 @@ body {
     color: var(--nav-text1);
     font-weight: 500;
 }
+
 .sidebar li:hover a {
     color: var(--nav-text3);
     background-color: var(--button-hover);
     border-radius: 50px;
 }
+
 .sidebar ul li.active a {
     color: var(--nav-text2);
     background-color: var(--button-hover);
     border-radius: 50px;
 }
+
 .sidebar ul li a ion-icon {
     min-width: 20px;
     height: 20px;
@@ -98,31 +106,32 @@ body {
     position: relative;
     padding-left: 6px;
 }
-/* ul li a span {
-    transition: transform 0.5s;
-    transform: translateX(100px);
-} */
+
 .sidebar.active ul li a span {
     transition-delay: calc(0.02s * var(--i));
     transform: translateX(0);
 }
+
 .no-hover a {
     color: inherit;
     background-color: inherit;
     pointer-events: none;
 }
+
 .no-hover:hover a,
 .no-hover a:hover {
     color: var(--nav-text1);
     background-color: var(--white-bg);
     cursor: default;
 }
+
 .sidebar ul li a img {
     width: 30px;
     height: 30px;
     margin-right: 20px;
     border-radius: 50%;
 }
+
 .sidebar ul li a p {
     text-decoration: none;
     font-size: 12px;
@@ -131,6 +140,7 @@ body {
     line-height: 1;
     color: var(--nav-text1);
 }
+
 .sidebar ul li a h4 {
     text-decoration: none;
     font-size: 14px;
@@ -138,14 +148,17 @@ body {
     text-transform: capitalize;
     color: var(--nav-text3);
 }
+
 .sidebar ul li:last-child {
     margin-top: 43vh;
 }
+
 .sidebar .arrow {
     font-size: 18px;
     color: #333;
     margin-left: auto;
 }
+
 button {
     cursor: pointer;
     border: 0;
@@ -157,49 +170,90 @@ button {
     /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.2); */
     transition: 0.4s;
 }
+
 .log {
     color: var(--white-bg);
     background-color: #9f5ffe;
     transition: 0.4s;
 }
+
 button:hover {
     color: white;
     width: 200px;
     /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.6); */
     background-color: #7243b7;
 }
+
 .log::after {
     content: '>';
-    position: absolute;
+    position: relative;
     opacity: 0;
     transition: opacity 0.4s, left 0.5s;
 }
+
 .log:hover::after {
     opacity: 100;
     left: 10%;
 }
+
 .log:hover {
     padding-right: 20px;
 }
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Membuat 3 kolom */
-    gap: 20px; /* Jarak antara kotak */
-    margin-left: 300px; /* Memberi ruang di sebelah sidebar */
-    padding: 20px; /* Padding di dalam kontainer grid */
-    width: calc(100% - 300px); /* Mengatur lebar kontainer grid */
-    height: 100vh; /* Mengatur tinggi kontainer grid */
-    overflow-y: auto; /* Scroll jika konten lebih dari tinggi grid */
+
+.home {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-left: 50px;
 }
 
-.box {
-    background-color: #ffffff; /* Warna latar belakang kotak */
-    border-radius: 10px; /* Sudut kotak yang membulat */
-    padding: 20px; /* Padding di dalam kotak */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
-    height: 200px; /* Tinggi kotak */
+.title {
+    font-size: 2.5em;
+    font-family: 'Outfit', sans-serif;
+    margin-top: 50px;
+    margin-left: 72px;
+}
+
+.box1, .box2, .box3 {
+    width: 329.37px;
+    height: 456px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     display: flex;
-    align-items: center; /* Tengah vertikal */
-    justify-content: center; /* Tengah horizontal */
-    font-size: 18px; /* Ukuran teks */
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.box1 img, .box2 img, .box3 img {
+    width: 297px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 100px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    margin-right: 90px;
+}
+
+.donate-button {
+    background-color: #1ad0d1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 160px;
+}
+
+.donate-button:hover {
+    background-color: #189e9e;
+    width: 160px;
 }

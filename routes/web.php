@@ -12,11 +12,11 @@ Route::get('/beranda', function () {
 
 Route::get('/', function () {
     return view('beranda_donatur');
-});
+})->name('beranda_donatur');
 
-Route::get('/Donasi', function () {
+Route::get('/Halaman Donasi', function () {
     return view('beranda_donasi');
-});
+})->name('hal_donasi');
 
 Route::get('/Login', function () {
     return view('login');
