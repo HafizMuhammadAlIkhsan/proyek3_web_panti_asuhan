@@ -11,17 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('pekerjaan');
-            $table->integer('kontak', 13);
-            $table->char('kelamin', 1);
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create('donatur', function (Blueprint $table) {
+            $table->string('email', 50)->primary();
+            $table->string('username', 50);
+            $table->string('nama_asli', 50)->nullable();
+            $table->string('password', 50);
+            $table->date('tgl_lahir_donatur')->nullable();
+            $table->string('kontak', 12)->nullable();
+            $table->string('pekerjaan', 50)->nullable();
+            $table->date('last_login');
+            $table->boolean('gender')->nullable();
+            $table->string('kota', 30)->nullable();
+        });
+
+        Schema::create('pengurus', function (Blueprint $table) {
+            $table->string('email_pengurus', 50)->primary();
+            $table->string('nama_pengurus', 50);
+            $table->string('password_admin', 50);
+            $table->string('jabatan', 50);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -45,7 +52,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('donatur');
+        Schema::dropIfExists('pengurus');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
