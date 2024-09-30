@@ -78,29 +78,32 @@
             <main class="col-md-10 ms-sm-auto px-md-4 main-content">
                 <div class="welcome-card">
                     <h1>Donasi Jasa</h1>
-                    <form>
+                    <form action="{{ route('donasi-jasa.store') }}" method="POST">
+                        @csrf  <!-- Include the CSRF token for security -->
+                    
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Donatur</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                         </div>
-
+                    
                         <div class="mb-3">
                             <label for="description" class="form-label">Deskripsi Jasa Tersebut</label>
-                            <textarea class="form-control" id="description" placeholder="Contoh: Guru Mendidik Anak Asuh Mengenai Pelajaran Matematika SMP" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" name="description" placeholder="Contoh: Guru Mendidik Anak Asuh Mengenai Pelajaran Matematika SMP" rows="3" required></textarea>
                         </div>
-
+                    
                         <div class="mb-3">
                             <label for="start-date" class="form-label">Tanggal Mulai</label>
-                            <input type="date" class="form-control" id="start-date" required>
+                            <input type="date" class="form-control" id="start-date" name="start_date" required>
                         </div>
-
+                    
                         <div class="mb-3">
-                            <label for="duration" class="form-label">Durasi</label>
-                            <input type="text" class="form-control" id="duration" placeholder="Ex: 1 Hari" required>
+                            <label for="duration" class="form-label">Tanggal berakhir</label>
+                            <input type="date" class="form-control" id="duration" name="duration"  required>
                         </div>
-
+                    
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+                    
                 </div>
             </main>
         </div>

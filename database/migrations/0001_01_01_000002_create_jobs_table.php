@@ -11,16 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('donasi_jasa', function (Blueprint $table) {
-            $table->id('id_donasi_jasa');
-            $table->string('email_pengurus', 50);
-            $table->string('nama_jasa', 50);
-            $table->string('durasi_jasa', 20);
-            $table->date('jadwal_mulai');
-            $table->date('jadwal_selesai')->nullable();
-            $table->foreign('email_pengurus')->references('email_pengurus')->on('pengurus')->onDelete('restrict')->onUpdate('restrict');
-        });
-
         Schema::create('job_batches', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
@@ -50,7 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('donasi_jasa');
         Schema::dropIfExists('job_batches');
         Schema::dropIfExists('failed_jobs');
     }

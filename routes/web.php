@@ -1,7 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DonasiJasaController;
 
+Route::post('/donasi-jasa', [DonasiJasaController::class, 'store'])->name('donasi-jasa.store');
+
+Route::get('/input_jasa', function () {
+    return view('input_jasa');
+});
+
+Route::get('/list_jasa', function () {
+    return view('list_jasa');
+});
 Route::get('/', function () {
     return view('welcome');
 });
