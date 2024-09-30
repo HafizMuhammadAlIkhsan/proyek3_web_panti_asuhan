@@ -67,7 +67,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link" href="/beranda_donatur">
+                            <a class="nav-link" href="/list_jasa">
                                 Donasi
                             </a>
                         </li>
