@@ -133,6 +133,7 @@
                 </div>
 
                 <button type="submit">Selesai</button>
+                <button type="submit">Lanjut</button>
             </form>
         </div>
     </div>
