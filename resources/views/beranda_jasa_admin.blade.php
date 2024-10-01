@@ -58,17 +58,22 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2">
                             <a class="nav-link active" href="#">
-                                Admin Page
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="#">
-                                Dashboard
+                                Beranda
                             </a>
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link" href="#">
                                 Donasi
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#">
+                                Data Anak
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#">
+                                Berita
                             </a>
                         </li>
                     </ul>
@@ -79,8 +84,8 @@
                 <div class="welcome-card">
                     <div class="row align-items-center">
                         <div class="col-md-9">
-                            <h2>Selamat Datang ! <span>&lt;Nama&gt;</span></h2>
-                            <p>Have a nice day at work today!</p>
+                            <h2>Selamat Datang, Agra!</h2>
+                            <p>Have a nice day at work today :D</p>
                         </div>
                         <div class="col-md-3 text-end">
                             <img src="https://via.placeholder.com/100" alt="Profile Picture" class="rounded-circle" width="100" height="100">
@@ -91,30 +96,30 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="feature-card">
-                            <img src="https://via.placeholder.com/80" alt="Uang Tunai">
+                            <img src="https://via.placeholder.com/80" alt="Donasi Uang">
                             <h4>Uang Tunai</h4>
-                            <button class="btn btn-primary">Tambah data</button>
+                            <button class="btn btn-primary">Detail Donasi</button>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-card">
                             <img src="https://via.placeholder.com/80" alt="Donasi Barang">
                             <h4>Donasi Barang</h4>
-                            <button class="btn btn-primary">Tambah data</button>
+                            <button class="btn btn-primary">Detail Donasi</button>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-card">
                             <img src="https://via.placeholder.com/80" alt="Donasi Jasa">
                             <h4>Donasi Jasa</h4>
-                            <button class="btn btn-primary">Tambah data</button>
+                            <button class="btn btn-primary">Detail Donasi</button>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
