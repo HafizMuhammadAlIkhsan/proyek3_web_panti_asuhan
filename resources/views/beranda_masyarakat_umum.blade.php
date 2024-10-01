@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @include('components.sidebardonatur')
+    @include('components.sidebar')
 
     <div class="container"> 
         <h1 class="title">BERIKAN BANTUAN KEPADA <br>MEREKA YANG <span style="color: #9f5ffe;">MEMBUTUHKAN</span></h1>

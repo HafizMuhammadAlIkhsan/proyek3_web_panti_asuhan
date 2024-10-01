@@ -1,14 +1,3 @@
-function setActive(activeId) {
-    const menuItems = document.querySelectorAll('.menu-item li');
-    menuItems.forEach(item => {
-        item.classList.remove('active');
-    });
-    document.getElementById(activeId).classList.add('active');
-}
-document.getElementById('loginButton').addEventListener('click', function() {
-    window.location.href = '/Login';
-});
-
 // const container = document.querySelector(".container");
 // const linkItems = document.querySelectorAll(".menu-item");
 

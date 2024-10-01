@@ -11,7 +11,7 @@
                 <span style="--i:1"> Beranda </span>
             </a>
         </li>
-        <li class="{{ request()->routeIs('hal_donasi') ? 'active' : '' }}">
+        <li class="{{ request()->routeIs('hal_donasi') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
             <a href="{{ route('hal_donasi') }}">
                 <ion-icon name="wallet-outline"></ion-icon>
                 <span style="--i:2"> Donasi </span>
@@ -55,7 +55,7 @@
                 </div>
             </a> --}}
             <div>
-                <button class="log" id="loginButton">Login</button>
+                <button class="log" id="loginButton" onclick="window.location.href='/Login'">Login</button>
             </div>
             {{-- <a href="#" class="link" onclick="setActive('info-item')">
                 <img src="image/logo_panti.png" alt="" >
@@ -66,5 +66,5 @@
                 <span class="arrow">&gt;</span>
             </a> --}}
         </li>
-    </ul>   
+    </ul>
 </div>
