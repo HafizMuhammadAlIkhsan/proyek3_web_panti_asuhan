@@ -22,13 +22,15 @@ return new class extends Migration
             $table->date('last_login');
             $table->boolean('gender')->nullable();
             $table->string('kota', 30)->nullable();
+            $table->timestamps();  // Kolom created_at dan updated_at
         });
 
-        Schema::create('pengurus', function (Blueprint $table) {
-            $table->string('email_pengurus', 50)->primary();
-            $table->string('nama_pengurus', 50);
+        Schema::create('admin', function (Blueprint $table) {
+            $table->string('email_admin', 50)->primary();
+            $table->string('nama_admin', 50);
             $table->string('password_admin', 50);
             $table->string('jabatan', 50);
+            $table->timestamps(); 
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
