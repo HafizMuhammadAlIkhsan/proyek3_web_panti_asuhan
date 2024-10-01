@@ -28,7 +28,7 @@
                 <p class="phone-number">+6281214431135</p>
             </div>
         
-            <a href="https://wa.me/+6288229190006?text=Halo,%20saya%20tertarik%20untuk%20berdonasi%20jasa" target="_blank">
+            <a href="https://wa.me/+6281214431135?text=Halo,%20saya%20tertarik%20untuk%20berdonasi%20jasa" target="_blank">
                 <button class="contact-button">Hubungi Kontak Person</button>
             </a>
          
