@@ -9,26 +9,26 @@ class DonasiJasaController extends Controller
 {
     public function store(Request $request)
     {
-        // Validasi input dari form
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'description' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',  
+        // Validasi data
+        $request->validate([
+            'email_pengurus' => 'required|email',
+            'nama_jasa' => 'required|string',
+            'jadwal_mulai' => 'required|date',
+            'jadwal_selesai' => 'required|date|after_or_equal:jadwal_mulai',
         ]);
 
-        // Simpan data ke dalam tabel `donasi_jasa`
-        $donasiJasa = DonasiJasa::create([
-            'EMAIL_PENGURUS' => $validated['email'],
-            'NAMA_JASA' => $validated['description'],
-            'JADWAL_MULAI' => $validated['start_date'],
-            'JADWAL_SELESAI' => $validated['end_date'],
+        // Menyimpan data ke database
+        DonasiJasa::create([
+            'email_pengurus' => $request->input('email_pengurus', 'pengurus@example.com'),  // Default value
+            'nama_jasa' => $request->input('nama_jasa'),
+            'jadwal_mulai' => $request->input('jadwal_mulai'),
+            'jadwal_selesai' => $request->input('jadwal_selesai'),
         ]);
 
-        // id akan otomatis terisi oleh Laravel (auto-increment)
-        // Mengembalikan response atau redirect ke halaman lain
-        return redirect()->back()->with('success', 'Donasi Jasa berhasil ditambahkan dengan ID: ' . $donasiJasa->id);
+        // Redirect setelah berhasil menyimpan
+        return redirect()->back()->with('success', 'Donasi jasa berhasil disimpan!');
     }
 }
+
 
 

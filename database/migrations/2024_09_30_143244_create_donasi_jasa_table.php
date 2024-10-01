@@ -8,15 +8,16 @@ class CreateDonasiJasaTable extends Migration
 {
     public function up()
     {
-        Schema::create('donasi_jasa', function (Blueprint $table) {
-            $table->id();  // Kolom id otomatis auto-increment
-            $table->string('EMAIL_PENGURUS');
-            $table->string('NAMA_JASA');
-            $table->date('JADWAL_MULAI');
-            $table->date('JADWAL_SELESAI');
-            $table->timestamps();
+        Schema::create('donasi_jasas', function (Blueprint $table) {
+            $table->id();  // Kolom ID auto increment
+            $table->string('email_pengurus')->default('pengurus@example.com');  // Default value
+            $table->string('nama_jasa');
+            $table->date('jadwal_mulai');
+            $table->date('jadwal_selesai');
+            $table->timestamps();  // Kolom created_at dan updated_at
         });
     }
+    
 
     public function down()
     {
