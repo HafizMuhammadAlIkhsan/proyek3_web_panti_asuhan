@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, rgb(131, 78, 209), rgb(153, 61, 164), rgb(67,40,107));
         }
         .container {
             display: flex;
@@ -133,7 +133,6 @@
                 </div>
 
                 <button type="submit">Selesai</button>
-                <button type="submit">Lanjut</button>
             </form>
         </div>
     </div>

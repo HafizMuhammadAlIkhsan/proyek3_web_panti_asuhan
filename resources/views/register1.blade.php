@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, rgb(131, 78, 209), rgb(153, 61, 164), rgb(67,40,107));
         }
         .container {
             display: flex;
@@ -27,7 +27,7 @@
         }
         .image-container {
             width: 50%;
-            background: url('children.jpg') no-repeat center center;
+            background: url('image/anakpanti.jpg') no-repeat center center;
             background-size: cover;
         }
         .form-container {
