@@ -11,46 +11,46 @@ Route::post('/donasi-jasa/store', [DonasiJasaController::class, 'store'])->name(
 
 
 Route::get('/input_jasa', function () {
-    return view('input_jasa');
+    return view('Admin/input_jasa');
 });
 
 Route::get('/list_jasa', function () {
-    return view('list_jasa');
+    return view('Admin/list_jasa');
 });
 
 Route::get('/beranda', function () {
-    return view('beranda_jasa_admin');
+    return view('Admin/beranda_jasa_admin');
 })->name('beranda');
 
 
-Route::get('/Beranda Umum', function () {
-    return view('beranda_masyarakat_umum');
+Route::get('/', function () {
+    return view('Masyarakat_Umum/beranda_masyarakat_umum');
 })->name('beranda_umum');
 
-Route::get('/beranda donatur', function () {
-    return view('beranda_donatur');
+Route::get('/beranda_donatur', function () {
+    return view('Donatur/beranda_donatur');
 })->name('beranda_donatur');
 
-Route::get('/Halaman Donasi', function () {
-    return view('beranda_donasi');
+Route::get('/Halaman_Donasi', function () {
+    return view('Donatur/beranda_donasi');
 })->name('hal_donasi');
 
-Route::get('/Halaman Donasi Jasa', function () {
-    return view('donatur_donasi_jasa');
+Route::get('/Halaman_Donasi_Jasa', function () {
+    return view('Donatur/donatur_donasi_jasa');
 })->name('hal_donasi_jasa');
 
 Route::get('/Login', function () {
-    return view('login');
+    return view('Masyarakat_Umum/login');
 });
 
-Route::get('/Login Admin', function () {
-    return view('loginadmin');
+Route::get('/Login_Admin', function () {
+    return view('Admin/loginadmin');
 });
 
 Route::get('/Register1', function () {
-    return view('register1');
+    return view('Masyarakat_Umum/register1');
 });
 
 Route::get('/Register2', function () {
-    return view('register2');
+    return view('Masyarakat_Umum/register2');
 });
