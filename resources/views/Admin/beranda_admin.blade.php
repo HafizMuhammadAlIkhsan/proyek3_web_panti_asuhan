@@ -120,12 +120,13 @@
 
         .Bottom-Container {
             width: 100%;
-            height: 335px;
+            height: auto; 
             background-color: #ffffff;
             border-top: 3px solid black;
             display: flex;
             flex-direction: row;
-            justify-content: flex-start;
+            justify-content: space-between; 
+            padding: 20px; 
         }
 
         .Bottom-container-stripe {
