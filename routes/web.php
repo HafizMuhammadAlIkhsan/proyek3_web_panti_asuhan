@@ -24,7 +24,7 @@ Route::get('/list_jasa', function () {
 });
 
 Route::get('/beranda', function () {
-    return view('Admin/beranda_jasa_admin');
+    return view('Admin/beranda_admin');
 })->name('beranda');
 
 // Route untuk halaman register1 (tampilan form)
@@ -72,6 +72,10 @@ Route::get('/Beranda_Admin', function () {
     return view('Admin/beranda_admin');
 });
 
+Route::get('/Beranda_Admin2', function () {
+    return view('Admin/beranda_donasi_admin');
+});
+
 
 
 // Route::get('/Register1', function () {
@@ -81,3 +85,18 @@ Route::get('/Beranda_Admin', function () {
 // Route::get('/Register2', function () {
 //     return view('Masyarakat_Umum/register2');
 // });
+
+use App\Http\Controllers\DonaturController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\AnakAsuhController;
+
+// Route untuk beranda donatur
+Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
+
+// Route untuk halaman donasi
+Route::get('/hal-donasi', [DonasiController::class, 'index'])->name('hal_donasi');
+
+// Route untuk halaman donasi jasa
+Route::get('/hal-donasi-jasa', [DonasiController::class, 'jasaIndex'])->name('hal_donasi_jasa');
