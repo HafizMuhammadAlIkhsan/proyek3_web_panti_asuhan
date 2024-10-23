@@ -6,75 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Input_Jasa</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #f8e5e5;
+            background-color: #F5F5F9;
+            overflow-x: hidden;
         }
 
-        .sidebar {
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-        }
-
-        .sidebar .nav-link {
-            color: white;
-            padding: 10px 15px;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #34495e;
-        }
-
-        .main-content {
-            padding: 20px;
-        }
-
-        .welcome-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        form label {
-            margin-top: 10px;
-        }
-
-        button[type="submit"] {
-            margin-top: 20px;
+        .main {
+            width: 100%;
+            height: 100%;
+            background-color: #F5F5F9;
         }
     </style>
 </head>
 
 <body>
+    @include('components.sidebaradmin')
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2">
-                            <a class="nav-link active" href="#">
-                                Admin Page
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="#">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="/list_jasa">
-                                Donasi
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
             <main class="col-md-10 ms-sm-auto px-md-4 main-content">
                 <div class="welcome-card">
                     <h1>Donasi Jasa</h1>
