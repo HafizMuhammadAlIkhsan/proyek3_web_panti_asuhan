@@ -36,9 +36,14 @@ return [
     */
 
     'guards' => [
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'donators',
         ],
 
         'admin' => [
@@ -73,6 +78,11 @@ return [
         'pengurus' => [
             'driver' => 'eloquent',
             'model' => App\Models\LoginAdmin::class, 
+        ],
+
+        'donators' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Donatur::class,
         ],
 
         // 'users' => [

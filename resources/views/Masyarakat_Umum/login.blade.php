@@ -81,12 +81,13 @@
         <div class="image-container"></div>
         <div class="form-container">
             <h2>Login</h2>
-            <form action="#">
-                <input type="text" placeholder="Email atau Nomor HP" required>
-                <input type="password" placeholder="Password" required>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf <!-- Token CSRF untuk keamanan -->
+                <input type="text" name="email" placeholder="Email atau Nomor HP" required>
+                <input type="password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
                 <a href="#">Lupa password?</a>
-                <a href="Register1">Belum punya akun? Daftar</a>
+                <a href="{{ route('register.step1') }}">Belum punya akun? Daftar</a>
             </form>
         </div>
     </div>

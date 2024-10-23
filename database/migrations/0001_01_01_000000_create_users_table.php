@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('donatur', function (Blueprint $table) {
             $table->string('email', 50)->primary();
-            $table->string('username', 50);
-            $table->string('nama_asli', 50)->nullable();
-            $table->string('password', 50);
+            $table->string('username', 50)->nullable();
+            $table->string('password', 100);
             $table->date('tgl_lahir_donatur')->nullable();
             $table->string('kontak', 12)->nullable();
             $table->string('pekerjaan', 50)->nullable();
-            $table->date('last_login');
             $table->boolean('gender')->nullable();
             $table->string('kota', 30)->nullable();
             $table->timestamps();  // Kolom created_at dan updated_at

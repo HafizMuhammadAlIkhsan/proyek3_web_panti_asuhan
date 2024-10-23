@@ -11,8 +11,8 @@
                 <span style="--i:1"> Beranda </span>
             </a>
         </li>
-        <li class="{{ request()->routeIs('hal_donasi') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
-            <a href="{{ route('hal_donasi') }}">
+        <li class="{{ request()->routeIs('hal_donasi_donatur') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
+            <a href="{{ route('hal_donasi_donatur') }}">
                 <ion-icon name="wallet-outline"></ion-icon>
                 <span style="--i:2"> Donasi </span>
             </a>

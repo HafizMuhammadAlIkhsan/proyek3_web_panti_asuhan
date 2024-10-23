@@ -16,11 +16,11 @@ class LoginAdminController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email_pengurus' => 'required|email',
+            'email_admin' => 'required|email',
             'password_admin' => 'required',
         ]);
 
-        $admin = LoginAdmin::where('email_pengurus', $request->email_pengurus)->first();
+        $admin = LoginAdmin::where('email_admin', $request->email_admin)->first();
 
         if ($admin && $admin->password_admin === $request->password_admin) {
             Auth::login($admin);
@@ -28,7 +28,7 @@ class LoginAdminController extends Controller
         }
 
         return back()->withErrors([
-            'email_pengurus' => 'Email atau password tidak valid.',
+            'email_admin' => 'Email atau password tidak valid.',
         ])->withInput()->with('loginFailed', true);
     }
 }

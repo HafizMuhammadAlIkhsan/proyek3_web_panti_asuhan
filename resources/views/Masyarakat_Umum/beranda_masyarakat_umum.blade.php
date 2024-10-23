@@ -13,23 +13,22 @@
 <body>
     @include('components.sidebar')
 
-    <div class="container"> 
-        <h1 class="title">BERIKAN BANTUAN KEPADA <br>MEREKA YANG <span style="color: #9f5ffe;">MEMBUTUHKAN</span></h1>
-        <div class="home">
-            <div class="box1">
-                <img src="https://via.placeholder.com/297x220" alt="Contoh Gambar"> 
-                <h2>Donasi Uang </h2>
-                <button class="donate-button">Donasi Sekarang</button>
+    <div class="home">
+        <div class="container-home">
+            <div class="left-section">
+                <h2>Panti Anak Asuhan</h2>
+                <h1>BAHAGIANKAN <span class="highlight">ANAK-ANAK</span></h1>
+                <p>Tingkatkan kualitas perawatan di panti asuhan dan mulailah membangun masa depan yang lebih sehat untuk anak-anak hari ini</p>
             </div>
-            <div class="box2">
-                <img src="https://via.placeholder.com/297x220" alt="Contoh Gambar">
-                <h2>Donasi Barang</h2>
-                <button class="donate-button">Donasi Sekarang</button>
-            </div>
-            <div class="box3">
-                <img src="https://via.placeholder.com/297x220" alt="Contoh Gambar">
-                <h2>Donasi Jasa</h2>
-                <button class="donate-button" onclick="window.location.href='{{ route('hal_donasi_jasa') }}'">Donasi Sekarang</button>
+
+            <div class="right-section">
+                <div class="card-background"></div>
+                <div class="card">
+                    <span class="donate-tag">Donasi</span>
+                    <h2>Kalimat Persuasif</h2>
+                    <p>Lorem ipsum dolor sit amet</p>
+                    <button class="donate-button-home">Donasi Sekarang</button>
+                </div>
             </div>
         </div>
     </div>

@@ -5,14 +5,14 @@
     </div>
     <ul class="menu-item">
         {{-- <li class="menu-item" id="home-item"> --}}
-        <li class="{{ request()->routeIs('beranda_donatur') ? 'active' : '' }}">
-            <a href="{{ route('beranda_donatur') }}">
+        <li class="{{ request()->routeIs('beranda_umum') ? 'active' : '' }}">
+            <a href="{{ route('beranda_umum') }}">
                 <ion-icon name="apps-outline"></ion-icon>
                 <span style="--i:1"> Beranda </span>
             </a>
         </li>
-        <li class="{{ request()->routeIs('hal_donasi') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
-            <a href="{{ route('hal_donasi') }}">
+        <li class="{{ request()->routeIs('hal_donasi_umum') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
+            <a href="{{ route('hal_donasi_umum') }}">
                 <ion-icon name="wallet-outline"></ion-icon>
                 <span style="--i:2"> Donasi </span>
             </a>

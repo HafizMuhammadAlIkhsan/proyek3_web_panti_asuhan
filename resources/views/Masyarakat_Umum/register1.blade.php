@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
     <title>Create an Account</title>
     <style>
         body {
@@ -81,12 +84,13 @@
         <div class="image-container"></div>
         <div class="form-container">
             <h2>Create an Account</h2>
-            <form onsubmit="return goToRegister2(event)">
-                <input type="email" placeholder="Email address" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm password" required>
-                <input type="text" placeholder="Nomor handphone" required>
-                <button type="submit">Buat Akun!</button>
+            <form method="POST" action="{{ route('register.step1.post') }}">
+                @csrf
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
+                <input type="text" name="kontak" placeholder="Kontak" required>
+                <button type="submit" class="btn btn-register btn-block btn-success">Buat Akun!</button>
                 <a href="Login">Sudah Memiliki Akun? Log in</a>
                 <a href="#">Atau Gunakan Google</a>
             </form>
@@ -94,6 +98,30 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+          $(".btn-register").click(function() {
+            var email = $("#email").val();
+            var password = $("#password").val();
+            var confirm_password = $("#confirm_password").val();
+            var no_hp = $("#no_hp").val();
+
+            if (email === "") {
+              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Email Wajib Diisi !' });
+            } else if (password === "") {
+              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Password Wajib Diisi !' });
+            } else if (confirm_password === "") {
+              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Konfirmasi Password Wajib Diisi !' });
+            } else if (password !== confirm_password) {
+              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Confirm Password Harus Sama dengan Password !' });
+            } else {
+              // Lanjutkan submit form
+              $("form").submit();
+            }
+          });
+        });
+    </script>
+
+    {{-- <script>
         function goToRegister2(event) {
             // Menghentikan aksi submit default
             event.preventDefault();
@@ -101,7 +129,7 @@
             // Arahkan ke halaman register2.html
             window.location.href = "Register2";
         }
-    </script>
+    </script> --}}
 
 </body>
 </html>

@@ -11,10 +11,10 @@ class LoginAdmin extends Model implements Authenticatable
 {
     use HasFactory, AuthenticatableTrait;
 
-    protected $table = 'pengurus'; // Menyebutkan nama tabel yang benar
+    protected $table = 'admin';
 
     protected $fillable = [
-        'email_pengurus',
+        'email_admin',
         'password_admin',
     ];
 
