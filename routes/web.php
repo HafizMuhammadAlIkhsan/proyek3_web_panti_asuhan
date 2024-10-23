@@ -68,6 +68,11 @@ Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
 });
 
+Route::get('/Beranda_Admin', function () {
+    return view('Admin/beranda_admin');
+});
+
+
 
 // Route::get('/Register1', function () {
 //     return view('Masyarakat_Umum/register1');
