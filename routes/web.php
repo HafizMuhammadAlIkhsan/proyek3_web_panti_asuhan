@@ -10,9 +10,9 @@ use App\Http\Controllers\LoginDonaturController;
 Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
 Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
 Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
-Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
-Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
-Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
+// Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
+// Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
+// Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
     
 
 Route::get('/login', [LoginAdminController::class, 'showLoginForm'])->name('login');
