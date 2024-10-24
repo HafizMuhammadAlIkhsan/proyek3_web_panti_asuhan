@@ -11,6 +11,7 @@ class dataAnak extends Model
     protected $primaryKey = 'id_anak';
     protected $keyType = 'integer';
     protected $table = 'data_anak';
+    public $timestamps = false;
 
     protected $fillable = [
         'nama_anak',

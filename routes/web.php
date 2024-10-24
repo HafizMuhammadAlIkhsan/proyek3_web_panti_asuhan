@@ -7,9 +7,13 @@ use App\Http\Controllers\DonasiJasaController;
 use App\Http\Controllers\dataAnakController;
 use App\Http\Controllers\LoginDonaturController;
 
-Route::get('admin/data-anak', [dataAnakController::class, 'index']) -> name('admin-data-anak');
-Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])-> name('admin-data-anak-create');
-Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])-> name('admin-data-anak-store');
+Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
+Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
+Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
+Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
+Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
+Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
+    
 
 Route::get('/login', [LoginAdminController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginAdminController::class, 'login']);
@@ -19,10 +23,9 @@ Route::post('/donasi-jasa/store', [DonasiJasaController::class, 'store'])->name(
 Route::get('/login', [LoginDonaturController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginDonaturController::class, 'login']);
 Route::post('/logout', [LoginDonaturController::class, 'logout'])->name('logout');
-
 Route::get('/input_jasa', function () {
     return view('Admin/input_jasa');
-})->name('input_donasi_jasa');
+});
 
 Route::get('/list_jasa', function () {
     return view('Admin/list_jasa');
@@ -64,7 +67,7 @@ Route::get('/Halaman_Donasi', function () {
     return view('Donatur/beranda_donasi');
 })->name('hal_donasi_donatur');
 
-Route::get('/', function () {
+Route::get('/   ', function () {
     return view('Donatur/donatur_donasi_jasa');
 })->name('hal_donasi_jasa');
 
@@ -73,13 +76,13 @@ Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
 });
 
-Route::get('/Beranda_Admin', function () {
-    return view('Admin/beranda_admin');
-})->name('hal_beranda_admin');
+// Route::get('/Beranda_Admin', function () {
+//     return view('Admin/beranda_admin');
+// });
 
-Route::get('/Beranda_Donasi_Admin', function () {
+Route::get('/Beranda_Admin2', function () {
     return view('Admin/beranda_donasi_admin');
-})->name('hal_beranda_donasi_admin');
+});
 
 
 
@@ -91,11 +94,17 @@ Route::get('/Beranda_Donasi_Admin', function () {
 //     return view('Masyarakat_Umum/register2');
 // });
 
+use App\Http\Controllers\DonaturController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\AnakAsuhController;
+
 // Route untuk beranda donatur
-// Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
+Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
 
-// // Route untuk halaman donasi
-// Route::get('/hal-donasi', [DonasiController::class, 'index'])->name('hal_donasi');
+// Route untuk halaman donasi
+Route::get('/hal-donasi', [DonasiController::class, 'index'])->name('hal_donasi');
 
-// // Route untuk halaman donasi jasa
-// Route::get('/hal-donasi-jasa', [DonasiController::class, 'jasaIndex'])->name('hal_donasi_jasa');
+// Route untuk halaman donasi jasa
+Route::get('/hal-donasi-jasa', [DonasiController::class, 'jasaIndex'])->name('hal_donasi_jasa');

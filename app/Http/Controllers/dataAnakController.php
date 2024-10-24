@@ -12,7 +12,9 @@ class dataAnakController extends Controller
      */
     public function index()
     {
-        return view ('admin.dataAnak.data_anak');
+        $data_anak = dataAnak::all(); 
+
+        return view ('admin.dataAnak.data_anak', compact('data_anak'));       
     }
 
     public function create( )
@@ -52,12 +54,17 @@ class dataAnakController extends Controller
         }
     }
 
-
+    public function updateView($id)
+    {
+        $anak = dataAnak::findOrFail($id);
+        return view ('admin.dataAnak.data_anak_edit', compact('anak'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
+        
          // Validasi input
          $validatedData = $request->validate([
             'nama_anak' => 'sometimes|required|string|max:255',

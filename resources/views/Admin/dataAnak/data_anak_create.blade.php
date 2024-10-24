@@ -20,8 +20,8 @@
         <form action="{{ route('admin-data-anak-store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="nama">Nama Anak</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
+                <label for="nama_anak">Nama Anak</label>
+                <input type="text" class="form-control" id="nama_anak" name="nama_anak" required>
             </div>
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
