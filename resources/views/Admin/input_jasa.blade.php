@@ -40,7 +40,6 @@
             background-color: #661AD1;
             width: 100%;
             height: 25px;
-            margin-top: 2px;
         }
 
         .main {
@@ -82,12 +81,6 @@
             font-weight: bold;
         }
 
-        .btn-primary {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-        }
-
         @media (min-width: 768px) {
             .welcome-card {
                 width: 70%;
@@ -104,27 +97,30 @@
 
 <body>
     @include('components.sidebaradmin')
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top"></div>
         </div>
-
         <div class="Middle-Container">
-            <div class="stripe"></div>
+            <div class="stripe">
+                <button type="button" onclick="window.location.href='{{ route('list-jasa') }}'">test</button>
+            </div>
             <div class="welcome-card">
                 <h1>Donasi Jasa</h1>
-                <form action="{{ route('donasi-jasa.store') }}" method="POST">
-                    @csrf <!-- Include the CSRF token for security -->
-
+                <form action="{{ route('insert-jasa') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Donatur</label>
-                        <input type="email" class="form-control" id="email" name="email_pengurus" placeholder="Email" required>
+                        <input type="email" class="form-control" id="email" name="email_admin" placeholder="Email"
+                            required>
                     </div>
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Deskripsi Jasa Tersebut</label>
-                        <textarea class="form-control" id="description" name="nama_jasa" placeholder="Contoh: Guru Mendidik Anak Asuh Mengenai Pelajaran Matematika SMP" rows="3" required></textarea>
+                        <textarea class="form-control" id="description" name="nama_jasa" placeholder="Deskripsi Jasa" rows="3" required></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -136,8 +132,10 @@
                         <label for="duration" class="form-label">Tanggal Berakhir</label>
                         <input type="date" class="form-control" id="end_date" name="jadwal_selesai" required>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+
             </div>
         </div>
     </div>

@@ -6,176 +6,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List Jasa</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
-        body {
-            background-color: #f8e5e5;
+        .main {
+            width: 100%;
+            height: 100%;
+            background-color: #F5F5F9;
         }
 
-        .sidebar {
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-        }
-
-        .sidebar .nav-link {
-            color: white;
-            padding: 10px 15px;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #34495e;
-        }
-
-        .main-content {
-            padding: 20px;
-        }
-
-        .table-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .table th,
-        .table td {
-            vertical-align: middle;
-        }
-
-        .table th {
-            background-color: #f0f0f0;
-        }
-
-        .actions {
+        .Top-Container {
+            background-color: #ffffff;
+            width: 100%;
+            height: 80px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .actions .btn {
-            margin-right: 5px;
+        .Center-Top {
+            Font-size:20px;
         }
 
-        .pagination {
+        .Mid-Container {
+            background-color: #D1B2FF;
+            width: 100%;
+            height: 100px;
             display: flex;
-            justify-content: space-between;
-        }
-
-        .header {
-            background-color: #e5d1f2;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: bold;
+        .Center-Mid {
+            font-size: 36px;
+            color: #fff;
         }
 
-        .pagination-nav {
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .icon-btn {
+            border: none;
+            background: none;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+        }
+        button:hover {
+            color: white;
+            width: 50px;
+            background-color: #7243b7;
+        }
+        .pagination-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             margin-top: 20px;
         }
-
-        .pagination-nav button {
-            margin: 0 10px;
+        .search-button{
+            width: 50px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2">
-                            <a class="nav-link active" href="#">
-                                Admin Page
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="#">
-                                Donasi
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="#">
-                                Data Anak
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link" href="#">
-                                Berita
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    @include('components.sidebaradmin')
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-            <main class="col-md-10 ms-sm-auto px-md-4 main-content">
-                <div class="header">
-                    <h1>LIST Jasa</h1>
-                </div>
-                <div class="table-card">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Donatur</th>
-                                <th scope="col">Nama Jasa</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Tanggal Mulai</th>
-                                <th scope="col">Tanggal Berakhir</th>
-                                <th scope="col" class="text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>John Doe<br>john.doe@gmail.com</td>
-                                <td>Nama Kegiatan</td>
-                                <td>Approve</td>
-                                <td>20-10-2024</td>
-                                <td>22-10-2024</td>
-                                <td class="actions">
-                                    <button class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </button>
-                                    <button class="btn btn-outline-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>John Doe<br>john.doe@gmail.com</td>
-                                <td>Nama Kegiatan</td>
-                                <td>Pending</td>
-                                <td>31-11-2024</td>
-                                <td>2-11-2024</td>
-                                <td class="actions">
-                                    <button class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </button>
-                                    <button class="btn btn-outline-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
+    <div class="main">
+        <div class="Top-Container">
+            <div class="Center-Top">
+                <form action="/search" method="GET" class="d-flex align-items-center">
+                    <input type="text" name="query" placeholder="Search Jasa" class="form-control me-2">
+                    <button type="submit" class="search-button">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
 
-                <div class="pagination-nav">
-                    <button class="btn btn-secondary">Previous</button>
-                    <span>Page 1 of 10</span>
-                    <button class="btn btn-secondary">Next</button>
-                </div>
-            </main>
+        <div class="Mid-Container">
+            <div class="Center-Mid">LIST Jasa</div>
+        </div>
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="checkbox"></th>
+                        <th scope="col">Donatur</th>
+                        <th scope="col">Nama Jasa</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tanggal Mulai</th>
+                        <th scope="col">Tanggal Berakhir</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data Dinamis per 10/10-->
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="path-to-profile-picture" alt="profile">
+                                <div class="ms-3">
+                                    <p class="mb-0">Nama Donatur</p>
+                                    <p class="text-muted mb-0">Email admin</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Nama Jasa</td>
+                        <td>Status Jasa</td>
+                        <td>Jadwal Mulai</td>
+                        <td>Jadwal Selesai</td>
+                        <td>
+                            <button class="icon-btn">
+                                <ion-icon name="trash-outline">
+                                    Delete
+                                </ion-icon>
+                            </button>
+                            <button class="icon-btn">
+                                <ion-icon name="brush-outline">
+                                Edit
+                                </ion-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination-container">
+                <button class="btn btn-primary">Previous</button>
+                <p>Page 1 of 10</p>
+                <button class="btn btn-primary">Next</button>
+            </div>
         </div>
     </div>
 

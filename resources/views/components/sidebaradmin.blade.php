@@ -1,3 +1,10 @@
+<style>
+    .sidebar{
+        border-right: 1px solid black;
+        margin: 0px;
+    }
+</style>
+
 <div class="sidebar">
     <div class="logo">
         <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
