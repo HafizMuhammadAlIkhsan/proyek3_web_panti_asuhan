@@ -1,18 +1,18 @@
 <div class="sidebar">
     <div class="logo">
         <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
-        <span> Panti Asuhan </span>
+        <span> Admin Panti </span>
     </div>
     <ul class="menu-item">
         {{-- <li class="menu-item" id="home-item"> --}}
-        <li class="{{ request()->routeIs('beranda_donatur') ? 'active' : '' }}">
-            <a href="{{ route('beranda_donatur') }}">
+        <li class="{{ request()->routeIs('hal_beranda_admin') ? 'active' : '' }}">
+            <a href="{{ route('hal_beranda_admin') }}">
                 <ion-icon name="apps-outline"></ion-icon>
                 <span style="--i:1"> Beranda </span>
             </a>
         </li>
-        <li class="{{ request()->routeIs('hal_donasi') || request()->routeIs('hal_donasi_jasa') ? 'active' : '' }}">
-            <a href="{{ route('hal_donasi') }}">
+        <li class="{{ request()->routeIs('hal_beranda_donasi_admin') || request()->routeIs('hal_beranda_donasi_admin') ? 'active' : '' }}">
+            <a href="{{ route('hal_beranda_donasi_admin') }}">
                 <ion-icon name="wallet-outline"></ion-icon>
                 <span style="--i:2"> Donasi </span>
             </a>
@@ -20,7 +20,7 @@
         <li class="menu-item" id="news-item">
             <a href="#" class="link" onclick="setActive('news-item')">
                 <ion-icon name="newspaper-outline"></ion-icon>
-                <span style="--i:3"> Berita  </span>
+                <span style="--i:3"> Berita</span>
             </a>
         </li>
         <li class="menu-item" id="program-item">

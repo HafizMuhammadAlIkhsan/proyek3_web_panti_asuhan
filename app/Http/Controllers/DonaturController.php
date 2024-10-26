@@ -19,6 +19,7 @@ class DonaturController extends Controller
         $donatur = Donatur::findOrFail($user->email);
         dd($user, $donatur);
         return view('welcome', ['donatur' => $donatur]);
+        // return view('donatur.beranda');
     }
     
 }

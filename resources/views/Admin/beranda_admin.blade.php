@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,27 +9,23 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* Apply to all elements to prevent overflow issues */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body style */
         body {
             background-color: #F5F5F9;
             overflow-x: hidden;
         }
 
-        /* Main container */
         .main {
             width: 100%;
             height: 100%;
-            background-color: #661AD1;
+            background-color: #F5F5F9;
         }
 
-        /* Top container with a centered element */
         .Top-Container {
             background-color: #ffffff;
             width: 100%;
@@ -39,49 +36,113 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Centered content in the top container */
         .Center-Top {
             border: 3px solid #000000;
             width: 50px;
             height: 50px;
         }
 
-        /* Middle container */
+        /* Middle Container with user profile and donation summary */
         .Middle-Container {
-            background-color: #c1c1c1;
-            width: 100%;
-            height: 300px;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 90%;
         }
 
-        /* Bottom container for buttons */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-section img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+
+        .profile-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-section p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .donation-summary {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+        }
+
+        .donation-summary h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .donation-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .donation-stats div {
+            text-align: center;
+        }
+
+        .donation-stats .approved {
+            color: blue;
+        }
+
+        .donation-stats .pending {
+            color: orange;
+        }
+
+        .donation-stats .total {
+            color: green;
+        }
+
         .Bottom-Container {
             width: 100%;
-            height: 250px;
+            height: auto; 
             background-color: #ffffff;
             border-top: 3px solid black;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            flex-direction: row;
+            justify-content: space-between; 
+            padding: 20px; 
         }
 
-        /* Purple stripe in the bottom container */
         .Bottom-container-stripe {
             background-color: #661AD1;
             width: 100%;
-            height: 50px;
+            height: 25px;
             margin-top: 2px;
         }
 
-        /* Button container positioning */
         .Bottom-Button {
+            display: flex;
+            flex-direction: Row;
+            padding-top: 10px;
             padding-left: 20px;
         }
 
-        /* Button styling */
         .button-container {
             display: flex;
             flex-direction: column;
@@ -102,12 +163,10 @@
             transition: all 0.3s ease;
         }
 
-        /* Hover effect for the buttons */
         .button:hover {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        /* Icon container inside buttons */
         .button-icon {
             background-color: #FFFFFF;
             border-radius: 50%;
@@ -118,18 +177,15 @@
             margin-right: 15px;
         }
 
-        /* Icon styling */
         .button-icon img {
             width: 25px;
             height: 25px;
         }
 
-        /* Notification icon */
         .notification-icon {
             position: relative;
         }
 
-        /* Red notification dot */
         .notification-dot {
             position: absolute;
             top: 0;
@@ -139,8 +195,21 @@
             background-color: #FF5722;
             border-radius: 50%;
         }
+
+        .donation-summary {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            margin-left: 20px;
+        }
     </style>
 </head>
+
 <body>
     @include('components.sidebaradmin')
 
@@ -153,42 +222,63 @@
             <div class="Center-Top"></div>
         </div>
 
-        <!-- Middle container -->
-        <div class="Middle-Container"></div>
+        <!-- Middle container with profile and donation summary -->
+        <div class="Middle-Container">
+            <div class="profile-section">
+                <img src="https://via.placeholder.com/100" alt="Profile Image">
+                <h2>Selamat Datang, &lt;Nama&gt;!</h2>
+                <p>Halo Saya &lt;Nama&gt;, &lt;Personal Bio&gt;</p>
+            </div>
+        </div>
 
         <!-- Bottom container with buttons -->
+        <div class="Bottom-container-stripe"></div>
         <div class="Bottom-Container">
-            <div class="Bottom-container-stripe"></div>
-            
-            <div class="Bottom-Button">
-                <div class="button-container">
-                    <!-- First button with notification dot -->
-                    <a href="#" class="button">
-                        <div class="button-icon notification-icon">
-                            <img src="https://via.placeholder.com/25" alt="Bell Icon">
-                            <span class="notification-dot"></span>
-                        </div>
-                        <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
-                    </a>
+            <div class="Bottom-Container-button">
+                <div class="Bottom-Button">
+                    <div class="button-container">
+                        <a href="#" class="button">
+                            <div class="button-icon notification-icon">
+                                <img src="https://via.placeholder.com/25" alt="Bell Icon">
+                                <span class="notification-dot"></span>
+                            </div>
+                            <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
+                        </a>
 
-                    <!-- Second button -->
-                    <a href="#" class="button">
-                        <div class="button-icon">
-                            <img src="https://via.placeholder.com/25" alt="News Icon">
-                        </div>
-                        <span>Upload Berita</span>
-                    </a>
+                        <a href="#" class="button">
+                            <div class="button-icon">
+                                <img src="https://via.placeholder.com/25" alt="News Icon">
+                            </div>
+                            <span>Upload Berita</span>
+                        </a>
 
-                    <!-- Third button -->
-                    <a href="#" class="button">
-                        <div class="button-icon">
-                            <img src="https://via.placeholder.com/25" alt="Data Icon">
+                        <a href="#" class="button">
+                            <div class="button-icon">
+                                <img src="https://via.placeholder.com/25" alt="Data Icon">
+                            </div>
+                            <span>Kelola Data Anak</span>
+                        </a>
+                    </div>
+                    <div class="donation-summary">
+                        <h3>Rekap Donasi</h3>
+                        <div class="donation-stats">
+                            <div class="approved">
+                                <strong>Approved</strong><br> 151 Donasi
+                            </div>
+                            <div class="pending">
+                                <strong>Pending</strong><br>
+                                100 Donasi
+                            </div>
+                            <div class="total">
+                                <strong>Jumlah Donasi</strong><br>
+                                251 Donasi
+                            </div>
                         </div>
-                        <span>Kelola Data Anak</span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
