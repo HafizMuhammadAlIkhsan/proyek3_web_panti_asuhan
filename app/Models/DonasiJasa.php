@@ -12,11 +12,14 @@ class DonasiJasa extends Model
     protected $table = 'donasi_jasa';
 
     protected $fillable = [
-        'email_pengurus',
+        'email_admin',
+        'email',
         'nama_jasa',
+        'deskripsi_jasa',
         'jadwal_mulai',
         'jadwal_selesai',
     ];
+
+    public $timestamps = false;
+    protected $primaryKey = 'id_donasi_jasa';
 }
-
-

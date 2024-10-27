@@ -24,7 +24,7 @@ class LoginDonaturController extends Controller
 
         // Cari pengguna berdasarkan email atau nomor kontak
         $donatur = Donatur::where('email', $request->email)
-                            ->orWhere('kontak', $request->email)
+                            ->orWhere('kontak', $request->kontak)
                             ->first();
 
         // Verifikasi password

@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
+        body {
+            background-color: #F5F5F9;
+        }
+
         .main {
             width: 100%;
             height: 100%;
@@ -25,8 +29,16 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .Center-Top {
-            Font-size:20px;
+        .Center-Top form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-button {
+            border: none;
+            background: none;
+            font-size: 1.2em;
         }
 
         .Mid-Container {
@@ -36,13 +48,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .Center-Mid {
+            color: #ffffff;
             font-size: 36px;
-            color: #fff;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .table th, .table td {
@@ -55,25 +64,37 @@
             border-radius: 50%;
         }
 
+        th[colspan="Aksi"], td[colspan="Aksi"] {
+            width: 20px; 
+            text-align: center; 
+        }
         .icon-btn {
             border: none;
             background: none;
-            width: 50px;
-            height: 50px;
-            font-size: 18px;
+            color: #000;
+            transition: color 0.2s ease;
         }
-        button:hover {
-            color: white;
-            width: 50px;
-            background-color: #7243b7;
+
+        .icon-btn:hover {
+            color: #5628a5;
         }
+
         .pagination-container {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
         }
-        .search-button{
-            width: 50px;
+
+        .btn-primary {
+            background-color: #D1B2FF;
+            border-color: #D1B2FF;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #5628a5;
+            border-color: #5628a5;
         }
     </style>
 </head>
@@ -86,19 +107,16 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/search" method="GET" class="d-flex align-items-center">
-                    <input type="text" name="query" placeholder="Search Jasa" class="form-control me-2">
+                <form action="/search" method="GET">
+                    <input type="text" name="query" placeholder="Search Jasa" class="form-control">
                     <button type="submit" class="search-button">
                         <ion-icon name="search-outline"></ion-icon>
                     </button>
                 </form>
             </div>
         </div>
-        
 
-        <div class="Mid-Container">
-            <div class="Center-Mid">LIST Jasa</div>
-        </div>
+        <div class="Mid-Container">List Jasa</div>
 
         <div class="container">
             <table class="table table-striped">
@@ -114,7 +132,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Data Dinamis per 10/10-->
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>
@@ -131,15 +148,11 @@
                         <td>Jadwal Mulai</td>
                         <td>Jadwal Selesai</td>
                         <td>
-                            <button class="icon-btn">
-                                <ion-icon name="trash-outline">
-                                    Delete
-                                </ion-icon>
+                            <button class="icon-btn" title="Delete">
+                                <ion-icon name="trash-outline"></ion-icon>
                             </button>
-                            <button class="icon-btn">
-                                <ion-icon name="brush-outline">
-                                Edit
-                                </ion-icon>
+                            <button class="icon-btn" title="Edit">
+                                <ion-icon name="brush-outline"></ion-icon>
                             </button>
                         </td>
                     </tr>

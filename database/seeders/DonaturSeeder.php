@@ -13,7 +13,7 @@ class DonaturSeeder extends Seeder
             'email' => 'donatur@example.com',
             'username' => 'donatur123',
             'nama_asli' => 'Donatur1',
-            'password' => 'donasi123',
+            'password' => bcrypt('donatur123'),
             'tgl_lahir_donatur' => '1990-01-01',
             'kontak' => '123456789012',
             'pekerjaan' => 'Guru',

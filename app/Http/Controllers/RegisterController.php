@@ -63,7 +63,7 @@ class RegisterController extends Controller
         // Simpan data ke database
         Donatur::create([
             'email' => $register1Data['email'],
-            'password' => bcrypt($register1Data['password']),  // Pastikan password di-hash
+            'password' => $register1Data['password'],  // Pastikan password di-hash
             'kontak' => $register1Data['kontak'],
             'username' => $request->input('username'),
             'alamat' => $request->input('alamat'),

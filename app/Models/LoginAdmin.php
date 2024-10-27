@@ -15,6 +15,7 @@ class LoginAdmin extends Model implements Authenticatable
 
     protected $fillable = [
         'email_admin',
+        'Kontak',
         'password_admin',
     ];
 

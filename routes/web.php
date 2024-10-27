@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 //Masyarakat Umum
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginDonaturController;
-
 use App\Http\Controllers\DonaturController;
 
 //Landing Page
@@ -86,8 +85,8 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\DonasiJasaController;
 use App\Http\Controllers\dataAnakController;
 
-Route::get('/login', [LoginAdminController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginAdminController::class, 'login']);
+Route::get('Admin/loginadmin', [LoginAdminController::class, 'showLoginForm'])->name('login_Admin');
+Route::post('Admin/loginadmin', [LoginAdminController::class, 'login']);
 
 Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
@@ -105,14 +104,22 @@ Route::get('/Beranda_Admin2', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
 
+Route::get('/Beranda_jasa_admin', function () {
+    return view('Admin/beranda_jasa_admin');
+})->name('hal_beranda_jasa_admin');
+
 Route::get('/input_jasa', function () {
     return view('Admin/input_jasa');
-});
+})->name('input-jasa');
 
 Route::get('/list_jasa', function () {
     return view('Admin/list_jasa');
-}); 
-Route::post('/donasi-jasa/store', [DonasiJasaController::class, 'store'])->name('donasi-jasa.store');
+})->name('list-jasa'); 
+
+Route::get('/donasi-jasa/create', [DonasiJasaController::class, 'create'])->name('donasi-jasa.create');
+Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
+
+
 Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
 Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
 Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');

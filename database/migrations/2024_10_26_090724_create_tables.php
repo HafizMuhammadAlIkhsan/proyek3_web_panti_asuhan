@@ -13,7 +13,7 @@ class CreateTables extends Migration
             $table->char('email', 50)->primary();
             $table->string('username', 50);
             $table->string('nama_asli', 50)->nullable();
-            $table->string('password', 50);
+            $table->string('password', 60);
             $table->date('tgl_lahir_donatur')->nullable();
             $table->decimal('kontak', 12, 0);
             $table->string('pekerjaan', 50)->nullable();
@@ -25,7 +25,7 @@ class CreateTables extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->char('email_admin', 50)->primary();
             $table->string('nama_pengurus', 50);
-            $table->string('password_admin', 50);
+            $table->string('password_admin', 60);
             $table->string('jabatan', 50);
         });
 
@@ -66,10 +66,11 @@ class CreateTables extends Migration
 
         // Tabel DONASI_JASA
         Schema::create('donasi_jasa', function (Blueprint $table) {
-            $table->id('id_donasi_jasa');
+            $table->increments('id_donasi_jasa');
             $table->char('email_admin', 50)->nullable();
             $table->char('email', 50);
             $table->string('nama_jasa', 50);
+            $table->string('deskripsi_jasa', 500);
             $table->date('jadwal_mulai');
             $table->date('jadwal_selesai')->nullable();
             $table->primary(['id_donasi_jasa', 'email']);

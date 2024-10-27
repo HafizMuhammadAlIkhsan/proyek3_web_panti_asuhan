@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Input_Jasa</title>
+    <title>Input Jasa</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
@@ -17,11 +17,20 @@
 
         body {
             background-color: #F5F5F9;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #F5F5F9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .Top-Container {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
             width: 100%;
             height: 80px;
             display: flex;
@@ -37,32 +46,26 @@
         }
 
         .stripe {
-            background-color: #661AD1;
+            background-color: #D1B2FF;
             width: 100%;
             height: 25px;
-        }
-
-        .main {
-            width: 100%;
-            height: 100%;
-            background-color: #F5F5F9;
         }
 
         .Middle-Container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            margin-top: 20px;
+            width: 100%;
         }
 
         .welcome-card {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
             border-radius: 10px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 600px;
+            margin-top: 20px;
         }
 
         h1 {
@@ -73,12 +76,21 @@
             color: #333;
         }
 
-        form {
-            width: 100%;
-        }
-
         .form-label {
             font-weight: bold;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: #D1B2FF;
+            border: none;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .btn-primary:hover {
+            width: 100%;
+            background-color: #D1B2FF;
         }
 
         @media (min-width: 768px) {
@@ -104,38 +116,48 @@
         <div class="Top-Container">
             <div class="Center-Top"></div>
         </div>
+
         <div class="Middle-Container">
-            <div class="stripe">
-                <button type="button" onclick="window.location.href='{{ route('list-jasa') }}'">test</button>
-            </div>
+            <div class="stripe"></div>
             <div class="welcome-card">
                 <h1>Donasi Jasa</h1>
                 <form action="{{ route('insert-jasa') }}" method="POST">
                     @csrf
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Donatur</label>
-                        <input type="email" class="form-control" id="email" name="email_admin" placeholder="Email"
-                            required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Donatur" required>
                     </div>
-
+                
                     <div class="mb-3">
-                        <label for="description" class="form-label">Deskripsi Jasa Tersebut</label>
-                        <textarea class="form-control" id="description" name="nama_jasa" placeholder="Deskripsi Jasa" rows="3" required></textarea>
+                        <label for="nama_jasa" class="form-label">Nama Jasa</label>
+                        <input type="text" class="form-control" id="nama_jasa" name="nama_jasa" placeholder="Nama Jasa" required>
                     </div>
-
+                
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Deskripsi Jasa</label>
+                        <textarea class="form-control" id="description" name="deskripsi_jasa" placeholder="Deskripsi Jasa" rows="3" required></textarea>
+                    </div>
+                
                     <div class="mb-3">
                         <label for="start-date" class="form-label">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="start_date" name="jadwal_mulai" required>
                     </div>
-
+                
                     <div class="mb-3">
-                        <label for="duration" class="form-label">Tanggal Berakhir</label>
-                        <input type="date" class="form-control" id="end_date" name="jadwal_selesai" required>
+                        <label for="end-date" class="form-label">Tanggal Berakhir</label>
+                        <input type="date" class="form-control" id="end_date" name="jadwal_selesai">
                     </div>
-
+                
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
+                
             </div>
         </div>
     </div>
