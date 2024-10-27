@@ -54,7 +54,8 @@
             margin-bottom: 20px;
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             vertical-align: middle;
         }
 
@@ -64,10 +65,12 @@
             border-radius: 50%;
         }
 
-        th[colspan="Aksi"], td[colspan="Aksi"] {
-            width: 20px; 
-            text-align: center; 
+        th[colspan="Aksi"],
+        td[colspan="Aksi"] {
+            width: 20px;
+            text-align: center;
         }
+
         .icon-btn {
             border: none;
             background: none;
@@ -81,9 +84,30 @@
 
         .pagination-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #5628a5;
+            margin: 0 5px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 1px solid #D1B2FF;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #D1B2FF;
+            color: #fff;
+        }
+
+        .pagination .active a {
+            background-color: #5628a5;
+            color: #fff;
+            border: 1px solid #5628a5;
         }
 
         .btn-primary {
@@ -107,7 +131,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/search" method="GET">
+                <form action="/" method="GET">
                     <input type="text" name="query" placeholder="Search Jasa" class="form-control">
                     <button type="submit" class="search-button">
                         <ion-icon name="search-outline"></ion-icon>
@@ -132,38 +156,57 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="path-to-profile-picture" alt="profile">
-                                <div class="ms-3">
-                                    <p class="mb-0">Nama Donatur</p>
-                                    <p class="text-muted mb-0">Email admin</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>Nama Jasa</td>
-                        <td>Status Jasa</td>
-                        <td>Jadwal Mulai</td>
-                        <td>Jadwal Selesai</td>
-                        <td>
-                            <button class="icon-btn" title="Delete">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                            <button class="icon-btn" title="Edit">
-                                <ion-icon name="brush-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
+                    @if (isset($donasiJasa) && $donasiJasa->count() > 0)
+                        @foreach ($donasiJasa as $jasa)
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="path-to-profile-picture" alt="profile">
+                                        <div class="ms-3">
+                                            <p class="mb-0">{{ $jasa->donatur->username ?? 'Tidak ada nama' }}</p>
+                                            <p class="text-muted mb-0">{{ $jasa->donatur->email ?? 'Tidak ada email' }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $jasa->nama_jasa }}</td>
+                                <td>{{ $jasa->status == 'Diterima' ? 'Approve' : 'Canceled' }}</td>
+                                <td>{{ $jasa->jadwal_mulai }}</td>
+                                <td>{{ $jasa->jadwal_selesai ?? '-' }}</td>
+                                <td>
+                                    <button class="icon-btn" title="Delete">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                    <button class="icon-btn" title="Edit">
+                                        <ion-icon name="brush-outline"></ion-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="7">Data tidak tersedia</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
 
             <div class="pagination-container">
-                <button class="btn btn-primary">Previous</button>
-                <p>Page 1 of 10</p>
-                <button class="btn btn-primary">Next</button>
+                @if ($donasiJasa->onFirstPage())
+                    <button class="btn btn-secondary" disabled>Previous Page</button>
+                @else
+                    <a href="{{ $donasiJasa->previousPageUrl() }}" class="btn btn-primary">Previous Page</a>
+                @endif
+            
+                <span>Page {{ $donasiJasa->currentPage() }} of {{ $donasiJasa->lastPage() }}</span>
+            
+                @if ($donasiJasa->hasMorePages())
+                    <a href="{{ $donasiJasa->nextPageUrl() }}" class="btn btn-primary">Next Page</a>
+                @else
+                    <button class="btn btn-secondary" disabled>Next Page</button>
+                @endif
             </div>
+            
         </div>
     </div>
 

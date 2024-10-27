@@ -59,6 +59,7 @@ class CreateTables extends Migration
             $table->integer('jumlah_barang');
             $table->date('tanggal_verifikasi_barang');
             $table->char('bukti_pengiriman', 254);
+            $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
             $table->primary(['id_donasi_barang', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
@@ -73,6 +74,7 @@ class CreateTables extends Migration
             $table->string('deskripsi_jasa', 500);
             $table->date('jadwal_mulai');
             $table->date('jadwal_selesai')->nullable();
+            $table->enum('status', ['Diterima', 'Dibatalkan'])->default('Diterima');
             $table->primary(['id_donasi_jasa', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
@@ -87,6 +89,7 @@ class CreateTables extends Migration
             $table->string('cara_pembayaran', 30);
             $table->date('tanggal_donasi_uang');
             $table->char('bukti_transfer', 254);
+            $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
             $table->primary(['id_donasi_uang', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();

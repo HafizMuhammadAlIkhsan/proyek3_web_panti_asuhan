@@ -10,6 +10,8 @@ class DonasiJasa extends Model
     use HasFactory;
 
     protected $table = 'donasi_jasa';
+    public $timestamps = false;
+    protected $primaryKey = 'id_donasi_jasa';
 
     protected $fillable = [
         'email_admin',
@@ -19,7 +21,15 @@ class DonasiJasa extends Model
         'jadwal_mulai',
         'jadwal_selesai',
     ];
-
-    public $timestamps = false;
-    protected $primaryKey = 'id_donasi_jasa';
+    // Relasi ke Donatur
+    public function donatur()
+    {
+        return $this->belongsTo(Donatur::class, 'email', 'email');
+    }
+    
+    // Relasi ke Admin
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'email_admin', 'email_admin');
+    }
 }

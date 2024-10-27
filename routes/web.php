@@ -112,17 +112,17 @@ Route::get('/input_jasa', function () {
     return view('Admin/input_jasa');
 })->name('input-jasa');
 
-Route::get('/list_jasa', function () {
-    return view('Admin/list_jasa');
-})->name('list-jasa'); 
+Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilData'])->name('list-jasa');
 
 Route::get('/donasi-jasa/create', [DonasiJasaController::class, 'create'])->name('donasi-jasa.create');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
 
+
 Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
 Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
 Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
+
 // Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
 // Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
 // Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');

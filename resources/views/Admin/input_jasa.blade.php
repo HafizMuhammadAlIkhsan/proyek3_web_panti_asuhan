@@ -123,7 +123,6 @@
                 <h1>Donasi Jasa</h1>
                 <form action="{{ route('insert-jasa') }}" method="POST">
                     @csrf
-
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}

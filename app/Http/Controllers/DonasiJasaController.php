@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DonasiJasa;
-use Illuminate\Support\Facades\DB;
 
 class DonasiJasaController extends Controller
 {
@@ -32,4 +31,16 @@ class DonasiJasaController extends Controller
         // Redirect setelah sukses
         return redirect()->back()->with('success', 'Data donasi jasa berhasil ditambahkan.');
     }
+
+    // Mengambil Data Dari database struktur nya seperti sql query
+    public function AmbilData()
+    {
+    $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
+                            ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
+                            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
+                            ->paginate(10);
+
+        return view('Admin/list_jasa', ['donasiJasa' => $donasiJasa]);
+    }
+
 }

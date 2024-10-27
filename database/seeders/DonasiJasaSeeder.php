@@ -12,7 +12,25 @@ class DonasiJasaSeeder extends Seeder
         DB::table('donasi_jasa')->insert([
             'email_admin' => 'admin@example.com',
             'email' => 'donatur@example.com',
-            'nama_jasa' => 'Mengajar Matematika',
+            'nama_jasa' => 'Mengajar Tinju',
+            'deskripsi_jasa' => 'Swayback lesson',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'sulthan@example.com',
+            'nama_jasa' => 'Mengajar Biologi',
+            'deskripsi_jasa' => 'Mengajar Biologi tingkat SMA',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'sulthan@example.com',
+            'nama_jasa' => 'Mengajar MTK',
             'deskripsi_jasa' => 'Mengajar Matematika tingkat SMA Matriks',
             'jadwal_mulai' => now(),
             'jadwal_selesai' => null
@@ -21,8 +39,98 @@ class DonasiJasaSeeder extends Seeder
         DB::table('donasi_jasa')->insert([
             'email_admin' => 'admin@example.com',
             'email' => 'donatur@example.com',
+            'nama_jasa' => 'Mengajar silat',
+            'deskripsi_jasa' => 'Taka1',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Mengajar Menulis',
+            'deskripsi_jasa' => 'Pelajaran Katakana',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Mengajar Berbahasa',
+            'deskripsi_jasa' => 'Bahasa C++',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Mengajar penjas',
+            'deskripsi_jasa' => 'Lorem ipsum',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Lorem ipsum',
+            'deskripsi_jasa' => 'Lorem ipsum',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Mengajar penjas',
+            'deskripsi_jasa' => 'Lorem ipsum',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'donatur@example.com',
+            'nama_jasa' => 'Lorem ipsum',
+            'deskripsi_jasa' => 'Lorem ipsum',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'sulthan@example.com',
             'nama_jasa' => 'Mengajar Biologi',
             'deskripsi_jasa' => 'Mengajar Biologi tingkat SMA',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'sulthan@example.com',
+            'nama_jasa' => 'Mengajar MTK',
+            'deskripsi_jasa' => 'Mengajar Matematika tingkat SMA Matriks',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'ryuki@example.com',
+            'nama_jasa' => 'Mengajar Brawlhalla',
+            'deskripsi_jasa' => 'Mengajar Biologi tingkat SMA',
+            'jadwal_mulai' => now(),
+            'jadwal_selesai' => null
+        ]);
+
+        DB::table('donasi_jasa')->insert([
+            'email_admin' => 'admin@example.com',
+            'email' => 'hafiz@example.com',
+            'nama_jasa' => 'Mengajar Biologi',
+            'deskripsi_jasa' => 'Mengajar Matematika tingkat SMA Matriks',
             'jadwal_mulai' => now(),
             'jadwal_selesai' => null
         ]);
