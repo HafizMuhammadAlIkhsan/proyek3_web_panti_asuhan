@@ -80,14 +80,19 @@
     <div class="container">
         <div class="image-container"></div>
         <div class="form-container">
-            <h2>Login</h2>
-            <form action="{{ route('login') }}" method="POST">
+            <h2>Login Admin</h2>
+            <form action="{{ route('login_admin') }}" method="POST">
                 @csrf
-                <input type="text" name="email_pengurus" placeholder="Email atau Nomor HP" required>
+                <input type="text" name="email_pengurus" placeholder="Email atau Nama" required>
                 <input type="password" name="password_admin" placeholder="Password" required>
                 <button type="submit">Login</button>
                 <a href="#">Lupa password?</a>
-            </form>            
+            
+                @if ($errors->has('login_error'))
+                    <p style="color: red; text-align: center;">{{ $errors->first('login_error') }}</p>
+                @endif
+            </form>
+                       
         </div>
     </div>
     
