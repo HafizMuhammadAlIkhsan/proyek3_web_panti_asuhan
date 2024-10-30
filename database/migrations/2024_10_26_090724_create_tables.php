@@ -58,7 +58,7 @@ class CreateTables extends Migration
             $table->string('nama_barang', 50);
             $table->integer('jumlah_barang');
             $table->date('tanggal_verifikasi_barang');
-            $table->char('bukti_pengiriman', 254);
+            $table->string('bukti_foto')->nullable();
             $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
             $table->primary(['id_donasi_barang', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
@@ -108,4 +108,5 @@ class CreateTables extends Migration
         Schema::dropIfExists('admin');
     }
 }
+
 
