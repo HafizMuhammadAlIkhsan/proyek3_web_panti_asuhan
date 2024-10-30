@@ -84,6 +84,7 @@ Route::get('/donatur_donasi_jasa', function () {
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\DonasiJasaController;
 use App\Http\Controllers\dataAnakController;
+use App\Http\Controllers\DonasiBarangController;
 
 Route::get('Admin/loginadmin', [LoginAdminController::class, 'showLoginForm'])->name('login_Admin');
 Route::post('Admin/loginadmin', [LoginAdminController::class, 'login']);
@@ -100,9 +101,11 @@ Route::get('/Beranda_Admin', function () {
     return view('Admin/beranda_admin');
 })->name('hal_beranda_admin');
 
-Route::get('/Beranda_Admin2', function () {
+Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
+
+
 
 Route::get('/Beranda_jasa_admin', function () {
     return view('Admin/beranda_jasa_admin');
@@ -150,8 +153,6 @@ Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, '
 Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve']);
 Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject']);
 Route::get('/Detail_Barang', [DonasiBarangController::class, 'detail'])->name('detail.barang');
-
-use App\Http\Controllers\DonasiBarangController;
 
 Route::middleware(['auth', 'admin'])->group(function () {
     // List dan operasi dasar
