@@ -132,6 +132,9 @@ Route::get('/Beranda_Donasi', function () {
 })->name('hal_beranda_donasi_admin');
 
 
+// JASA Di Admin____________________________________________________________________________________
+Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
+Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('update_data_jasa');
 
 Route::get('/Beranda_jasa_admin', function () {
     return view('Admin/beranda_jasa_admin');
@@ -142,8 +145,6 @@ Route::get('/input_jasa', function () {
 })->name('input-jasa');
 
 Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilData'])->name('list-jasa');
-
-Route::get('/donasi-jasa/create', [DonasiJasaController::class, 'create'])->name('donasi-jasa.create');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
 

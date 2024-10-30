@@ -75,6 +75,7 @@ class CreateTables extends Migration
             $table->date('jadwal_mulai');
             $table->date('jadwal_selesai')->nullable();
             $table->enum('status', ['Diterima', 'Dibatalkan'])->default('Diterima');
+            $table->timestamps();
             $table->primary(['id_donasi_jasa', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();

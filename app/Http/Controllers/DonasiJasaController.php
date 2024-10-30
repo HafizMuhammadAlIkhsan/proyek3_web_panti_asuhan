@@ -26,6 +26,7 @@ class DonasiJasaController extends Controller
             'deskripsi_jasa' => $request->deskripsi_jasa,
             'jadwal_mulai' => $request->jadwal_mulai,
             'jadwal_selesai' => $request->jadwal_selesai,
+            'created_at' => now(),
         ]);
 
         // Redirect setelah sukses
@@ -35,12 +36,33 @@ class DonasiJasaController extends Controller
     // Mengambil Data Dari database struktur nya seperti sql query
     public function AmbilData()
     {
-    $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
-                            ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
-                            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
-                            ->paginate(10);
+        $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
+            ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
+            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
+            ->orderBy('donasi_jasa.updated_at', 'asc') //  updated_at asc
+            ->paginate(10);
+           
 
         return view('Admin/list_jasa', ['donasiJasa' => $donasiJasa]);
     }
 
+    public function show($id)
+    {
+        $jasa = DonasiJasa::findOrFail($id);
+        return response()->json($jasa);
+    }
+
+    public function UpdateDataJasa(Request $request, $id)
+    {
+        $jasa = DonasiJasa::findOrFail($id);
+        // replace jasa dengan yang di request
+        $jasa->deskripsi_jasa = $request->deskripsi_jasa;
+        $jasa->status = $request->status;
+        $jasa->jadwal_mulai = $request->jadwal_mulai;
+        $jasa->jadwal_selesai = $request->jadwal_selesai;
+
+        $jasa->save();
+
+        return response()->json(['message' => 'Data berhasil diperbarui.']);
+    }
 }

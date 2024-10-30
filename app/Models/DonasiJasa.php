@@ -10,7 +10,7 @@ class DonasiJasa extends Model
     use HasFactory;
 
     protected $table = 'donasi_jasa';
-    public $timestamps = false;
+    public $timestamps = True;
     protected $primaryKey = 'id_donasi_jasa';
 
     protected $fillable = [
