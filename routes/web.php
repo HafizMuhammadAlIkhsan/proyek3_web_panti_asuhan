@@ -132,9 +132,10 @@ Route::get('/Beranda_Donasi', function () {
 })->name('hal_beranda_donasi_admin');
 
 
-// JASA Di Admin____________________________________________________________________________________
+// JASA Di Admin___________________________________________________________________________________________________________________________
 Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
 Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('update_data_jasa');
+Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'])->name('hapus_data_jasa');
 
 Route::get('/Beranda_jasa_admin', function () {
     return view('Admin/beranda_jasa_admin');
@@ -147,7 +148,7 @@ Route::get('/input_jasa', function () {
 Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilData'])->name('list-jasa');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
-
+//_________________________________________________________________________________________________________________________________________
 
 Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('admin');
 Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create')->middleware('admin');

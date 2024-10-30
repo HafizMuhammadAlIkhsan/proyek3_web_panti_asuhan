@@ -65,4 +65,24 @@ class DonasiJasaController extends Controller
 
         return response()->json(['message' => 'Data berhasil diperbarui.']);
     }
+
+    public function HapusDataJasa($id)
+    {
+        // Cari data donasi jasa berdasarkan ID
+        $jasa = DonasiJasa::find($id);
+
+        if ($jasa) {
+            $jasa->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data jasa berhasil dihapus.'
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data jasa tidak ditemukan.'
+            ], 404);
+        }
+    }
 }

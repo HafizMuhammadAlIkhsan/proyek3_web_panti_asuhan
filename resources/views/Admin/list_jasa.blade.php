@@ -198,7 +198,7 @@
                                 <td>{{ $jasa->jadwal_mulai }}</td>
                                 <td>{{ $jasa->jadwal_selesai ?? '-' }}</td>
                                 <td>
-                                    <button class="icon-btn" title="Delete">
+                                    <button class="icon-btn delete-btn" title="Delete" data-id="{{ $jasa->id_donasi_jasa }}" data-nama-jasa="{{ $jasa->nama_jasa }}">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
                                     <button class="icon-btn view-details-btn" title="Edit"
@@ -216,6 +216,7 @@
                 </tbody>
             </table>
 
+            <!-- Pop Up Edit -->
             <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -256,6 +257,24 @@
                 </div>
             </div>
 
+            <!-- Pop Up Konfirmasi Delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Warning</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Apakah Anda yakin ingin menghapus jasa <strong id="deleteNamaJasa"></strong>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" id="confirmDeleteButton" class="btn btn-danger">Konfirmasi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="pagination-container">
                 @if ($donasiJasa->onFirstPage())
@@ -277,7 +296,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+    
+    <!-- Script Edit -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const modal = new bootstrap.Modal(document.getElementById("detailModal"));
@@ -333,6 +353,45 @@
                     location.reload();
                 })
                 .catch(error => console.error("Error updating data:", error));
+            });
+        });
+    </script>
+
+    <!-- Script Delete -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+            let currentDeleteId = null;
+    
+            // Event listener untuk tombol delete
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    currentDeleteId = this.getAttribute("data-id");
+                    const namaJasa = this.getAttribute("data-nama-jasa");
+    
+                    // Tampilkan nama jasa di modal
+                    document.getElementById("deleteNamaJasa").textContent = namaJasa;
+                    deleteModal.show();
+                });
+            });
+    
+            // Konfirmasi penghapusan data
+            document.getElementById("confirmDeleteButton").addEventListener("click", function() {
+                if (currentDeleteId) {
+                    fetch(`/donasi_jasa/${currentDeleteId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message || "Data berhasil dihapus");
+                        deleteModal.hide();
+                        location.reload();
+                    })
+                    .catch(error => console.error("Error deleting data:", error));
+                }
             });
         });
     </script>
