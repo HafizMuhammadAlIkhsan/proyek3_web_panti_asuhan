@@ -127,6 +127,14 @@
         .feature-card h4 {
             margin-bottom: 15px;
         }
+
+        .sidebar ul li:last-child {
+        position:absolute;
+        bottom:0;
+        width:100%;
+        height:60px;
+        }
+
     </style>
 </head>
 <body>
