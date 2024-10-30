@@ -12,9 +12,8 @@ class dataAnakController extends Controller
      */
     public function index()
     {
-        $data_anak = dataAnak::all(); 
-
-        return view ('admin.dataAnak.data_anak', compact('data_anak'));       
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        return view ('admin.dataAnak.data_anak')->with ('data_anak', $data_anak);       
     }
 
     public function create( )
@@ -56,8 +55,8 @@ class dataAnakController extends Controller
 
     public function updateView($id)
     {
-        $anak = dataAnak::findOrFail($id);
-        return view ('admin.dataAnak.data_anak_edit', compact('anak'));
+        $data_anak = dataAnak::where('id_anak', $id)->first();
+        return view('admin.dataAnak.data_anak_edit')->with('data_anak', $data_anak);
     }
     /**
      * Update the specified resource in storage.
@@ -77,14 +76,11 @@ class dataAnakController extends Controller
         // Cari data anak berdasarkan ID
         $dataAnak = dataAnak::find($id);
 
-        if ($dataAnak) {
+       
             // Update data anak
-            $dataAnak->update($validatedData);
+        $dataAnak->update($validatedData);
 
-            return response()->json(['message' => 'Data anak berhasil diupdate', 'data' => $dataAnak]);
-        } else {
-            return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
-        }
+        return redirect()->route('admin-data-anak')->with('success', 'Data telah terupdate.');
     }
 
     /**
