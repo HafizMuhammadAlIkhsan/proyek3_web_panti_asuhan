@@ -36,8 +36,8 @@
                 <span style="--i:4"> Data Program </span>
             </a>
         </li>
-        <li class="menu-item" id="info-item">
-            <a href="#" class="link" onclick="setActive('info-item')">
+        <li class="{{ request()->routeIs('admin-data-anak') ? 'active' : ''}}">
+            <a href="{{ route('admin-data-anak') }}">
                 <ion-icon name="accessibility-outline"></ion-icon>
                 <span style="--i:5"> Data Anak Asuh </span>
             </a>
