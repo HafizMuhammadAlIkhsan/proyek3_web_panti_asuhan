@@ -16,7 +16,7 @@ class DonasiBarangSeeder extends Seeder
             'nama_barang' => 'Buku Pelajaran',
             'jumlah_barang' => 10,
             'tanggal_verifikasi_barang' => now(),
-            'bukti_pengiriman' => 'bukti.jpg'
+            'bukti_foto' => 'bukti.jpg'
         ]);
     }
 }

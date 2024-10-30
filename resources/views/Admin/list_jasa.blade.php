@@ -16,7 +16,17 @@
         .main {
             width: 100%;
             height: 100%;
+            margin-left:250px;
             background-color: #F5F5F9;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px; 
+            background-color: #F5F5F9;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .Top-Container {
@@ -72,6 +82,12 @@
         }
 
         .icon-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
             border: none;
             background: none;
             color: #000;
@@ -80,6 +96,9 @@
 
         .icon-btn:hover {
             color: #5628a5;
+            font-size: 1.2em;
+            width: 30px;
+            height: 30px;
         }
 
         .pagination-container {
@@ -113,6 +132,7 @@
         .btn-primary {
             background-color: #D1B2FF;
             border-color: #D1B2FF;
+            margin: 20px;
             transition: background-color 0.2s ease;
         }
 
@@ -120,6 +140,12 @@
             background-color: #5628a5;
             border-color: #5628a5;
         }
+
+        .btn-secondary{
+            margin: 20px;
+        }
+
+        
     </style>
 </head>
 
@@ -146,7 +172,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox"></th>
                         <th scope="col">Donatur</th>
                         <th scope="col">Nama Jasa</th>
                         <th scope="col">Status</th>
@@ -159,7 +184,6 @@
                     @if (isset($donasiJasa) && $donasiJasa->count() > 0)
                         @foreach ($donasiJasa as $jasa)
                             <tr>
-                                <td><input type="checkbox"></td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img src="path-to-profile-picture" alt="profile">
