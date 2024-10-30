@@ -173,7 +173,7 @@
                     <div class="feature-card">
                         <img src="https://via.placeholder.com/80" alt="Donasi Jasa">
                         <h4>Donasi Jasa</h4>
-                        <button class="btn btn-primary">Detail Donasi</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_beranda_jasa_admin') }}'">Detail Donasi</button>
                     </div>
                 </div>
             </div>
