@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="logo">
-        <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
+        <img src="{{ asset ('image/logo_panti.png') }}" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
         <span> Panti Asuhan </span>
     </div>
     <ul class="menu-item">

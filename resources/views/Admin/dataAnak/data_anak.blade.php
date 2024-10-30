@@ -15,6 +15,7 @@
             padding: 20px; /* Padding untuk konten utama */
             background-color: #f9f9f9; /* Warna latar belakang konten utama */
         }
+        
     </style>
 </head>
 <body>
