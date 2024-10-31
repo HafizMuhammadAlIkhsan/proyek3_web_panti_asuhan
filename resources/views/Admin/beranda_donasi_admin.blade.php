@@ -10,7 +10,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <style>
         body {
-            background-color: #f8e5e5;
+            background-color: #F5F5F9;
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
@@ -134,6 +134,9 @@
         width:100%;
         height:60px;
         }
+        .icon{
+            font-size: 100px;
+        }
 
     </style>
 </head>
@@ -145,11 +148,11 @@
             <div class="welcome-card">
                 <div class="row align-items-center">
                     <div class="col-md-9">
-                        <h2>Selamat Datang, Agra!</h2>
-                        <p>Have a nice day at work today :D</p>
+                        <h2>Selamat Datang, <-Nama Pengurus-></h2>
+                        <p>Lorem ipsum Dolor sit amet</p>
                     </div>
                     <div class="col-md-3 text-end">
-                        <img src="https://via.placeholder.com/100" alt="Profile Picture" class="rounded-circle" width="100" height="100">
+                        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -157,21 +160,21 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="feature-card">
-                        <img src="https://via.placeholder.com/80" alt="Donasi Uang">
+                        <ion-icon name="cash-outline" class="icon"></ion-icon>
                         <h4>Uang Tunai</h4>
                         <button class="btn btn-primary">Detail Donasi</button>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card">
-                        <img src="https://via.placeholder.com/80" alt="Donasi Barang">
+                        <ion-icon name="bag-check-outline" class="icon"></ion-icon>
                         <h4>Donasi Barang</h4>
                         <button class="btn btn-primary">Detail Donasi</button>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card">
-                        <img src="https://via.placeholder.com/80" alt="Donasi Jasa">
+                        <ion-icon name="people-outline" class="icon"></ion-icon>
                         <h4>Donasi Jasa</h4>
                         <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_beranda_jasa_admin') }}'">Detail Donasi</button>
                     </div>
