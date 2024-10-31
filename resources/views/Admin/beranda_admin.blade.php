@@ -207,6 +207,13 @@
             width: 300px;
             margin-left: 20px;
         }
+        
+        .icon{
+            font-size: 100px;
+        }
+        .icon-2{
+            font-size: 33px;
+        }
     </style>
 </head>
 
@@ -225,7 +232,7 @@
         <!-- Middle container with profile and donation summary -->
         <div class="Middle-Container">
             <div class="profile-section">
-                <img src="https://via.placeholder.com/100" alt="Profile Image">
+                <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                 <h2>Selamat Datang, &lt;Nama&gt;!</h2>
                 <p>Halo Saya &lt;Nama&gt;, &lt;Personal Bio&gt;</p>
             </div>
@@ -237,9 +244,9 @@
             <div class="Bottom-Container-button">
                 <div class="Bottom-Button">
                     <div class="button-container">
-                        <a href="#" class="button">
+                        <a href="{{ route('hal_beranda_donasi_admin') }}" class="button">
                             <div class="button-icon notification-icon">
-                                <img src="https://via.placeholder.com/25" alt="Bell Icon">
+                                <ion-icon name="notifications-outline" class="icon-2"></ion-icon>
                                 <span class="notification-dot"></span>
                             </div>
                             <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
@@ -247,14 +254,14 @@
 
                         <a href="#" class="button">
                             <div class="button-icon">
-                                <img src="https://via.placeholder.com/25" alt="News Icon">
+                                <ion-icon name="newspaper-outline" class="icon-2"></ion-icon>
                             </div>
                             <span>Upload Berita</span>
                         </a>
 
                         <a href="#" class="button">
                             <div class="button-icon">
-                                <img src="https://via.placeholder.com/25" alt="Data Icon">
+                                <ion-icon name="people-outline" class="icon-2"></ion-icon>
                             </div>
                             <span>Kelola Data Anak</span>
                         </a>

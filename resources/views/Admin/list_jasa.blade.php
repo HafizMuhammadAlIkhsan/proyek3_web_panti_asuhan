@@ -145,6 +145,9 @@
         .btn-secondary {
             margin: 20px;
         }
+        .icon{
+            font-size: 50px;
+        }
     </style>
 </head>
 
@@ -185,7 +188,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="path-to-profile-picture" alt="profile">
+                                        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                                         <div class="ms-3">
                                             <p class="mb-0">{{ $jasa->donatur->username ?? 'Tidak ada nama' }}</p>
                                             <p class="text-muted mb-0">{{ $jasa->donatur->email ?? 'Tidak ada email' }}
