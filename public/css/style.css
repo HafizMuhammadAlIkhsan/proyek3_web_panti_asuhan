@@ -131,6 +131,7 @@ body {
     height: 30px;
     margin-right: 20px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .sidebar ul li a p {

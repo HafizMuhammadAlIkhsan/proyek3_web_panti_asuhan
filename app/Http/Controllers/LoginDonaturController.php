@@ -23,14 +23,12 @@ class LoginDonaturController extends Controller
         ]);
 
         // Cari pengguna berdasarkan email atau nomor kontak
-        $donatur = Donatur::where('email', $request->email)
-                            ->orWhere('kontak', $request->kontak)
-                            ->first();
+        $donatur = Donatur::where('email', $request->email)->first();
 
         // Verifikasi password
         if ($donatur && Hash::check($request->password, $donatur->password)) {
             Auth::login($donatur); // Login pengguna
-            return redirect()->intended('/beranda_donatur'); // Redirect ke halaman home atau sesuai rencana
+            return redirect()->intended('beranda_donatur'); // Redirect ke halaman home atau sesuai rencana
         }
 
         // Jika login gagal, kembalikan error
