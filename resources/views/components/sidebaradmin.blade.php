@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="menu-item" id="news-item">
-            <a href="#" class="link" onclick="setActive('news-item')">
+            <a href="{{ route('input_berita') }}" class="link" onclick="setActive('input_berita')">
                 <ion-icon name="newspaper-outline"></ion-icon>
                 <span style="--i:3"> Berita</span>
             </a>

@@ -127,6 +127,10 @@ Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
 });
 
+Route::get('/input_berita', function () {
+    return view('Admin/input_berita');
+})->name('input_berita');
+
 Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
 });
