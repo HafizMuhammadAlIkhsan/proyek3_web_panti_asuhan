@@ -14,7 +14,7 @@
 
     <style>
         body {
-            background-color: #f8e5e5;
+            background-color: #F5F5F9;
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
@@ -36,18 +36,34 @@
 
         .table-container {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center; /* Center align contents inside the container */
         }
 
-        .table th {
-            background-color: #f8f9fa;
-            vertical-align: middle;
+        .table {
+            display: inline-table; /* Make the table centered */
+            width: auto; /* Adjust width to content */
         }
 
-        .table td {
+        .table th, .table td {
             vertical-align: middle;
+            text-align: center;
+        }
+
+        .aksi-column .aksi-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-approve-action {
+            padding: 4px 10px;
+            font-size: 0.875rem;
         }
 
         .donatur-info {
@@ -75,16 +91,6 @@
 
         .modal-body {
             padding: 20px;
-        }
-
-        .close-button {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
         }
 
         .form-group {
@@ -120,13 +126,8 @@
     <div class="main-content">
         <h1 class="page-title">LIST Donasi Barang</h1>
 
+        <!-- Table and Button in Header -->
         <div class="table-container">
-            <div class="row mb-3">
-                <div class="col">
-                    <button class="btn btn-primary">Approve</button>
-                </div>
-            </div>
-
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -137,55 +138,60 @@
                             <th>Jumlah</th>
                             <th>Status</th>
                             <th>Tanggal</th>
-                            <th>Aksi</th>
+                            <th class="aksi-column">
+                                <div class="aksi-header">
+                                    Aksi
+                                    <button class="btn btn-primary btn-approve-action" id="bulkApprove">Approve</button>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
-                    @if(isset($donasi_barang) && count($donasi_barang) > 0)
-                        @foreach($donasi_barang as $donasi)
-                        <tr>
-                            <td><input type="checkbox" class="form-check-input"></td>
-                            <td>
-                                <div class="donatur-info">
-                                    <img src="{{ asset('storage/uploads/default.png') }}" alt="Profile">
-                                    <div>
-                                        <div>{{ $donasi->nama_asli }}</div>
-                                        <small>{{ $donasi->email }}</small>
+                    <tbody id="donationList">
+                        @if(isset($donasi_barang) && count($donasi_barang) > 0)
+                            @foreach($donasi_barang as $donasi)
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="donatur-info">
+                                        <img src="{{ asset('storage/uploads/default.png') }}" alt="Profile">
+                                        <div>
+                                            <div>{{ $donasi->nama_asli }}</div>
+                                            <small>{{ $donasi->email }}</small>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>{{ $donasi->nama_barang }}</td>
-                            <td>{{ $donasi->jumlah_barang }} Buah</td>
-                            <td>{{ $donasi->status }}</td>
-                            <td>{{ $donasi->tanggal_verifikasi_barang }}</td>
-                            <td>
-                                <button class="btn btn-link btn-detail" 
-                                        data-id="{{ $donasi->id_donasi_barang }}"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#detailModal">
-                                    <i class="bi bi-file-text"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="7" class="text-center">Tidak ada data donasi</td>
-                        </tr>
-                    @endif
+                                </td>
+                                <td>{{ $donasi->nama_barang }}</td>
+                                <td>{{ $donasi->jumlah_barang }} Buah</td>
+                                <td>{{ $donasi->status }}</td>
+                                <td>{{ $donasi->tanggal_verifikasi_barang }}</td>
+                                <td class="aksi-column">
+                                    <button class="btn btn-link btn-detail" 
+                                            data-id="{{ $donasi->id_donasi_barang }}"
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#detailModal">
+                                        <i class="bi bi-file-text"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak ada data donasi</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Modal Detail -->
+    <!-- Donation Detail Modal -->
     <div class="modal fade" id="detailModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Detail Donasi Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -225,14 +231,57 @@
         </div>
     </div>
 
+    <!-- jQuery and AJAX Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Detail Modal Handler
-        $('.btn-detail').click(function() {
+        // Load donations dynamically
+        function loadDonations() {
+            $.ajax({
+                url: '/admin/donasi-barang',  // Adjust the endpoint based on your route
+                method: 'GET',
+                success: function(response) {
+                    $('#donationList').html(''); // Clear existing rows
+                    response.donasi_barang.forEach(function(donasi) {
+                        $('#donationList').append(`
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="donatur-info">
+                                        <img src="${donasi.profile_image}" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        <div>
+                                            <div>${donasi.nama_asli}</div>
+                                            <small>${donasi.email}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>${donasi.nama_barang}</td>
+                                <td>${donasi.jumlah_barang} Buah</td>
+                                <td>${donasi.status}</td>
+                                <td>${donasi.tanggal_verifikasi_barang}</td>
+                                <td class="aksi-column">
+                                    <button class="btn btn-link btn-detail" 
+                                            data-id="${donasi.id_donasi_barang}"
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#detailModal">
+                                        <i class="bi bi-file-text"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        }
+
+        // Load donations on page load
+        $(document).ready(function() {
+            loadDonations();
+        });
+
+        // Show details in the modal
+        $(document).on('click', '.btn-detail', function() {
             const id = $(this).data('id');
-            
             $.ajax({
                 url: `/admin/donasi-barang/${id}/detail`,
                 method: 'GET',
@@ -242,7 +291,7 @@
                     $('#detailNamaBarang').val(response.nama_barang);
                     $('#detailJumlahBarang').val(response.jumlah + ' Buah');
                     $('#detailVerifikasi').attr('src', response.bukti_foto);
-                    
+
                     $('#btnApprove, #btnReject').data('id', id);
                 }
             });
@@ -268,7 +317,7 @@
                 },
                 success: function() {
                     $('#detailModal').modal('hide');
-                    location.reload();
+                    loadDonations(); // Reload donations after approval/rejection
                 }
             });
         }

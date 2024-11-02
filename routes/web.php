@@ -178,45 +178,79 @@ Route::get('/Detail_Barang', function () {
     return view('Admin/detail_barang');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
-    Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])->name('admin.donasi.show');
-    Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])->name('admin.donasi.edit');
-    Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])->name('admin.donasi.update');
-    Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail'])->name('admin.donasi.detail');
-    Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve'])->name('admin.donasi.approve');
-    Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject'])->name('admin.donasi.reject');
-});
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
+//     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])->name('admin.donasi.show');
+//     Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])->name('admin.donasi.edit');
+//     Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])->name('admin.donasi.update');
+//     Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail'])->name('admin.donasi.detail');
+//     Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve'])->name('admin.donasi.approve');
+//     Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject'])->name('admin.donasi.reject');
+// });
 
-Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail']);
-Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve']);
-Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject']);
-Route::get('/Detail_Barang', [DonasiBarangController::class, 'detail'])->name('detail.barang');
+// Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail']);
+// Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve']);
+// Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject']);
+// Route::get('/Detail_Barang', [DonasiBarangController::class, 'detail'])->name('detail.barang');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    // List dan operasi dasar
-    Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])
-        ->name('admin.donasi.index');
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     // List dan operasi dasar
+//     Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])
+//         ->name('admin.donasi.index');
     
-    // Detail via AJAX
-    Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail'])
-        ->name('admin.donasi.detail');
+//     // Detail via AJAX
+//     Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail'])
+//         ->name('admin.donasi.detail');
     
-    // Approve dan Reject
-    Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve'])
-        ->name('admin.donasi.approve');
-    Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject'])
-        ->name('admin.donasi.reject');
-    Route::post('/admin/donasi-barang/approve-selected', [DonasiBarangController::class, 'approveSelected'])
-        ->name('admin.donasi.approve-selected');
+//     // Approve dan Reject
+//     Route::post('/admin/donasi-barang/{id}/approve', [DonasiBarangController::class, 'approve'])
+//         ->name('admin.donasi.approve');
+//     Route::post('/admin/donasi-barang/{id}/reject', [DonasiBarangController::class, 'reject'])
+//         ->name('admin.donasi.reject');
+//     Route::post('/admin/donasi-barang/approve-selected', [DonasiBarangController::class, 'approveSelected'])
+//         ->name('admin.donasi.approve-selected');
     
-    // CRUD operations
-    Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])
-        ->name('admin.donasi.show');
-    Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])
-        ->name('admin.donasi.edit');
-    Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])
-        ->name('admin.donasi.update');
-    Route::delete('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'destroy'])
-        ->name('admin.donasi.destroy');
-});
+//     // CRUD operations
+//     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])
+//         ->name('admin.donasi.show');
+//     Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])
+//         ->name('admin.donasi.edit');
+//     Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])
+//         ->name('admin.donasi.update');
+//     Route::delete('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'destroy'])
+//         ->name('admin.donasi.destroy');
+// });
+
+// Route::get('/masyarakat_umum_donasi_uang_tunai', function () {
+//     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
+// });
+
+// // // Group route dengan middleware auth dan admin
+// // Route::middleware(['auth', 'admin'])->group(function () {
+// //     // Halaman utama donasi barang
+// //     Route::get('/Detail_Barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
+    
+// //     // Route untuk detail donasi (modal)
+// //     Route::get('/admin/donasi-barang/{id}/detail', [DonasiBarangController::class, 'detail'])
+// //         ->name('admin.donasi.detail');
+    
+// //     // Route untuk approve/reject
+// //     Route::post('/admin/donasi-barang/{id}/diterima', [DonasiBarangController::class, 'approve'])
+// //         ->name('admin.donasi.approve');
+// //     Route::post('/admin/donasi-barang/{id}/dibatalkan', [DonasiBarangController::class, 'reject'])
+// //         ->name('admin.donasi.reject');
+    
+// //     // Route untuk approve multiple
+// //     Route::post('/admin/donasi-barang/approve-selected', [DonasiBarangController::class, 'approveSelected'])
+// //         ->name('admin.donasi.approve-selected');
+    
+// //     // Route CRUD standard
+// //     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])
+// //         ->name('admin.donasi.show');
+// //     Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])
+// //         ->name('admin.donasi.edit');
+// //     Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])
+// //         ->name('admin.donasi.update');
+// //     Route::delete('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'destroy'])
+// //         ->name('admin.donasi.destroy');
+// // });
