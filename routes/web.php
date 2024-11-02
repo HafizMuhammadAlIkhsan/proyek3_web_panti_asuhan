@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 //Masyarakat Umum
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginDonaturController;
-use App\Http\Controllers\DonaturController;
 
 //Landing Page
 Route::get('/', function () {
@@ -47,17 +46,17 @@ Route::get('/Halaman_Donasi_Umum', function () {
     return view('Masyarakat_Umum/beranda_donasi_masyarakat_umum');
 })->name('hal_donasi_umum');
 
-Route::get('/beranda_donatur', function () {
-    return view('Donatur/beranda_donatur');
-})->name('beranda_donatur');
+// Route::get('/beranda_donatur', function () {
+//     return view('Donatur/beranda_donatur');
+// })->name('beranda_donatur');
 
-Route::get('/Halaman_Donasi', function () {
-    return view('Donatur/beranda_donasi');
-})->name('hal_donasi_donatur');
+// Route::get('/Halaman_Donasi', function () {
+//     return view('Donatur/beranda_donasi');
+// })->name('hal_donasi_donatur');
 
-Route::get('/   ', function () {
-    return view('Donatur/donatur_donasi_jasa');
-})->name('hal_donasi_jasa');
+// Route::get('/   ', function () {
+//     return view('Donatur/donatur_donasi_jasa');
+// })->name('hal_donasi_jasa');
 
 
 Route::get('/Login_Admin', function () {
@@ -72,7 +71,12 @@ Route::get('/Beranda_Admin2', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
 
+
+//______________________________________________________________________________________________________________________
+//Donatur
+use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\HalamanDonasiController;
 
 // Route untuk beranda donatur
 Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
@@ -93,14 +97,19 @@ Route::get('/riwayat_donasi_jasa', function () {
 
 Route::get('/riwayat_donasi_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Riwayat'])->name('riwayat_donasi_jasa');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/beranda_donatur', function () {
-        return view('Donatur/beranda_donatur');
-    })->name('beranda_donatur');
+Route::middleware(['isDonatur'])->group(function () {
+    Route::get('/beranda_donatur', [DonaturController::class, 'index'])->name('beranda_donatur');   
+    Route::get('/Halaman_Donasi', [HalamanDonasiController::class, 'index'])->name('hal_donasi_donatur');
+});
 
-    Route::get('/Halaman_Donasi', function () {
-        return view('Donatur/beranda_donasi');
-    })->name('hal_donasi_donatur');
+Route::middleware(['auth'])->group(function () {
+    // Route::get('/beranda_donatur', function () {
+    //     return view('Donatur/beranda_donatur');
+    // })->name('beranda_donatur');
+
+    // Route::get('/Halaman_Donasi', function () {
+    //     return view('Donatur/beranda_donasi');
+    // })->name('hal_donasi_donatur');
 
     Route::get('/Halaman_Donasi_Jasa', function () {
         return view('Donatur/donatur_donasi_jasa');
@@ -123,9 +132,9 @@ use App\Http\Controllers\DonasiBarangController;
 Route::get('Admin/loginadmin', [LoginAdminController::class, 'showLoginForm'])->name('login_Admin');
 Route::post('Admin/loginadmin', [LoginAdminController::class, 'login']);
 
-Route::get('/Login_Admin', function () {
-    return view('Admin/loginadmin');
-});
+// Route::get('/Login_Admin', function () {
+//     return view('Admin/loginadmin');
+// });
 
 Route::get('/input_berita', function () {
     return view('Admin/input_berita');
@@ -133,7 +142,7 @@ Route::get('/input_berita', function () {
 
 Route::get('/Login_Admin', function () {
     return view('Admin/loginadmin');
-});
+})->name('loginadmin');
 
 Route::get('/Beranda_Admin', function () {
     return view('Admin/beranda_admin');
