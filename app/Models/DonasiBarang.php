@@ -2,29 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DonasiBarang extends Model
 {
-    use HasFactory;
+    protected $table = 'donasi_barang';
+    protected $primaryKey = 'id_donasi_barang';
+    public $timestamps = false;
 
     protected $fillable = [
-        'user_id',
+        'email_admin',
+        'email',
         'nama_barang',
-        'jumlah',
-        'status',
-        'tanggal',
-        'bukti_foto'
+        'jumlah_barang',
+        'tanggal_verifikasi_barang',
+        'bukti_foto',
+        'status'
     ];
 
     protected $casts = [
-        'tanggal' => 'date',
-        'jumlah' => 'integer'
+        'tanggal_verifikasi_barang' => 'date',
+        'jumlah_barang' => 'integer'
     ];
 
-    public function user()
+    public function donatur()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Donatur::class, 'email', 'email');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'email_admin', 'email_admin');
     }
 }
