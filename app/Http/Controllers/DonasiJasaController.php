@@ -34,7 +34,7 @@ class DonasiJasaController extends Controller
     }
 
     // Mengambil Data Dari database struktur nya seperti sql query
-    public function AmbilData()
+    public function AmbilDataJasa_Admin()
     {
         $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
             ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
@@ -44,6 +44,18 @@ class DonasiJasaController extends Controller
            
 
         return view('Admin/list_jasa', ['donasiJasa' => $donasiJasa]);
+    }
+
+    public function AmbilDataJasa_Riwayat()//Kirim data email nya disini euy
+    {
+        $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
+            ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
+            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
+            ->where('donatur.email','donatur@example.com')// Ganti ini jadi email yang di session nya pas sudah ada place holder nya 
+            ->orderBy('donasi_jasa.updated_at', 'asc') //  updated_at asc
+            ->paginate(5);
+
+        return view('Donatur/riwayat_donasi_jasa', ['donasiJasa' => $donasiJasa]);
     }
 
     public function show($id)

@@ -85,6 +85,14 @@ Route::get('/hal-donasi-jasa', [DonasiController::class, 'jasaIndex'])->name('ha
 
 Route::get('/donatur/{email}', [DonaturController::class, 'show']);
 
+use App\Http\Controllers\DonasiJasaController;
+
+Route::get('/riwayat_donasi_jasa', function () {
+    return view('Donatur/riwayat_donasi_jasa');
+})->name('riwayat_donasi_jasa');
+
+Route::get('/riwayat_donasi_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Riwayat'])->name('riwayat_donasi_jasa');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/beranda_donatur', function () {
         return view('Donatur/beranda_donatur');
@@ -108,7 +116,7 @@ Route::get('/donatur_donasi_jasa', function () {
 //______________________________________________________________________________________________________________________
 //Admin
 use App\Http\Controllers\LoginAdminController;
-use App\Http\Controllers\DonasiJasaController;
+
 use App\Http\Controllers\dataAnakController;
 use App\Http\Controllers\DonasiBarangController;
 
@@ -145,7 +153,7 @@ Route::get('/input_jasa', function () {
     return view('Admin/input_jasa');
 })->name('input-jasa');
 
-Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilData'])->name('list-jasa');
+Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
 //_________________________________________________________________________________________________________________________________________
