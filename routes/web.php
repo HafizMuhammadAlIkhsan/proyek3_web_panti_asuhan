@@ -54,9 +54,13 @@ Route::get('/Halaman_Donasi_Umum', function () {
 //     return view('Donatur/beranda_donasi');
 // })->name('hal_donasi_donatur');
 
-// Route::get('/   ', function () {
+// Route::get('/', function () {
 //     return view('Donatur/donatur_donasi_jasa');
 // })->name('hal_donasi_jasa');
+
+Route::get('/Donasi_Uang_Umum', function () {
+    return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
+})->name('donasi_uang_umum');
 
 
 Route::get('/Login_Admin', function () {
@@ -122,7 +126,7 @@ Route::get('/donatur_donasi_jasa', function () {
 
 Route::get('/donatur_donasi_barang', function () {
     return view('Donatur/donatur_donasi_barang');
-})->name('hal_donasi_jasa');
+})->name('hal_donasi_barang');
 
 //______________________________________________________________________________________________________________________
 //Admin
@@ -170,6 +174,11 @@ Route::get('/input_jasa', function () {
 
 Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
+
+
+//Berita_______________________________________________________________________________________________________________________________
+use App\Http\Controllers\BeritaController;
+Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
 
 //_________________________________________________________________________________________________________________________________________
 

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donasi Uang Tunai</title>
+    <link rel="stylesheet" href="css/style.css">
+
     <style>
         * {
             margin: 0;
@@ -16,15 +18,6 @@
             display: flex;
             min-height: 100vh;
             background-color: #f5f5f5;
-        }
-
-        .sidebar {
-            width: 260px;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            height: 100vh;
-            position: fixed;
         }
 
         .content {
@@ -163,50 +156,7 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar content from provided CSS -->
-    <div class="sidebar">
-        <div class="logo">
-            <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
-            <span>Panti Asuhan</span>
-        </div>
-        <ul class="menu-item">
-            <li>
-                <a href="#">
-                    <ion-icon name="apps-outline"></ion-icon>
-                    <span>Beranda</span>
-                </a>
-            </li>
-            <li class="active">
-                <a href="#">
-                    <ion-icon name="wallet-outline"></ion-icon>
-                    <span>Donasi</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <ion-icon name="newspaper-outline"></ion-icon>
-                    <span>Berita & Artikel</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <ion-icon name="calendar-outline"></ion-icon>
-                    <span>Program</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <ion-icon name="balloon-outline"></ion-icon>
-                    <span>Informasi Umum Anak</span>
-                </a>
-            </li>
-            <li class="no-hover">
-                <div>
-                    <button class="log" onclick="window.location.href='/Login'">Login</button>
-                </div>
-            </li>
-        </ul>
-    </div>
+    @include('components.sidebar')
 
     <!-- Main content -->
     <div class="content">
@@ -215,7 +165,7 @@
             <button class="nav-button">Barang</button>
             <button class="nav-button">Jasa</button>
         </div>
-
+        
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
 
         <!-- First form -->

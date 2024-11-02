@@ -41,12 +41,12 @@ class CreateTables extends Migration
 
         // Tabel BERITA
         Schema::create('berita', function (Blueprint $table) {
-            $table->id('id_berita')->primary();
+            $table->increments('id_berita')->primary();
             $table->char('email_admin', 50);
             $table->string('nama_berita', 50);
             $table->text('isi_berita');
             $table->date('tgl_upload');
-            $table->char('gambar_berita', 5)->nullable();
+            $table->string('gambar_berita')->nullable();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
 

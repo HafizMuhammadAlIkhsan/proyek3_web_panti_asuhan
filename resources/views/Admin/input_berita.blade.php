@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TinyMCE in Laravel</title>
-    
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 
@@ -112,15 +113,14 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 250px; 
+            width: 250px;
             background-color: #F5F5F9;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
-
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     @include('components.sidebaradmin')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -134,33 +134,39 @@
         <div class="Middle-Container">
             <div class="stripe"></div>
             <div class="welcome-card">
-                <h1>Donasi Jasa</h1>
-                <form action="{{ route('insert-jasa') }}" method="POST">
+                <h1>Input Berita</h1>
+                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @if(session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                     @endif
-                
+
                     <div class="mb-3">
-                        <label for="nama_jasa" class="form-label">Judul Berita</label>
-                        <input type="text" class="form-control" id="nama_jasa" name="nama_jasa" placeholder="Donasi Buku dan Alat Tulis untuk Anak Panti" required>
+                        <label for="nama_berita" class="form-label">Judul Berita</label>
+                        <input type="text" class="form-control" id="nama_berita" name="nama_berita"
+                            placeholder="Judul Berita" required>
                     </div>
-                
+
                     <div class="mb-3">
-                        <x-head.tinymce-config/>
-                        Text Editor <!--ini judul yang ada di ata editor nya-->
-                        <x-forms.tinymce-editor/>
+                        <label for="gambar_berita" class="form-label">Gambar Cover</label>
+                        <input type="file" class="form-control" id="gambar_berita" name="gambar_berita">
                     </div>
-                
+
+                    <div class="mb-3">
+                        <x-head.tinymce-config />
+                        Text Editor 
+                        <x-forms.tinymce-editor />
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                
             </div>
         </div>
     </div>
 
-    
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
