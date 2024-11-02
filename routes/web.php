@@ -120,7 +120,9 @@ Route::get('/donatur_donasi_jasa', function () {
     return view('Donatur/donatur_donasi_jasa');
 })->name('hal_donasi_jasa');
 
-
+Route::get('/donatur_donasi_barang', function () {
+    return view('Donatur/donatur_donasi_barang');
+})->name('hal_donasi_jasa');
 
 //______________________________________________________________________________________________________________________
 //Admin
