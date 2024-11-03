@@ -6,57 +6,81 @@
     <title>Donasi Barang</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <style>
         body {
             background-color: #F5F5F9;
             font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
         }
 
+        /* Sidebar occupies fixed space */
+        .sidebar {
+            width: 280px;
+        }
+
+        /* Main Content Container */
         .main {
-            margin-left: 250px;
+            flex: 1; /* Take up the remaining width */
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
         }
 
-        .header-banner {
-            background-color: #D1B2FF;
+        .page-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px; /* Adds space between Donasi and Barang */
             width: 100%;
-            padding: 20px 0;
-            text-align: center;
-            color: #fff;
-            font-size: 36px;
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .text-black {
+            color: #000; /* Black color for "Donasi" */
+        }
+
+        .text-purple {
+            color: #9f5ffe; /* Purple color for "Barang" */
         }
 
         .form-container {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 700px;
+            width: 100%;
         }
 
         .form-title {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-title span {
-            color: #9f5ffe;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .form-control {
             margin-bottom: 20px;
+            height: 45px;
+            width: 100%;
         }
 
         .btn-submit {
             background-color: #D1B2FF;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 0;
             border-radius: 5px;
-            width: 100%;
+            width: 630px; /* Fixed width */
+            max-width: 630px;
+            min-width: 630px;
             font-size: 16px;
             transition: background-color 0.3s;
         }
@@ -89,32 +113,36 @@
             display: none;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .date-group {
-            display: flex;
-            gap: 10px;
+        .sidebar ul li:last-child {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
         }
     </style>
 </head>
 <body>
+    <!-- Sidebar Component -->
     @include('components.sidebardonatur')
 
+    <!-- Main Content -->
     <div class="main">
-        <div class="header-banner">Donasi Barang</div>
+        <!-- Title Outside the Form Container -->
+        <div class="page-title">
+            <h1 class="text-black">Donasi</h1> 
+            <h1 class="text-purple">Barang</h1>
+        </div>
 
         <div class="form-container">
             <!-- Form Input Donasi -->
             <form id="donation-form">
-                <div class="form-title">
-                    <h2>Donasi <span>Barang</span></h2>
-                </div>
-
                 <div class="mb-3">
-                    <label class="form-label">Nama Donatur</label>
-                    <input type="text" class="form-control" required>
+                    <label class="form-label">Metode Pengiriman</label>
+                    <select class="form-control" required>
+                        <option value="" disabled selected>Pilih Metode Pengiriman</option>
+                        <option value="Jasa Pengiriman">Jasa Pengiriman</option>
+                        <option value="Pengiriman Mandiri">Pengiriman Mandiri</option>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -133,7 +161,7 @@
             <!-- Form Verifikasi -->
             <form id="verification-form">
                 <div class="form-title">
-                    <h2>Verifikasi <span>Donasi</span></h2>
+                    <h5 class="text-black">Verifikasi Donasi</h5> 
                 </div>
 
                 <div class="image-upload" onclick="document.getElementById('file-input').click()">
@@ -145,40 +173,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Tanggal Pengiriman</label>
-                    <div class="date-group">
-                        <select class="form-control" required>
-                            <option value="">Tanggal</option>
-                            <script>
-                                for(let i = 1; i <= 31; i++) {
-                                    document.write(`<option value="${i}">${i}</option>`);
-                                }
-                            </script>
-                        </select>
-                        <select class="form-control" required>
-                            <option value="">Bulan</option>
-                            <option value="1">Januari</option>
-                            <option value="2">Februari</option>
-                            <option value="3">Maret</option>
-                            <option value="4">April</option>
-                            <option value="5">Mei</option>
-                            <option value="6">Juni</option>
-                            <option value="7">Juli</option>
-                            <option value="8">Agustus</option>
-                            <option value="9">September</option>
-                            <option value="10">Oktober</option>
-                            <option value="11">November</option>
-                            <option value="12">Desember</option>
-                        </select>
-                        <select class="form-control" required>
-                            <option value="">Tahun</option>
-                            <script>
-                                const currentYear = new Date().getFullYear();
-                                for(let i = currentYear; i >= currentYear - 10; i--) {
-                                    document.write(`<option value="${i}">${i}</option>`);
-                                }
-                            </script>
-                        </select>
-                    </div>
+                    <input type="date" class="form-control" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Kirim Verifikasi</button>

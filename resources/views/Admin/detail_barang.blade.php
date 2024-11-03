@@ -26,13 +26,15 @@
         }
 
         h1.page-title {
-            background-color: #e6e6fa;
+            background-color: #9f5ffe; /* Background color */
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
             font-weight: bold;
+            color: white; /* Change this to your preferred color */
         }
+
 
         .table-container {
             background: white;
@@ -61,10 +63,17 @@
             gap: 5px;
         }
 
+        /* Adjust the width of the Approve button */
         .btn-approve-action {
-            padding: 4px 10px;
-            font-size: 0.875rem;
+            padding: 4px 10px; /* Adjust padding as needed */
+            font-size: 0.875rem; /* Smaller font size */
+            width: 80px; /* Set a fixed width to make the button narrower */
+            min-width: 100px; /* Ensure minimum width */
+            max-width: 100px; /* Ensure maximum width */
+            line-height: 2;
+            font-weight: 500;
         }
+
 
         .donatur-info {
             display: flex;
@@ -118,16 +127,24 @@
             background-color: #0d6efd;
             color: white;
         }
+
+        .sidebar ul li:last-child {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+        }
     </style>
 </head>
 <body>
     @include('components.sidebaradmin')
 
-    <div class="main-content">
+    <div class="main-content" style="margin-left: 0;width: 100%">
         <h1 class="page-title">LIST Donasi Barang</h1>
 
         <!-- Table and Button in Header -->
         <div class="table-container">
+
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -140,7 +157,7 @@
                             <th>Tanggal</th>
                             <th class="aksi-column">
                                 <div class="aksi-header">
-                                    Aksi
+                                    Metode Pengiriman
                                     <button class="btn btn-primary btn-approve-action" id="bulkApprove">Approve</button>
                                 </div>
                             </th>
@@ -165,12 +182,7 @@
                                 <td>{{ $donasi->status }}</td>
                                 <td>{{ $donasi->tanggal_verifikasi_barang }}</td>
                                 <td class="aksi-column">
-                                    <button class="btn btn-link btn-detail" 
-                                            data-id="{{ $donasi->id_donasi_barang }}"
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#detailModal">
-                                        <i class="bi bi-file-text"></i>
-                                    </button>
+                                    {{ $donasi->metode_pengiriman }}
                                 </td>
                             </tr>
                             @endforeach
@@ -259,14 +271,7 @@
                                 <td>${donasi.jumlah_barang} Buah</td>
                                 <td>${donasi.status}</td>
                                 <td>${donasi.tanggal_verifikasi_barang}</td>
-                                <td class="aksi-column">
-                                    <button class="btn btn-link btn-detail" 
-                                            data-id="${donasi.id_donasi_barang}"
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#detailModal">
-                                        <i class="bi bi-file-text"></i>
-                                    </button>
-                                </td>
+                                <td class="aksi-column">${donasi.metode_pengiriman}</td>
                             </tr>
                         `);
                     });
