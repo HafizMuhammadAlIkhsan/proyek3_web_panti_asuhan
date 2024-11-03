@@ -162,7 +162,7 @@
                     <div class="feature-card">
                         <ion-icon name="cash-outline" class="icon"></ion-icon>
                         <h4>Uang Tunai</h4>
-                        <button class="btn btn-primary">Detail Donasi</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_list_uang_admin') }}'">Detail Donasi</button>
                     </div>
                 </div>
                 <div class="col-md-4">

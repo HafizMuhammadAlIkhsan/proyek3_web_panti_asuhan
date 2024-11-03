@@ -21,9 +21,8 @@
         }
 
         .content {
-            margin-left: 260px;
             width: calc(100% - 260px);
-            padding: 20px;
+            padding-top:10px;
         }
 
         .navigation {
@@ -31,10 +30,23 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 30px;
+            background-color: #ffffff;
+            width: 100%;
+            height: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .Top-Container {
+            background-color: #ffffff;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .nav-button {
-            padding: 10px 20px;
             border: none;
             background: none;
             font-size: 16px;
@@ -144,20 +156,10 @@
             color: #8B5CF6;
         }
 
-        .log {
-            width: 100%;
-            padding: 10px;
-            background: #8B5CF6;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
     @include('components.sidebar')
-
     <!-- Main content -->
     <div class="content">
         <div class="navigation">
@@ -168,52 +170,87 @@
         
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
 
-        <!-- First form -->
-        <form class="donation-form" id="donationForm">
-            <div class="form-group">
-                <label>Program Donasi</label>
-                <select class="form-control" required>
-                    <option value="" disabled selected>Program Donasi</option>
-                    <option value="1">Program 1</option>
-                    <option value="2">Program 2</option>
-                </select>
+        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="bukti_transfer" class="form-label">Bukti Pembayaran</label>
+                <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" required>
             </div>
-
+        
             <div class="form-group">
-                <label>Jumlah Donasi</label>
-                <input type="number" class="form-control" placeholder="Masukkan jumlah donasi" required>
+                <label for="jumlah_uang">Jumlah Donasi</label>
+                <input type="number" id="jumlah_uang" name="jumlah_uang" class="form-control" placeholder="Masukkan jumlah donasi" required>
             </div>
-
+        
             <div class="form-group">
-                <label>Metode Pembayaran</label>
-                <select class="form-control" required>
+                <label for="cara_pembayaran">Metode Pembayaran</label>
+                <select id="cara_pembayaran" name="cara_pembayaran" class="form-control" required>
                     <option value="" disabled selected>Metode Pembayaran</option>
                     <option value="transfer">Transfer Bank</option>
                     <option value="ewallet">E-Wallet</option>
                 </select>
             </div>
-
-            <button type="submit" class="submit-button">Lanjutkan Donasi</button>
-        </form>
-
-        <!-- Verification form -->
-        <form class="verification-form" id="verificationForm">
-            <div class="form-group">
-                <label>Verifikasi Donasi</label>
-                <input type="text" class="form-control" placeholder="Masukkan kode verifikasi" required>
-            </div>
-
-            <button type="submit" class="submit-button">Kirim</button>
-        </form>
+        
+            <button type="button" class="submit-button" onclick="showBankDetails()">Lihat Rekening Bank</button>
+            <button type="submit" class="submit-button">Kirim Bukti Pembayaran</button>
+            
     </div>
-
+    <div id="bankDetailsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideBankDetails()">&times;</span>
+            <h2>Informasi Rekening Bank</h2>
+            <p>Silakan lakukan pembayaran ke rekening berikut:</p>
+            <p><strong>Bank:</strong> Nama Bank Anda</p>
+            <p><strong>Nomor Rekening:</strong> 1234567890</p>
+            <p><strong>Atas Nama:</strong> Yayasan Orphanage</p>
+        </div>
+    </div>
+    
+    <style>
+        /* Pop-up Modal Styling */
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #000;
+        }
+    </style>
+    
     <script>
-        document.getElementById('donationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            this.style.display = 'none';
-            document.getElementById('verificationForm').style.display = 'block';
-        });
+        function showBankDetails() {
+            document.getElementById('bankDetailsModal').style.display = 'block';
+        }
+    
+        function hideBankDetails() {
+            document.getElementById('bankDetailsModal').style.display = 'none';
+        }
     </script>
+    
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

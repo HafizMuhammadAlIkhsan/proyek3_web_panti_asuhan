@@ -83,15 +83,16 @@ class CreateTables extends Migration
 
         // Tabel DONASI_UANG
         Schema::create('donasi_uang', function (Blueprint $table) {
-            $table->id('id_donasi_uang');
+            $table->increments('id_donasi_uang');
             $table->char('email_admin', 50)->nullable();
-            $table->char('email', 50);
+            $table->char('email', 50)->default('Anonim');
             $table->integer('jumlah_uang');
             $table->string('cara_pembayaran', 30);
             $table->date('tanggal_donasi_uang');
-            $table->char('bukti_transfer', 254);
+            $table->String('bukti_transfer');
             $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
             $table->primary(['id_donasi_uang', 'email']);
+            $table->timestamps();
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });

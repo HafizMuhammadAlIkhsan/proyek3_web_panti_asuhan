@@ -168,7 +168,7 @@
             </div>
         </div>
 
-        <div class="Mid-Container">List Jasa</div>
+        <div class="Mid-Container">Riwayat</div>
 
         <div class="container">
             <table class="table table-striped">

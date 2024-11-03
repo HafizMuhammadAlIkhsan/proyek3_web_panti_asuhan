@@ -155,6 +155,7 @@
     @include('components.sidebaradmin')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> <!--Untuk Pop Up-->
 
     <div class="main">
         <div class="Top-Container">
@@ -298,7 +299,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
     
     <!-- Script Edit -->
     <script>
@@ -398,9 +399,5 @@
             });
         });
     </script>
-    
-    
-
 </body>
-
 </html>
