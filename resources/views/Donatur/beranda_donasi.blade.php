@@ -24,7 +24,7 @@
             <div class="box2">
                 <img src="https://via.placeholder.com/297x220" alt="Contoh Gambar">
                 <h2>Donasi Barang</h2>
-                <button class="donate-button">Donasi Sekarang</button>
+                <button class="donate-button" onclick="window.location.href='{{ route('hal_donasi_barang') }}'">Donasi Sekarang</button>
             </div>
             <div class="box3">
                 <img src="https://via.placeholder.com/297x220" alt="Contoh Gambar">
