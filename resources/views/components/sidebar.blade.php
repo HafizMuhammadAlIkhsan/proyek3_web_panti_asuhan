@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="logo">
-        <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
+        <img src="{{ asset('image/logo_panti.png') }}" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
         <span> Panti Asuhan </span>
     </div>
     <ul class="menu-item">
@@ -29,8 +29,8 @@
                 <span style="--i:4"> Program </span>
             </a>
         </li>
-        <li class="menu-item" id="info-item">
-            <a href="#" class="link" onclick="setActive('info-item')">
+        <li class="{{ request()->routeIs('masyarakat-data-anak') ? 'active' : ''}}" id="info-item">
+            <a href="{{ route('masyarakat-data-anak')}}" class="link" onclick="setActive('info-item')">
                 <ion-icon name="balloon-outline"></ion-icon>
                 <span style="--i:5"> Anak Asuh </span>
             </a>

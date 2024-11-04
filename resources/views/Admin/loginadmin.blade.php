@@ -93,6 +93,12 @@
                 @endif
             </form>
                        
+            
+                @if ($errors->has('login_error'))
+                    <p style="color: red; text-align: center;">{{ $errors->first('login_error') }}</p>
+                @endif
+            </form>
+                       
         </div>
     </div>
     

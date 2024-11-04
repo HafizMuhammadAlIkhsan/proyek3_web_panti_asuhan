@@ -6,7 +6,13 @@ use App\Models\dataAnak;
 use Illuminate\Http\Request;
 
 class dataAnakController extends Controller
-{
+{   
+    public function index_masyarakat()
+    {
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        return view ('Masyarakat_Umum.data_anak')->with ('data_anak', $data_anak);       
+    }
+
     public function index_donatur()
     {
         $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
@@ -93,15 +99,15 @@ class dataAnakController extends Controller
      */
     public function destroy($id)
     {
-    $dataAnak = dataAnak::findOrFail($id);
+        $dataAnak = dataAnak::findOrFail($id);
 
-    if ($dataAnak) {
-        $dataAnak->delete();
-        return response()->json(['message' => 'Data anak berhasil dihapus']);
-    } else {
-        return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
+        if ($dataAnak) {
+            $dataAnak->delete();
+            return redirect()->to('admin/data-anak')->with('success', 'Berhasil melakukan deleta data!');
+        } else {
+            return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
+        }
     }
-}
 
     
 }

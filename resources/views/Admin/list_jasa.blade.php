@@ -89,6 +89,12 @@
             justify-content: center;
             align-items: center;
             font-size: 1.2em;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
             border: none;
             background: none;
             color: #000;
@@ -97,6 +103,9 @@
 
         .icon-btn:hover {
             color: #5628a5;
+            font-size: 1.2em;
+            width: 30px;
+            height: 30px;
             font-size: 1.2em;
             width: 30px;
             height: 30px;
@@ -133,6 +142,7 @@
         .btn-primary {
             background-color: #D1B2FF;
             border-color: #D1B2FF;
+            margin: 20px;
             margin: 20px;
             transition: background-color 0.2s ease;
         }

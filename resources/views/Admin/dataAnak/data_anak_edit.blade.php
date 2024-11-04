@@ -46,7 +46,7 @@
                 <label for="tanggal_lahir">Tanggal Lahir</label>
                 <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value ="{{$data_anak->tanggal_lahir}}" required>
             </div>
-            <button type="submit" class="btn btn-primary">Ubah Data</button>
+            <button type="submit" class="btn btn-primary" show>Ubah Data</button>
         </form>
     </div>
 </body>

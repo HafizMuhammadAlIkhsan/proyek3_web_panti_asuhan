@@ -11,6 +11,7 @@ use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HalamanDonasiController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\DonasiBarangController;
+use App\Http\Controllers\BeritaController;
 use App\Models\DonasiUang;
 use Faker\Guesser\Name;
 
@@ -47,6 +48,7 @@ Route::get('/Donasi_Uang_Umum', function () {
     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
 })->name('donasi_uang_umum');
 
+Route::get('Masyarakat_Umum/data-anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
 // Route::get('/Beranda_Admin2', function () {
 //     return view('Admin/beranda_donasi_admin');
 // })->name('hal_beranda_donasi_admin');
@@ -109,6 +111,7 @@ Route::get('/Beranda_Admin', function () {
 })->name('hal_beranda_admin');
 
 Route::get('/Beranda_Donasi', function () {
+Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
 
@@ -140,7 +143,7 @@ Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('i
 
 
 //Berita_______________________________________________________________________________________________________________________________
-use App\Http\Controllers\BeritaController;
+
 Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
 
 //_________________________________________________________________________________________________________________________________________

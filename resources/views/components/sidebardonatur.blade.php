@@ -29,8 +29,8 @@
                 <span style="--i:4"> Program </span>
             </a>
         </li>
-        <li class="menu-item" id="info-item">
-            <a href="#" class="link" onclick="setActive('info-item')">
+        <li class="{{ request()->routeIs('donatur-data-anak') ? 'active' : ''}}" id="info-item">
+            <a href="{{ route ('donatur-data-anak') }}" class="link" onclick="setActive('info-item')">
                 <ion-icon name="balloon-outline"></ion-icon>
                 <span style="--i:5"> Anak Asuh </span>
             </a>
