@@ -13,6 +13,7 @@ class Donatur extends Authenticatable
     protected $primaryKey = 'email';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
 
     protected $fillable = [
         'email',
