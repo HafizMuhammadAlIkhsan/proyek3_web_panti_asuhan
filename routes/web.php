@@ -106,31 +106,22 @@ Route::get('/riwayat_donasi_jasa', function () {
 Route::get('/riwayat_donasi_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Riwayat'])->name('riwayat_donasi_jasa');
 
 Route::middleware(['isDonatur'])->group(function () {
-    Route::get('/beranda_donatur', [DonaturController::class, 'index'])->name('beranda_donatur');   
-    Route::get('/Halaman_Donasi', [HalamanDonasiController::class, 'index'])->name('hal_donasi_donatur');
-});
+    Route::get('/beranda_donatur', function () {
+        return view('Donatur/beranda_donatur');
+    })->name('beranda_donatur');
 
-Route::middleware(['auth'])->group(function () {
-    // Route::get('/beranda_donatur', function () {
-    //     return view('Donatur/beranda_donatur');
-    // })->name('beranda_donatur');
+    Route::get('/Halaman_Donasi', function () {
+        return view('Donatur/beranda_donasi');
+    })->name('hal_donasi_donatur');
 
-    // Route::get('/Halaman_Donasi', function () {
-    //     return view('Donatur/beranda_donasi');
-    // })->name('hal_donasi_donatur');
-
-    Route::get('/Halaman_Donasi_Jasa', function () {
+    Route::get('/donatur_donasi_jasa', function () {
         return view('Donatur/donatur_donasi_jasa');
     })->name('hal_donasi_jasa');
+    
+    Route::get('/donatur_donasi_barang', function () {
+        return view('Donatur/donatur_donasi_barang');
+    })->name('hal_donasi_barang');
 });
-
-Route::get('/donatur_donasi_jasa', function () {
-    return view('Donatur/donatur_donasi_jasa');
-})->name('hal_donasi_jasa');
-
-Route::get('/donatur_donasi_barang', function () {
-    return view('Donatur/donatur_donasi_barang');
-})->name('hal_donasi_barang');
 
 //______________________________________________________________________________________________________________________
 //Admin
