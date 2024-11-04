@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
+        'guard' => env('AUTH_GUARD', 'user'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -41,14 +41,14 @@ return [
         //     'provider' => 'users',
         // ],
 
-        'web' => [
+        'user' => [
             'driver' => 'session',
             'provider' => 'donators',
         ],
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'pengurus', 
+            'provider' => 'admins', 
         ],
     ],
 
@@ -75,9 +75,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'pengurus' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\LoginAdmin::class, 
+            'model' =>  App\Models\Admin::class, 
         ],
 
         'donators' => [

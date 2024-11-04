@@ -81,9 +81,9 @@
         <div class="image-container"></div>
         <div class="form-container">
             <h2>Login Admin</h2>
-            <form action="{{ route('login_admin') }}" method="POST">
+            <form action="{{ route('loginadmin') }}" method="POST">
                 @csrf
-                <input type="text" name="email_pengurus" placeholder="Email atau Nama" required>
+                <input type="text" name="email_admin" placeholder="Email atau Nama" required>
                 <input type="password" name="password_admin" placeholder="Password" required>
                 <button type="submit">Login</button>
                 <a href="#">Lupa password?</a>
