@@ -18,18 +18,13 @@
     </style>
 </head>
 <body>
-    @include ('components.sidebaradmin')
+    @include ('components.sidebardonatur')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <main class="main-content">
     <!-- Main content -->
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
             <h1 class="text-center">List Anak Asuh</h1>
-        </div>
-
-        <!-- Tambah Data Button -->
-        <div class="d-flex justify-content-end mb-3">
-            <a href="data-anak/create" class="btn btn-primary">Tambah Data</a>
         </div>
 
         <!-- Tabel Anak Asuh -->
@@ -56,14 +51,6 @@
                         <td>{{ $anak->pendidikan }}</td>
                         <td>{{ $anak->status_ortu }}</td>
                         <td>{{ $anak->tanggal_lahir }}</td>
-                        <td>
-                            <a href ='{{url('admin/data-anak/'.$anak->id_anak.'/edit')}}' class ="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('admin-data-anak-delete', $anak->id_anak) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
                     </tr>
                     <?php $i++ ?>
                     @endforeach

@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginDonaturController;
 use App\Http\Controllers\DonasiUangController;
+use App\Http\Controllers\dataAnakController;
+use App\Http\Controllers\DonaturController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\HalamanDonasiController;
+use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\DonasiBarangController;
+use App\Models\DonasiUang;
+use Faker\Guesser\Name;
 
 //Landing Page
 Route::get('/', function () {
@@ -82,10 +90,8 @@ Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('
 
 //______________________________________________________________________________________________________________________
 //Donatur
-use App\Http\Controllers\DonaturController;
-use App\Http\Controllers\DonasiController;
-use App\Http\Controllers\HalamanDonasiController;
 
+Route::get('Donatur/data-anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak');
 // Route untuk beranda donatur
 Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
 
@@ -123,14 +129,11 @@ Route::middleware(['isDonatur'])->group(function () {
     })->name('hal_donasi_barang');
 });
 
+
+
 //______________________________________________________________________________________________________________________
 //Admin
-use App\Http\Controllers\LoginAdminController;
 
-use App\Http\Controllers\dataAnakController;
-use App\Http\Controllers\DonasiBarangController;
-use App\Models\DonasiUang;
-use Faker\Guesser\Name;
 
 Route::get('Admin/loginadmin', [LoginAdminController::class, 'showLoginForm'])->name('login_Admin');
 Route::post('Admin/loginadmin', [LoginAdminController::class, 'login']);
@@ -185,12 +188,12 @@ Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.s
 
 //_________________________________________________________________________________________________________________________________________
 
-Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('admin');
-Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create')->middleware('admin');
-Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store')->middleware('admin');
-Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view')->middleware('admin');
-Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit')->middleware('admin');
-Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete')->middleware('admin');
+Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
+Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
+Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
+Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
+Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
+Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
     
 
 // Route::get('/Beranda_Donasi_Admin', function () {

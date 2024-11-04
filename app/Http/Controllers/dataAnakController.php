@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class dataAnakController extends Controller
 {
+    public function index_donatur()
+    {
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        return view ('Donatur.data_anak')->with ('data_anak', $data_anak);       
+    }
     /**
      * Display a listing of the resource.
      */
@@ -86,18 +91,17 @@ class dataAnakController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        // Cari data anak berdasarkan ID
-        $dataAnak = dataAnak::find($id);
+    $dataAnak = dataAnak::findOrFail($id);
 
-        if ($dataAnak) {
-            // Hapus data anak
-            $dataAnak->delete();
-            return response()->json(['message' => 'Data anak berhasil dihapus']);
-        } else {
-            return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
-        }
+    if ($dataAnak) {
+        $dataAnak->delete();
+        return response()->json(['message' => 'Data anak berhasil dihapus']);
+    } else {
+        return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
     }
+}
+
     
 }

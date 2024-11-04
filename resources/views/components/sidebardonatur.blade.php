@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="logo">
-        <img src="image/logo_panti.png" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
+        <img src="{{ asset('image/logo_panti.png')}}"" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
         <span> Panti Asuhan </span>
     </div>
     <ul class="menu-item">
@@ -58,7 +58,7 @@
                 <button class="log" id="loginButton" onclick="window.location.href='/Login'">Login</button>
             </div> --}}
             <a href="#" class="link" onclick="setActive('info-item')">
-                <img src="image/user.png" alt="" >
+                <img src="{{ asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>
                     <h4>Hafiz</h4>
