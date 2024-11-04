@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DonasiUang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DonasiUangController extends Controller
 {
@@ -18,9 +19,11 @@ class DonasiUangController extends Controller
         ]);
 
         // Upload the payment proof image
-        $buktiTransferPath = $request->file('bukti_transfer')->store('bukti_transfer');
+        $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
 
-        // Check if the user is authenticated, otherwise set email to 'anonim@example.com'
+
+        Log::info('File path: ' . $buktiTransferPath);
+
         $email = Auth::check() ? Auth::user()->email : 'sulthan@example.com';
 
         // Create a new donation entry
@@ -32,6 +35,7 @@ class DonasiUangController extends Controller
             'bukti_transfer' => $buktiTransferPath,
             'status' => 'Diproses',
         ]);
+        
 
         return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
     }
@@ -51,19 +55,18 @@ class DonasiUangController extends Controller
     // DonasiUangController.php
     public function UpdateDataUang(Request $request, $id)
     {
-        $donasi = DonasiUang::findOrFail($id);
-        $donasi->status = $request->status;
-        $donasi->save();
-
-        return redirect()->back()->with('success', 'Status Donasi berhasil diperbarui');
-    }
-
-    public function DeleteDataUang($id)
-    {
-        $donasi = DonasiUang::findOrFail($id);
-        $donasi->delete();
-
-        return redirect()->back()->with('success', 'Donasi berhasil dihapus');
+        $donasiUang = DonasiUang::findOrFail($id);
+    
+        // Validasi status
+        $request->validate([
+            'status' => 'required|string|max:255',
+        ]);
+    
+        // Update status
+        $donasiUang->status = $request->input('status');
+        $donasiUang->save();
+    
+        return response()->json(['message' => 'Status berhasil diperbarui']);
     }
 
     public function HapusDataUang($id)

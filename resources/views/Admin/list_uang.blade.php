@@ -178,6 +178,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Donatur</th>
+                        <th scope="col">Jumlah</th>
                         <th scope="col">Status</th>
                         <th scope="col">Tanggal Penginputan</th>
                         <th scope="col">Aksi</th>
@@ -196,20 +197,19 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td>{{ $uang->jumlah_uang }}</td>
                                 <td>{{ $uang->status }}</td>
                                 <td>{{ $uang->tanggal_donasi_uang }}</td>
                                 <td>
                                     <button class="icon-btn delete-btn" title="Delete"
-                                        data-id="{{ $uang->id_donasi_uang }}"
-                                        tanggal_uang="{{ $uang->tanggal_donasi_uang }}">
+                                        data-id="{{ $uang->id_donasi_uang }}" jumlah_uang="{{ $uang->jumlah_uang }}">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
                                     <button class="icon-btn view-details-btn" title="Edit"
                                         data-id="{{ $uang->id_donasi_uang }}" data-status="{{ $uang->status }}"
-                                        data-bukti="{{ asset('storage/' . $uang->bukti_transfer) }}">
+                                        data-bukti="{{ asset('storage/bukti_transfer/' . basename($uang->bukti_transfer)) }}">
                                         <ion-icon name="brush-outline"></ion-icon>
                                     </button>
-
                                 </td>
                             </tr>
                         @endforeach
@@ -249,7 +249,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus jasa <strong id="delete_tanggal"></strong>?</p>
+                            <p>Apakah Anda yakin ingin menghapus donasi <strong id="delete_jumlah_uang"></strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -259,7 +259,6 @@
                 </div>
             </div>
 
-            <!-- Script untuk Pop Up dan Hapus Data -->
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
@@ -269,10 +268,8 @@
                     document.querySelectorAll(".delete-btn").forEach(button => {
                         button.addEventListener("click", function() {
                             currentDeleteId = this.getAttribute("data-id");
-                            const Tanggal_Uang = this.getAttribute("tanggal_uang");
-
-                            // Tampilkan nama jasa di modal
-                            document.getElementById("delete_tanggal").textContent = Tanggal_Uang;
+                            const jumlah_Uang = this.getAttribute("jumlah_uang");
+                            document.getElementById("delete_jumlah_uang").textContent = jumlah_Uang;
                             deleteModal.show();
                         });
                     });
@@ -280,7 +277,7 @@
                     // Konfirmasi penghapusan data
                     document.getElementById("confirmDeleteButton").addEventListener("click", function() {
                         if (currentDeleteId) {
-                            fetch(`/donasi_jasa/${currentDeleteId}`, {
+                            fetch(`/donasi_uang/${currentDeleteId}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -298,7 +295,6 @@
                 });
             </script>
 
-            <!--Edit-->
 
             <!-- Pop Up Edit Data -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -312,12 +308,10 @@
                         <div class="modal-body">
                             <div class="text-center mb-3">
                                 <img id="editBuktiTransferImage" src="" alt="Bukti Transfer" class="img-fluid"
-                                    style="max-height: 200px;">
+                                    style="max-height: 800px;">
                             </div>
-
                             <form id="editForm">
                                 <input type="hidden" id="editIdDonasiUang" name="id_donasi_uang">
-
                                 <div class="mb-3">
                                     <label for="editStatus" class="form-label">Status</label>
                                     <select class="form-control" id="editStatus" name="status">
@@ -326,7 +320,6 @@
                                         <option value="Diproses">Diproses</option>
                                     </select>
                                 </div>
-
                                 <button type="button" id="saveEditButton" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
@@ -334,11 +327,13 @@
                 </div>
             </div>
 
+
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     const editModal = new bootstrap.Modal(document.getElementById("editModal"));
                     let currentEditId = null;
 
+                    // Event listener untuk tombol edit
                     document.querySelectorAll(".view-details-btn").forEach(button => {
                         button.addEventListener("click", function() {
                             currentEditId = this.getAttribute("data-id");
@@ -358,16 +353,26 @@
                         });
                     });
 
+                    // Menyimpan perubahan pada data
                     document.getElementById("saveEditButton").addEventListener("click", function() {
-                        const formData = new FormData(document.getElementById("editForm"));
-                        fetch(`/list_uang/${currentEditId}`, {
+                        const status = document.getElementById("editStatus").value;
+
+                        fetch(`/donasi_uang/${currentEditId}`, {
                                 method: 'PUT',
                                 headers: {
+                                    'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                                 },
-                                body: formData
+                                body: JSON.stringify({
+                                    status: status
+                                })
                             })
-                            .then(response => response.json())
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
                             .then(data => {
                                 alert(data.message || "Data berhasil diperbarui");
                                 editModal.hide();

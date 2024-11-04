@@ -139,6 +139,7 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\dataAnakController;
 use App\Http\Controllers\DonasiBarangController;
 use App\Models\DonasiUang;
+use Faker\Guesser\Name;
 
 Route::get('Admin/loginadmin', [LoginAdminController::class, 'showLoginForm'])->name('login_Admin');
 Route::post('Admin/loginadmin', [LoginAdminController::class, 'login']);
@@ -167,8 +168,8 @@ Route::get('/Beranda_Donasi', function () {
 // Uang Di Admin___________________________________________________________________________________________________________________________
 
 Route::get('/list_uang', [DonasiUangController::class, 'AmbilDataUang_Admin'])->name('hal_list_uang_admin');
-Route::patch('/list_uang/{id}', [DonasiUangController::class, 'UpdateDataUang']);
-Route::delete('/list_uang/{id}', [DonasiUangController::class, 'HapusDataUang']);
+Route::put('/donasi_uang/{id}', [DonasiUangController::class, 'UpdateDataUang'])->name('update_data_uang');
+Route::delete('/donasi_uang/{id}', [DonasiUangController::class, 'HapusDataUang'])->name('hapus_data_uang');
 
 // JASA Di Admin___________________________________________________________________________________________________________________________
 Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
