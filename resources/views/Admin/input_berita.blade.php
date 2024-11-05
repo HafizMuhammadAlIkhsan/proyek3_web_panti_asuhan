@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <style>
         * {
             margin: 0;
@@ -135,13 +135,26 @@
             <div class="stripe"></div>
             <div class="welcome-card">
                 <h1>Input Berita</h1>
-                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                @if (session('success'))
+                    <!--Alert untuk mempermudah cek-->
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
 
                     <div class="mb-3">
                         <label for="nama_berita" class="form-label">Judul Berita</label>
@@ -151,21 +164,35 @@
 
                     <div class="mb-3">
                         <label for="gambar_berita" class="form-label">Gambar Cover</label>
-                        <input type="file" class="form-control" id="gambar_berita" name="gambar_berita">
+                        <input type="file" class="form-control" id="gambar_berita" name="gambar_berita" required>
                     </div>
 
                     <div class="mb-3">
-                        <x-head.tinymce-config />
-                        Text Editor 
-                        <x-forms.tinymce-editor />
+                        <label for="isi_berita" class="form-label">Isi Berita</label>
+                        <textarea class="form-control" id="isi_berita" name="isi_berita" required></textarea>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 
+    <script>
+    let editorInstance;
+    ClassicEditor
+        .create(document.querySelector('#isi_berita'))
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    // Synchronize CKEditor content with the original textarea
+    document.querySelector('form').addEventListener('submit', (event) => {
+        document.querySelector('#isi_berita').value = editorInstance.getData();
+    });
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -2,39 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-
+use App\Models\Berita;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    // app/Http/Controllers/BeritaController.php
+    public function index()
+    {
+        $berita = Berita::orderBy('tgl_upload', 'desc')->get();
+        return view('Masyarakat_Umum/Katalog_berita', compact('berita'));
+    }
+
     public function store(Request $request)
     {
+        // Validasi data yang masuk
         $request->validate([
-            'nama_berita' => 'required|max:50',
+            'nama_berita' => 'required|string|max:50',
             'isi_berita' => 'required',
             'gambar_berita' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagePath = null;
+        // upload gambar
+        $gambarBerita = null;
         if ($request->hasFile('gambar_berita')) {
-            $imagePath = $request->file('gambar_berita')->store('images', 'public');
-        } else {
-            $imagePath = null;  
+            $gambarBerita = $request->file('gambar_berita')->store('berita_images', 'public');
         }
-        
 
-        DB::table('berita')->insert([
-            'email_admin' => 'admin@example.com',
+        // Insert data ke tabel berita
+        Berita::create([
+            'email_admin' => 'admin@example.com', // placholder
             'nama_berita' => $request->nama_berita,
             'isi_berita' => $request->isi_berita,
-            'tgl_upload' => now(),
-            'gambar_berita' => $imagePath,
+            'tgl_upload' => now(), 
+            'gambar_berita' => $gambarBerita,
         ]);
 
-        return redirect()->back()->with('success', 'Berita berhasil ditambahkan');
+        // Redirect kembali ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Berita berhasil ditambahkan.');
+    }
+
+
+    public function show($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('berita.show', compact('berita'));
     }
 }

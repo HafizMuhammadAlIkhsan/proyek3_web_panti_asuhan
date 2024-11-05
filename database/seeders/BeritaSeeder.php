@@ -10,7 +10,6 @@ class BeritaSeeder extends Seeder
     public function run()
     {
         DB::table('berita')->insert([
-            'id_berita' => 1,
             'email_admin' => 'admin@example.com',
             'nama_berita' => 'Berita Donasi',
             'isi_berita' => 'Lorem Ipsum Dolor Sit amet.',

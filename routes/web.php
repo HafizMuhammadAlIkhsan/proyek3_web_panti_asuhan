@@ -4,14 +4,22 @@ use Illuminate\Support\Facades\Route;
 //Masyarakat Umum
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginDonaturController;
+use App\Http\Controllers\LoginAdminController;
+
+//Donasi
+use App\Http\Controllers\DonasiJasaController;
 use App\Http\Controllers\DonasiUangController;
+//Data Anak
 use App\Http\Controllers\dataAnakController;
+
+//Berita
+use App\Http\Controllers\BeritaController;
+
+//Unused?
 use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HalamanDonasiController;
-use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\DonasiBarangController;
-use App\Http\Controllers\BeritaController;
 use App\Models\DonasiUang;
 use Faker\Guesser\Name;
 
@@ -50,6 +58,16 @@ Route::get('/Donasi_Uang_Umum', function () {
 
 Route::get('Masyarakat_Umum/data-anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
 
+Route::get('/Berita', function () {
+    return view('Masyarakat_Umum/katalog_berita');
+})->name('donasi_uang_umum');
+
+//Berita_______________________________________________________________________________________________________________
+
+Route::get('/Berita', [BeritaController::class, 'index'])->name('berita.index');
+Route::post('/input_berita', [BeritaController::class, 'store'])->name('berita.store');
+Route::get('/Berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
 // Insert Donasi Uang _______________________________________________________________________________________________________________
 Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
 
@@ -74,7 +92,6 @@ Route::get('Donatur/data-anak', [dataAnakController::class, 'index_donatur'])->n
 
 // Route::get('/donatur/{email}', [DonaturController::class, 'show']);
 
-use App\Http\Controllers\DonasiJasaController;
 //Riwayat___________________________________________________________________________
 Route::get('/riwayat_donasi_jasa', function () {
     return view('Donatur/riwayat_donasi_jasa');
