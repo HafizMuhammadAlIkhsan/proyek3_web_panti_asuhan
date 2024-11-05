@@ -68,6 +68,7 @@ Route::get('/Berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::post('/input_berita', [BeritaController::class, 'store'])->name('berita.store');
 Route::get('/Berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
+
 // Insert Donasi Uang _______________________________________________________________________________________________________________
 Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
 
