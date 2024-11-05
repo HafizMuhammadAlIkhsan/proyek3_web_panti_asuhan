@@ -1,173 +1,280 @@
-import React, { useState } from 'react';
+<!DOCTYPE html>
+<html lang="id">
 
-const DonationForm = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [formData, setFormData] = useState({
-    program: '',
-    amount: '',
-    paymentMethod: '',
-    verification: ''
-  });
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donasi Uang Tunai Donatur</title>
+    <link rel="stylesheet" href="css/style.css">
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setCurrentPage(2);
-  };
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-  return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg relative">
-        <div className="p-4 flex items-center space-x-2">
-          <img src="image/logo_panti.png" alt="Logo" className="w-8 h-8" />
-          <span className="font-semibold">Panti Asuhan</span>
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .content {
+            width: calc(100% - 260px);
+            padding-top: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            width: 100%;
+            height: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .Top-Container {
+            background-color: #ffffff;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button {
+            border: none;
+            background: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .nav-button.active {
+            color: #8B5CF6;
+            border-bottom: 2px solid #8B5CF6;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .page-title span {
+            color: #8B5CF6;
+        }
+
+        .donation-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-control {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .submit-button {
+            background-color: #8B5CF6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #7C3AED;
+        }
+
+        .verification-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .verification-form.active {
+            display: block;
+        }
+
+        /* Sidebar specific styles from provided CSS */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .menu-item {
+            list-style: none;
+        }
+
+        .menu-item li {
+            margin-bottom: 15px;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #363b46;
+        }
+
+        .menu-item .active a {
+            color: #8B5CF6;
+        }
+    </style>
+</head>
+
+<body>
+    @include('components.sidebardonatur')
+    <!-- Main content -->
+    <div class="content">
+        <div class="navigation">
+            <button class="nav-button active">Uang</button>
+            <button class="nav-button">Barang</button>
+            <button class="nav-button">Jasa</button>
         </div>
-        
-        <ul className="space-y-2 px-4">
-          <li className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded-lg">
-            <ion-icon name="apps-outline" className="w-5 h-5" />
-            <span>Beranda</span>
-          </li>
-          <li className="flex items-center space-x-3 p-2 bg-purple-100 text-purple-600 rounded-lg">
-            <ion-icon name="wallet-outline" className="w-5 h-5" />
-            <span>Donasi</span>
-          </li>
-          <li className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded-lg">
-            <ion-icon name="newspaper-outline" className="w-5 h-5" />
-            <span>Berita & Artikel</span>
-          </li>
-          <li className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded-lg">
-            <ion-icon name="calendar-outline" className="w-5 h-5" />
-            <span>Program</span>
-          </li>
-          <li className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded-lg">
-            <ion-icon name="balloon-outline" className="w-5 h-5" />
-            <span>Anak Asuh</span>
-          </li>
-        </ul>
 
-        {/* Modified User Profile Section */}
-        <div className="absolute bottom-4 left-0 right-0 px-4">
-          <div className="flex items-center p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
-            <div className="flex items-center space-x-3 w-full">
-              <div className="w-8 h-8 flex-shrink-0">
-                <img 
-                  src="image/user.png" 
-                  alt="Welcome" 
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-gray-500 m-0">welcome-donasi 👋</p>
-                <h4 className="text-sm font-semibold text-gray-900 truncate m-0">Hafiz</h4>
-              </div>
-              <div className="flex-shrink-0">
-                <span className="text-gray-400 text-lg">&gt;</span>
-              </div>
+        <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
+
+        @if (session('success'))
+            <!--Alert untuk mempermudah cek-->
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-          </div>
-        </div>
-      </div>
+        @endif
 
-      {/* Main Content */}
-      <div className="flex-1 px-8 py-6">
-        {/* Navigation Tabs */}
-        <div className="flex justify-center space-x-8 mb-8">
-          <button className="text-purple-600 font-medium hover:underline">Uang</button>
-          <button className="text-gray-600 font-medium hover:underline">Barang</button>
-          <button className="text-gray-600 font-medium hover:underline">Jasa</button>
-        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        {/* Form Title */}
-        <h1 className="text-2xl font-semibold text-center mb-8">
-          Donasi <span className="text-purple-600">Uang Tunai</span>
-        </h1>
+        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_donatur') }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="bukti_transfer" class="form-label">Bukti Pembayaran</label>
+                <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" required>
+            </div>
 
-        {/* Form Content */}
-        <div className="max-w-md mx-auto">
-          {currentPage === 1 ? (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Program Donasi
-                  </label>
-                  <select
-                    className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
-                    value={formData.program}
-                    onChange={(e) => setFormData({...formData, program: e.target.value})}
-                    required
-                  >
-                    <option value="">Pilih Program Donasi</option>
-                    <option value="1">Program 1</option>
-                    <option value="2">Program 2</option>
-                  </select>
-                </div>
+            <div class="form-group">
+                <label for="jumlah_uang">Jumlah Donasi</label>
+                <input type="number" id="jumlah_uang" name="jumlah_uang" class="form-control"
+                    placeholder="Masukkan jumlah donasi" required>
+            </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Jumlah Donasi
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
-                    value={formData.amount}
-                    onChange={(e) => setFormData({...formData, amount: e.target.value})}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Metode Pembayaran
-                  </label>
-                  <select
-                    className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
-                    value={formData.paymentMethod}
-                    onChange={(e) => setFormData({...formData, paymentMethod: e.target.value})}
-                    required
-                  >
-                    <option value="">Pilih Metode Pembayaran</option>
+            <div class="form-group">
+                <label for="cara_pembayaran">Metode Pembayaran</label>
+                <select id="cara_pembayaran" name="cara_pembayaran" class="form-control" required>
+                    <option value="" disabled selected>Metode Pembayaran</option>
                     <option value="transfer">Transfer Bank</option>
                     <option value="ewallet">E-Wallet</option>
-                  </select>
-                </div>
-              </div>
+                </select>
+            </div>
 
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Lanjutkan Donasi
-              </button>
-            </form>
-          ) : (
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Verifikasi Donasi
-                </label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
-                  value={formData.verification}
-                  onChange={(e) => setFormData({...formData, verification: e.target.value})}
-                  required
-                />
-              </div>
+            <button type="button" class="submit-button" onclick="showBankDetails()">Lihat Rekening Bank</button>
+            <button type="submit" class="submit-button">Kirim Bukti Pembayaran</button>
 
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Kirim
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
     </div>
-  );
-};
+    <div id="bankDetailsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideBankDetails()">&times;</span>
+            <h2>Informasi Rekening Bank</h2>
+            <p>Silakan lakukan pembayaran ke rekening berikut:</p>
+            <p><strong>Bank:</strong> Nama Bank Anda</p>
+            <p><strong>Nomor Rekening:</strong> 1234567890</p>
+            <p><strong>Atas Nama:</strong> Yayasan Orphanage</p>
+        </div>
+    </div>
 
-export default DonationForm;
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+    </style>
+
+    <script>
+        function showBankDetails() {
+            document.getElementById('bankDetailsModal').style.display = 'block';
+        }
+
+        function hideBankDetails() {
+            document.getElementById('bankDetailsModal').style.display = 'none';
+        }
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

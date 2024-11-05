@@ -24,7 +24,7 @@ class DonasiUangController extends Controller
 
         Log::info('File path: ' . $buktiTransferPath);
 
-        $email = Auth::check() ? Auth::user()->email : 'sulthan@example.com';
+        $email = Auth::check() ? Auth::user()->email : 'anonim@example.com';
 
         // Create a new donation entry
         DonasiUang::create([
@@ -35,9 +35,49 @@ class DonasiUangController extends Controller
             'bukti_transfer' => $buktiTransferPath,
             'status' => 'Diproses',
         ]);
-        
+
 
         return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+    }
+
+    public function store_donatur(Request $request)
+    {
+        $request->validate([
+            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'jumlah_uang' => 'required|numeric',
+            'cara_pembayaran' => 'required|string|max:30',
+        ]);
+
+        // Upload the payment proof image
+        $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
+
+        Log::info('File path: ' . $buktiTransferPath);
+
+        // Create a new donation entry
+        DonasiUang::create([
+            'email_admin' => 'admin@example.com', // Default email admin
+            'email' => 'sulthan@example.com', // Menggunakan nilai tetap
+            'jumlah_uang' => $request->input('jumlah_uang'),
+            'cara_pembayaran' => $request->input('cara_pembayaran'),
+            'tanggal_donasi_uang' => now(),
+            'bukti_transfer' => $buktiTransferPath,
+            'status' => 'Diproses',
+        ]);
+
+        return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+    }
+
+
+    public function AmbilDataUang_Riwayat()
+    {
+        $donasiUang = DonasiUang::join('donatur', 'donasi_uang.email', '=', 'donatur.email')
+            ->leftJoin('admin', 'donasi_uang.email_admin', '=', 'admin.email_admin')
+            ->select('donasi_uang.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
+            ->where('donatur.email', 'sulthan@example.com') //  Ganti jadi yang di session nya
+            ->orderBy('donasi_uang.updated_at', 'asc') //  updated_at asc
+            ->paginate(5);
+
+        return view('Donatur/riwayat_donasi_uang', ['donasiUang' => $donasiUang]);
     }
 
     public function AmbilDataUang_Admin()
@@ -48,7 +88,6 @@ class DonasiUangController extends Controller
             ->orderBy('donasi_uang.updated_at', 'asc') //  updated_at asc
             ->paginate(5);
 
-
         return view('Admin/list_uang', ['donasiUang' => $donasiUang]);
     }
 
@@ -56,16 +95,16 @@ class DonasiUangController extends Controller
     public function UpdateDataUang(Request $request, $id)
     {
         $donasiUang = DonasiUang::findOrFail($id);
-    
+
         // Validasi status
         $request->validate([
             'status' => 'required|string|max:255',
         ]);
-    
+
         // Update status
         $donasiUang->status = $request->input('status');
         $donasiUang->save();
-    
+
         return response()->json(['message' => 'Status berhasil diperbarui']);
     }
 

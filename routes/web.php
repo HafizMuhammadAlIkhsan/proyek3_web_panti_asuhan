@@ -49,15 +49,17 @@ Route::get('/Donasi_Uang_Umum', function () {
 })->name('donasi_uang_umum');
 
 Route::get('Masyarakat_Umum/data-anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
-// Route::get('/Beranda_Admin2', function () {
-//     return view('Admin/beranda_donasi_admin');
-// })->name('hal_beranda_donasi_admin');
 
-// Donasi Uang Umum_______________________________________________________________________________________________________________
-Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang');
+// Insert Donasi Uang _______________________________________________________________________________________________________________
+Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
 
+Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
 //______________________________________________________________________________________________________________________
 //Donatur
+
+Route::get('/Donasi_Uang_Donatur', function () {
+    return view('Donatur/donatur_donasi_uang_tunai');
+})->name('donasi_uang_Donatur');
 
 Route::get('Donatur/data-anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak');
 
@@ -73,13 +75,16 @@ Route::get('Donatur/data-anak', [dataAnakController::class, 'index_donatur'])->n
 // Route::get('/donatur/{email}', [DonaturController::class, 'show']);
 
 use App\Http\Controllers\DonasiJasaController;
-
+//Riwayat___________________________________________________________________________
 Route::get('/riwayat_donasi_jasa', function () {
     return view('Donatur/riwayat_donasi_jasa');
 })->name('riwayat_donasi_jasa');
 
 Route::get('/riwayat_donasi_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Riwayat'])->name('riwayat_donasi_jasa');
 
+Route::get('/riwayat_donasi_uang', [DonasiUangController::class, 'AmbilDataUang_Riwayat'])->name('riwayat_donasi_Uang');
+
+//________________________________________________________________________________________________________________
 Route::middleware(['isDonatur'])->group(function () {
     Route::get('/beranda_donatur', function () {
         return view('Donatur/beranda_donatur');
@@ -111,7 +116,6 @@ Route::get('/Beranda_Admin', function () {
 })->name('hal_beranda_admin');
 
 Route::get('/Beranda_Donasi', function () {
-Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
 
@@ -140,7 +144,6 @@ Route::get('/input_jasa', function () {
 
 Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
 Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
-
 
 //Berita_______________________________________________________________________________________________________________________________
 

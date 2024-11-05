@@ -51,11 +51,5 @@ class AdminSeeder extends Seeder
             'jabatan' => 'Admin'
         ]);
 
-        DB::table('admin')->insert([
-            'email_admin' => 'sulthan@example.com',
-            'nama_pengurus' => 'Sulthan Aulia Rahman',
-            'password_admin' => bcrypt('sulthan123'),
-            'jabatan' => 'Admin'
-        ]);
     }
 }

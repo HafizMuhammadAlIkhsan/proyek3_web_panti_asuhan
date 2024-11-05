@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List Donasi Uang</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
     <style>
         body {
             background-color: #F5F5F9;
@@ -153,17 +155,16 @@
 
 <body>
     <!-- Sidebar Component -->
-    @include('components.sidebaradmin')
+    @include('components.sidebardonatur_setting')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
                 <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Jasa" class="form-control">
+                    <input type="text" name="query" placeholder="Search Uang" class="form-control">
                     <button type="submit" class="search-button">
                         <ion-icon name="search-outline"></ion-icon>
                     </button>
@@ -171,7 +172,7 @@
             </div>
         </div>
 
-        <div class="Mid-Container">List Donasi Uang</div>
+        <div class="Mid-Container">Riwayat Donasi Uang</div>
 
         <div class="container">
             <table class="table table-striped">
@@ -201,10 +202,6 @@
                                 <td>{{ $uang->status }}</td>
                                 <td>{{ $uang->tanggal_donasi_uang }}</td>
                                 <td>
-                                    <button class="icon-btn delete-btn" title="Delete"
-                                        data-id="{{ $uang->id_donasi_uang }}" jumlah_uang="{{ $uang->jumlah_uang }}">
-                                        <ion-icon name="trash-outline"></ion-icon>
-                                    </button>
                                     <button class="icon-btn view-details-btn" title="Edit"
                                         data-id="{{ $uang->id_donasi_uang }}" data-status="{{ $uang->status }}"
                                         data-bukti="{{ asset('storage/bukti_transfer/' . basename($uang->bukti_transfer)) }}">
@@ -215,7 +212,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5">Data tidak tersedia</td>
+                            <td colspan="6">Belum Ada Donasi</td>
                         </tr>
                     @endif
                 </tbody>
@@ -238,65 +235,7 @@
                 @endif
             </div>
 
-            <!-- Pop Up Konfirmasi Delete -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Warning</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus donasi <strong id="delete_jumlah_uang"></strong>?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" id="confirmDeleteButton" class="btn btn-danger">Konfirmasi</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-                    let currentDeleteId = null;
-
-                    // Event listener untuk tombol delete
-                    document.querySelectorAll(".delete-btn").forEach(button => {
-                        button.addEventListener("click", function() {
-                            currentDeleteId = this.getAttribute("data-id");
-                            const jumlah_Uang = this.getAttribute("jumlah_uang");
-                            document.getElementById("delete_jumlah_uang").textContent = jumlah_Uang;
-                            deleteModal.show();
-                        });
-                    });
-
-                    // Konfirmasi penghapusan data
-                    document.getElementById("confirmDeleteButton").addEventListener("click", function() {
-                        if (currentDeleteId) {
-                            fetch(`/donasi_uang/${currentDeleteId}`, {
-                                    method: 'DELETE',
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                    }
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    alert(data.message || "Data berhasil dihapus");
-                                    deleteModal.hide();
-                                    location.reload();
-                                })
-                                .catch(error => console.error("Error deleting data:", error));
-                        }
-                    });
-                });
-            </script>
-
-
-            <!-- Pop Up Edit Data -->
+            <!-- Pop Up Detail Donasi-->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -325,8 +264,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {

@@ -170,7 +170,13 @@
         
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
 
-        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang') }}" method="POST" enctype="multipart/form-data">
+        @if(session('success')) <!--Alert untuk mempermudah cek-->
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_umum') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="bukti_transfer" class="form-label">Bukti Pembayaran</label>

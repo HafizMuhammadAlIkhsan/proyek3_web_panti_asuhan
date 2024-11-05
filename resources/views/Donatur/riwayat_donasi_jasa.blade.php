@@ -168,7 +168,7 @@
             </div>
         </div>
 
-        <div class="Mid-Container">Riwayat</div>
+        <div class="Mid-Container">Riwayat Donasi Jasa</div>
 
         <div class="container">
             <table class="table table-striped">

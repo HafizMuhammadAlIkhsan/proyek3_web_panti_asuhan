@@ -71,14 +71,26 @@ class DonaturSeeder extends Seeder
 
         DB::table('donatur')->insert([
             'email' => 'jihan@example.com',
-            'username' => 'hanjihan',
-            'nama_asli' => 'jehan',
-            'password' => bcrypt('jehan123'),
+            'username' => 'jihan123',
+            'nama_asli' => 'jihan',
+            'password' => bcrypt('jihan123'),
             'tgl_lahir_donatur' => '1990-01-01',
             'kontak' => '123456789012',
             'pekerjaan' => 'Programmer',
             'gender' => true,
             'kota' => 'Kopo'
+        ]);
+
+        DB::table('donatur')->insert([
+            'email' => 'anonim@example.com',
+            'username' => 'Anonnim',
+            'nama_asli' => 'anonim',
+            'password' => bcrypt('notapasswordwantothree'),
+            'tgl_lahir_donatur' => '1990-01-01',
+            'kontak' => '123456789012',
+            'pekerjaan' => 'Programmer',
+            'gender' => true,
+            'kota' => 'anonim'
         ]);
     }
 }
