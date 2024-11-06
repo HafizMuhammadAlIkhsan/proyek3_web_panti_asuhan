@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Donatur;
 
 class RegisterController extends Controller
@@ -27,36 +28,21 @@ class RegisterController extends Controller
 
     public function showRegister2(Request $request)
     {
-        // Cek apakah data register1 ada di session
         if (!$request->session()->has('register1')) {
             return redirect()->route('register.step1');
         }
 
-        // Ambil data email dari session untuk ditampilkan
         $email = $request->session()->get('register1')['email'];
         return view('Masyarakat_Umum.register2', compact('email'));
     }
 
     public function postRegister2(Request $request)
     {
-        // Validasi input
-        // $validated = $request->validate([
-        //     'username' => 'nullable|max:50',
-        //     'alamat' => 'nullable|max:255',
-        //     'pekerjaan' => 'nullable|max:50',
-        //     'tanggal' => 'nullable|integer',
-        //     'bulan' => 'nullable|integer',
-        //     'tahun' => 'nullable|integer',
-        //     'gender' => 'nullable|boolean',
-        // ]);
-
-        // Ambil data dari session
         $register1Data = $request->session()->get('register1');
 
-        // Simpan data ke database
         Donatur::create([
             'email' => $register1Data['email'],
-            'password' => $register1Data['password'],
+            'password' => bcrypt($register1Data['password']),
             'kontak' => $register1Data['kontak'],
             'username' => $request->input('username'),
             'alamat' => $request->input('alamat'),
@@ -67,6 +53,6 @@ class RegisterController extends Controller
 
         $request->session()->forget('register1');
 
-        return redirect()->route('beranda_donatur');
+        return redirect()->route('login');
     }
 }

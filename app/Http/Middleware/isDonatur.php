@@ -6,9 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Hash;
-use App\Models\Donatur; // Pastikan model Donatur sudah dibuat
+use App\Models\Donatur;
 
 class isDonatur
 {
@@ -19,11 +17,9 @@ class isDonatur
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if (Auth::check() && Auth::user() instanceof \App\Models\Donatur) {
+        if (Auth::guard('donatur')->check() && Auth::guard('donatur')->user() instanceof Donatur) {
             return $next($request);
         }
-
         abort(401);
     }
 }

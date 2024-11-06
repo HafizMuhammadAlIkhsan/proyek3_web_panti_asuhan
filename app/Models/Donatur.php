@@ -19,6 +19,7 @@ class Donatur extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'nama_asli',
         'kontak',
         'username',
         'tgl_lahir_donatur',
