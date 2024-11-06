@@ -6,9 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Donatur;
+use App\Models\Admin;
 
-class isDonatur
+class isAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class isDonatur
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('donatur')->check() && Auth::guard('donatur')->user() instanceof Donatur) {
+        if (Auth::guard('admin')->check() && Auth::guard('admin')->user() instanceof Admin) {
             return $next($request);
         }
         abort(401);

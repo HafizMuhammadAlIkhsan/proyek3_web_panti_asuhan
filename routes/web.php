@@ -119,6 +119,7 @@ Route::middleware(['isDonatur'])->group(function () {
     Route::get('/donatur_donasi_barang', function () {
         return view('Donatur/donatur_donasi_barang');
     })->name('hal_donasi_barang');
+    Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
 });
 
 
@@ -131,7 +132,7 @@ Route::post('/Login_Admin', [LoginAdminController::class, 'login']);
 
 Route::get('/Beranda_Admin', function () {
     return view('Admin/beranda_admin');
-})->name('hal_beranda_admin');
+})->name('hal_beranda_admin')->middleware('isAdmin');;
 
 Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
@@ -154,7 +155,7 @@ Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'
 
 Route::get('/Beranda_jasa_admin', function () {
     return view('Admin/beranda_jasa_admin');
-})->name('hal_beranda_jasa_admin');
+})->name('hal_beranda_jasa_admin')->middleware('isAdmin');;
 
 Route::get('/input_jasa', function () {
     return view('Admin/input_jasa');

@@ -43,7 +43,12 @@ return [
 
         'user' => [
             'driver' => 'session',
-            'provider' => 'donators',
+            'provider' => 'users',
+        ],
+
+        'donatur' => [
+            'driver' => 'session',
+            'provider' => 'donaturs', 
         ],
 
         'admin' => [
@@ -80,7 +85,7 @@ return [
             'model' =>  App\Models\Admin::class, 
         ],
 
-        'donators' => [
+        'donaturs' => [
             'driver' => 'eloquent',
             'model' => App\Models\Donatur::class,
         ],

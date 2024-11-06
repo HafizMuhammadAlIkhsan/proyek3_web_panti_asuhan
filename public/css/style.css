@@ -38,7 +38,6 @@ body {
     padding-top: 20px;
     padding-right: 25px;
     padding-bottom: 20px;
-    /* padding: 20px; */
     overflow: hidden;
     border-radius: 10px;
     background-color: var(--white-bg);
@@ -169,7 +168,7 @@ button {
     margin: 0 10px;
     width: 200px;
     padding: 10px 0;
-    /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.2); */
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
     transition: 0.4s;
 }
 
@@ -182,7 +181,7 @@ button {
 button:hover {
     color: white;
     width: 200px;
-    /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.6); */
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
     background-color: #7243b7;
 }
 

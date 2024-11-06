@@ -35,29 +35,8 @@
                 <span style="--i:5"> Anak Asuh </span>
             </a>
         </li>
-        <li class="menu-item no-hover">
-            {{-- <a href="#" class="link" id="user-info">
-                <!-- Konten yang akan ditampilkan jika sudah login -->
-                <div class="logged-in" style="display: none;">
-                    <img src="image/logo_panti.png" alt="">
-                    <span style="--i:6" class="text-container">
-                        <div>
-                            <p>Selamat Datang</p>
-                            <h4>Hafiz</h4>
-                        </div>
-                        <span class="arrow"> &gt; </span>
-                    </span>
-                </div>
-        
-                <!-- Tombol Login yang akan ditampilkan jika belum login -->
-                <div class="logged-out">
-                    <button id="login-btn">Login</button>
-                </div>
-            </a> --}}
-            {{-- <div>
-                <button class="log" id="loginButton" onclick="window.location.href='/Login'">Login</button>
-            </div> --}}
-            <a href="#" class="link" onclick="setActive('info-item')">
+        <li class="{{ request()->routeIs('hal_profile_donatur') ? 'active' : '' }}">
+            <a href="{{ route('hal_profile_donatur') }}" >
                 <img src="{{ asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>

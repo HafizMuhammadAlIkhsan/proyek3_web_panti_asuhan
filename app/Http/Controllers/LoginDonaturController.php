@@ -11,7 +11,7 @@ class LoginDonaturController extends Controller
 {
     public function showLoginForm()
     {
-        return view('Masyarakat_Umum/login');
+        return view('Masyarakat_Umum.login');
     }
 
     public function login(Request $request)
@@ -25,7 +25,7 @@ class LoginDonaturController extends Controller
         $donatur = Donatur::where('email', $request->email)->first();
 
         if ($donatur && Hash::check($request->password, $donatur->password)) {
-            Auth::guard('user')->login($donatur);
+            Auth::guard('donatur')->login($donatur);         
             return redirect()->intended('beranda_donatur');
         }
 
