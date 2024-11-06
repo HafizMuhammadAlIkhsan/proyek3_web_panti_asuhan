@@ -138,70 +138,9 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Selesai</button>
-                <a href="{{ route('beranda_donatur') }}" class="btn btn-secondary">Lewati</a>
+                {{-- <a href="{{ route('beranda_donatur') }}" class="btn btn-secondary">Lewati</a> --}}
             </form>
         </div>
     </div>
-    {{-- <div class="container">
-        <div class="form-container">
-            <h2>Complete Your Profile</h2>
-            <form>
-                <input type="text" placeholder="Nama Lengkap" required>
-                <input type="text" placeholder="Alamat" required>
-                <input type="text" placeholder="Pekerjaan" required>
-
-                <!-- Tanggal Lahir -->
-                <label for="tanggal-lahir">Tanggal Lahir</label>
-                <div style="display: flex; gap: 10px;">
-                    <select id="tanggal" required>
-                        <option value="">Tanggal</option>
-                        <!-- Pilihan tanggal 1-31 -->
-                        <script>
-                            for (let i = 1; i <= 31; i++) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                    <select id="bulan" required>
-                        <option value="">Bulan</option>
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
-                    <select id="tahun" required>
-                        <option value="">Tahun</option>
-                        <!-- Pilihan tahun dari 1950 hingga 2024 -->
-                        <script>
-                            let year = new Date().getFullYear();
-                            for (let i = year; i >= 1950; i--) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                </div>
-
-                <!-- Jenis Kelamin -->
-                <label>Jenis Kelamin</label>
-                <div class="radio-group">
-                    <input type="radio" id="laki-laki" name="gender" value="Laki-laki" required>
-                    <label for="laki-laki">Laki-laki</label>
-                    <input type="radio" id="perempuan" name="gender" value="Perempuan" required>
-                    <label for="perempuan">Perempuan</label>
-                </div>
-
-                <button type="submit">Selesai</button>
-            </form>
-        </div>
-    </div> --}}
-
 </body>
 </html>
