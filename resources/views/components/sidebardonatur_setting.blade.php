@@ -4,9 +4,8 @@
         <span> Profile </span>
     </div>
     <ul class="menu-item">
-        {{-- <li class="menu-item" id="home-item"> --}}
-        <li class="{{ request()->routeIs('beranda_umum') ? 'active' : '' }}">
-            <a href="#">
+        <li class="{{ request()->routeIs('hal_profile_donatur') ? 'active' : '' }}">
+            <a href="{{ route('hal_profile_donatur') }}" >
                 <ion-icon name="apps-outline"></ion-icon>
                 <span style="--i:1"> Profile </span>
             </a>
@@ -29,36 +28,12 @@
                 <span style="--i:4"> Pengaturan </span>
             </a>
         </li>
-        <li class="menu-item no-hover">
-            {{-- <a href="#" class="link" id="user-info">
-                <!-- Konten yang akan ditampilkan jika sudah login -->
-                <div class="logged-in" style="display: none;">
-                    <img src="image/logo_panti.png" alt="">
-                    <span style="--i:6" class="text-container">
-                        <div>
-                            <p>Selamat Datang</p>
-                            <h4>Hafiz</h4>
-                        </div>
-                        <span class="arrow"> &gt; </span>
-                    </span>
-                </div>
-        
-                <!-- Tombol Login yang akan ditampilkan jika belum login -->
-                <div class="logged-out">
-                    <button id="login-btn">Login</button>
-                </div>
-            </a> --}}
+        <li class="{{ request()->routeIs('beranda_donatur') ? 'active' : '' }}">
+            <a href="{{ route('beranda_donatur') }}">
             <div>
-                <button class="log" id="loginButton" onclick="window.location.href={{ route('beranda_donatur') }}">Back</button>
+                <button class="log" onclick="window.location.href={{ route('beranda_donatur') }}">Back</button>
             </div>
-            {{-- <a href="#" class="link" onclick="setActive('info-item')">
-                <img src="image/logo_panti.png" alt="" >
-                <span >
-                    <p>selamat datang</p>
-                    <h4>Hafiz</h4>
-                </span>
-                <span class="arrow">&gt;</span>
-            </a> --}}
+            </a>
         </li>
     </ul>
 </div>
