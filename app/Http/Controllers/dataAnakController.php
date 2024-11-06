@@ -9,13 +9,13 @@ class dataAnakController extends Controller
 {   
     public function index_masyarakat()
     {
-        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(7); 
         return view ('Masyarakat_Umum.data_anak')->with ('data_anak', $data_anak);       
     }
 
     public function index_donatur()
     {
-        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(7); 
         return view ('Donatur.data_anak')->with ('data_anak', $data_anak);       
     }
     /**
@@ -23,7 +23,7 @@ class dataAnakController extends Controller
      */
     public function index()
     {
-        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(5); 
+        $data_anak = dataAnak::orderBy('tanggal_lahir', 'desc')->paginate(7); 
         return view ('admin.dataAnak.data_anak')->with ('data_anak', $data_anak);       
     }
 
@@ -45,8 +45,8 @@ class dataAnakController extends Controller
 
         // Buat data anak baru
         $dataAnak = dataAnak::create($validatedData);
-
-        return redirect()->route('admin-data-anak')->with('success', 'Data telah tersimpan.');
+        
+        return redirect()->route('admin-data-anak-create')->with('success', 'Data telah tersimpan.');
     }
 
     /**
@@ -103,7 +103,7 @@ class dataAnakController extends Controller
 
         if ($dataAnak) {
             $dataAnak->delete();
-            return redirect()->to('admin/data-anak')->with('success', 'Berhasil melakukan deleta data!');
+            return redirect()->to('admin/data-anak')->with('success', 'Berhasil melakukan delete data!');
         } else {
             return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
         }

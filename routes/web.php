@@ -56,7 +56,7 @@ Route::get('/Donasi_Uang_Umum', function () {
     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
 })->name('donasi_uang_umum');
 
-Route::get('Masyarakat_Umum/data-anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
+Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
 
 Route::get('/Berita', function () {
     return view('Masyarakat_Umum/katalog_berita');
@@ -80,7 +80,7 @@ Route::get('/Donasi_Uang_Donatur', function () {
     return view('Donatur/donatur_donasi_uang_tunai');
 })->name('donasi_uang_Donatur');
 
-Route::get('Donatur/data-anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak');
+Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak');
 
 // // Route untuk beranda donatur
 // Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
@@ -161,7 +161,7 @@ Route::get('/input_jasa', function () {
 })->name('input-jasa');
 
 Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
-Route::post('Admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
+Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
 //Berita_______________________________________________________________________________________________________________________________
 
@@ -169,12 +169,12 @@ Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.s
 
 //_________________________________________________________________________________________________________________________________________
 
-Route::get('admin/data-anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
-Route::get('admin/data-anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
-Route::post('admin/data-anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
-Route::get('admin/data-anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
-Route::post('admin/data-anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
-Route::delete('admin/data-anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
+Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
+Route::get('admin/data_anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
+Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
+Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
+Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
+Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
     
 // Route::get('/Beranda_Donasi_Admin', function () {
 //     return view('Admin/beranda_donasi_admin');

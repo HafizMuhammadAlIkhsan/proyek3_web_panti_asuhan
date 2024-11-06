@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Anak Asuh</title>
+    <title>Data Anak Asuh</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}'
+                });
+            });
+        </script>
+    @endif
     <style>
         /* Menambahkan beberapa styling untuk memastikan layout yang baik */
         .main-content {
@@ -148,7 +159,7 @@
                         <td>{{ $anak->status_ortu }}</td>
                         <td>{{ $anak->tanggal_lahir }}</td>
                         <td>
-                            <a href ='{{url('admin/data-anak/'.$anak->id_anak.'/edit')}}' class ="btn btn-warning btn-sm">Edit</a>
+                            <a href ='{{url('admin/data_anak/'.$anak->id_anak.'/edit')}}' class ="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('admin-data-anak-delete', $anak->id_anak) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');" onclick="showLoginAlert()">
                                 @csrf
                                 @method('DELETE')
@@ -163,17 +174,6 @@
             {{$data_anak->links() }}
         </div>
     </main>
-    <script>
-        function showLoginAlert() 
-        {
-            Swal.fire({
-                icon: 'info',
-                title: 'Perhatian',
-                text: 'Data Berhasil di edit!',
-                confirmButtonText: 'OK'
-            });
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

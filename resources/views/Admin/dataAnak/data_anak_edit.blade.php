@@ -9,13 +9,17 @@
 </head>
 <body>
     <div class="container mt-5">
-              <!-- Menampilkan pesan sukses jika ada -->
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-
-          @endif
+        @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}'
+                });
+            });
+        </script>
+        @endif
         <h2>Tambah Anak Asuh</h2>
         <form action="{{ route('admin-data-anak-edit', ['id' => $data_anak->id_anak]) }}" method="POST">
             @csrf

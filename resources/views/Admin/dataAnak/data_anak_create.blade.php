@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +8,23 @@
 </head>
 <body>
     <div class="container mt-5">
-              <!-- Menampilkan pesan sukses jika ada -->
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+        <!-- Menampilkan pesan sukses jika ada -->
+        @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}'
+                });
+            });
+        </script>
+        @endif
 
-          @endif
         <h2>Tambah Anak Asuh</h2>
         <form action="{{ route('admin-data-anak-store') }}" method="POST">
             @csrf
+            <a href ='{{ route('admin-data-anak') }}' class ="btn btn-secondary"><< Kembali</a>
             <div class="form-group">
                 <label for="nama_anak">Nama Anak</label>
                 <input type="text" class="form-control" id="nama_anak" name="nama_anak" required>
@@ -49,5 +55,6 @@
             <button type="submit" class="btn btn-primary">Tambah Data</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
