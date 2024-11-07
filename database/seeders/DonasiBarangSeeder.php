@@ -10,7 +10,6 @@ class DonasiBarangSeeder extends Seeder
     public function run()
     {
         DB::table('donasi_barang')->insert([
-            'id_donasi_barang' => 1,
             'email_admin' => 'admin@example.com',
             'email' => 'donatur@example.com',
             'nama_barang' => 'Buku Pelajaran',

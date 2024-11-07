@@ -53,14 +53,15 @@ class CreateTables extends Migration
 
         // Tabel DONASI_BARANG
         Schema::create('donasi_barang', function (Blueprint $table) {
-            $table->id('id_donasi_barang');
+            $table->increments('id_donasi_barang'); // ID nya Karena increment Sifat nya jadi akan terus bertambah dan pasti unik Di gunakan Untuk Fetch
             $table->char('email_admin', 50)->nullable();
             $table->char('email', 50);
             $table->string('nama_barang', 50);
             $table->integer('jumlah_barang');
             $table->date('tanggal_verifikasi_barang');
             $table->string('bukti_foto')->nullable();
-            $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
+            $table->enum('status', ['Diterima','Menunggu_pengiriman', 'Dibatalkan','Diproses'])->default('Diproses');
+            $table->timestamps(); //Untuk Order by nya agar yang baru paling ata maka by ASC
             $table->primary(['id_donasi_barang', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
