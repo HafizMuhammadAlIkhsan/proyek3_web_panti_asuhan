@@ -58,15 +58,14 @@ Route::get('/Donasi_Uang_Umum', function () {
 
 Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
 
-Route::get('/Berita', function () {
-    return view('Masyarakat_Umum/katalog_berita');
-})->name('donasi_uang_umum');
+
+
 
 //Berita_______________________________________________________________________________________________________________
 
-Route::get('/Berita', [BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::post('/input_berita', [BeritaController::class, 'store'])->name('berita.store');
-Route::get('/Berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
 
 // Insert Donasi Uang _______________________________________________________________________________________________________________
@@ -134,6 +133,12 @@ Route::get('/Beranda_Admin', function () {
     return view('Admin/beranda_admin');
 })->name('hal_beranda_admin')->middleware('isAdmin');;
 
+
+Route::get('/beranda_berita_admin', function () {
+    return view('Admin/beranda_berita_admin');
+})->name('hal_beranda_berita_admin');
+
+
 Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
 })->name('hal_beranda_donasi_admin');
@@ -153,7 +158,7 @@ Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
 Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('update_data_jasa');
 Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'])->name('hapus_data_jasa');
 
-Route::get('/Beranda_jasa_admin', function () {
+Route::get('/beranda_jasa_admin', function () {
     return view('Admin/beranda_jasa_admin');
 })->name('hal_beranda_jasa_admin')->middleware('isAdmin');;
 
@@ -165,7 +170,7 @@ Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->
 Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
 
 //Berita_______________________________________________________________________________________________________________________________
-
+Route::get('/list_berita', [BeritaController::class, 'AmbilDataBerita_Admin'])->name('list-berita');
 Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
 
 //_________________________________________________________________________________________________________________________________________

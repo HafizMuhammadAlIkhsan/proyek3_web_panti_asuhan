@@ -169,7 +169,8 @@
                     <div class="feature-card">
                         <ion-icon name="bag-check-outline" class="icon"></ion-icon>
                         <h4>Donasi Barang</h4>
-                        <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_donasi_barang_admin') }}'">Detail Donasi</button>
+                        <button class="btn btn-primary" onclick="window.location.href={{ route('hal_list_uang_admin') }}'">Detail Donasi</button>
+                        {{-- <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_donasi_barang_admin')">Detail Donasi</button> --}}
                     </div>
                 </div>
                 <div class="col-md-4">

@@ -17,8 +17,8 @@
                 <span style="--i:2"> Donasi </span>
             </a>
         </li>
-        <li class="menu-item" id="news-item">
-            <a href="#" class="link" onclick="setActive('news-item')">
+        <li class="{{ request()->routeIs('berita.index') || request()->routeIs('berita.index') ? 'active' : '' }}" id="news-item">
+            <a href="{{ route('berita.index') }}" class="link" onclick="setActive('news-item')">
                 <ion-icon name="newspaper-outline"></ion-icon>
                 <span style="--i:3"> Berita & Artikel </span>
             </a>

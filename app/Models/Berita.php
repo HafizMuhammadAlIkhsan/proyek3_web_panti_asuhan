@@ -18,6 +18,7 @@ class Berita extends Model
         'nama_berita',
         'isi_berita',
         'tgl_upload',
+        'status',
         'gambar_berita'
     ];
 

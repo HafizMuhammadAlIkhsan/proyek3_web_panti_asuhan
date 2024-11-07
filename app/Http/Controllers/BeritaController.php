@@ -42,6 +42,14 @@ class BeritaController extends Controller
         return redirect()->back()->with('success', 'Berita berhasil ditambahkan.');
     }
 
+    public function AmbilDataBerita_Admin()
+    {
+        $berita = Berita::select('berita.*', )
+            ->orderBy('tgl_upload', 'asc') //  updated_at asc
+            ->paginate(5);
+
+        return view('Admin/list_berita', ['berita' => $berita]);
+    }
 
     public function show($id)
     {

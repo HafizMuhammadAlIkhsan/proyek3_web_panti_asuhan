@@ -46,6 +46,7 @@ class CreateTables extends Migration
             $table->string('nama_berita', 50);
             $table->text('isi_berita');
             $table->date('tgl_upload');
+            $table->boolean('status')->default(false);
             $table->string('gambar_berita')->nullable();//Gambar cover
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
