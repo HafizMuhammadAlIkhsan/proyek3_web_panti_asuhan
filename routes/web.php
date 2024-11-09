@@ -79,7 +79,7 @@ Route::get('/Donasi_Uang_Donatur', function () {
     return view('Donatur/donatur_donasi_uang_tunai');
 })->name('donasi_uang_Donatur');
 
-Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak');
+Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak')->middleware('isDonatur');
 
 // // Route untuk beranda donatur
 // Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
@@ -175,12 +175,12 @@ Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.s
 
 //_________________________________________________________________________________________________________________________________________
 
-Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak');
-Route::get('admin/data_anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create');
-Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store');
-Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view');
-Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit');
-Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete');
+Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('isAdmin');
+Route::get('admin/data_anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create')->middleware('isAdmin');
+Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store')->middleware('isAdmin');
+Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view')->middleware('isAdmin');
+Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit')->middleware('isAdmin');
+Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete')->middleware('isAdmin');
     
 // Route::get('/Beranda_Donasi_Admin', function () {
 //     return view('Admin/beranda_donasi_admin');
