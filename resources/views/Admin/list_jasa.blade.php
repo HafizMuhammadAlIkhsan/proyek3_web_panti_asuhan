@@ -51,7 +51,7 @@
             background: none;
             font-size: 1.2em;
         }
-
+        
         .Mid-Container {
             background-color: #D1B2FF;
             width: 100%;

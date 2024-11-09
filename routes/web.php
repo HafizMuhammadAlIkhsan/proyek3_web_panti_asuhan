@@ -67,7 +67,8 @@ Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])-> name
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::post('/input_berita', [BeritaController::class, 'store'])->name('berita.store');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
-
+Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
+Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
 // Insert Donasi Uang _______________________________________________________________________________________________________________
 Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');

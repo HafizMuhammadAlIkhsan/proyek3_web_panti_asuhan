@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Berita</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <style>
-                body {
+        body {
             background-color: #F5F5F9;
         }
 
@@ -149,6 +151,7 @@
         }
     </style>
 </head>
+
 <body>
     @include('components.sidebaradmin')
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -188,7 +191,8 @@
                                     <div class="d-flex align-items-center">
                                         <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                                         <div class="ms-3">
-                                            <p class="mb-0">{{ $unit->admin->name ?? 'Terjadi Kesalahan' }}</p>
+                                            <p class="mb-0">{{ $unit->admin->nama_pengurus ?? 'Terjadi Kesalahan' }}
+                                            </p>
                                             <p class="text-muted mb-0">{{ $unit->email_admin }}</p>
                                         </div>
                                     </div>
@@ -203,10 +207,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="icon-btn delete-btn" title="Delete">
+                                    <button class="icon-btn delete-btn" title="Delete" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal-{{ $unit->id_berita }}">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
-                                    <button class="icon-btn view-details-btn" title="Edit">
+                                    <button class="icon-btn view-details-btn" title="Edit" data-bs-toggle="modal"
+                                        data-bs-target="#editModal-{{ $unit->id_berita }}">
                                         <ion-icon name="brush-outline"></ion-icon>
                                     </button>
                                 </td>
@@ -237,7 +243,85 @@
                 @endif
             </div>
 
+            <!-- Modal Delete -->
+            <div class="modal fade" id="deleteModal-{{ $unit->id_berita }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Hapus Berita</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Anda yakin ingin menghapus berita ini?
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{ route('berita.destroy', $unit->id_berita) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editModal-{{ $unit->id_berita }}" tabindex="-1"
+                aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Berita</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('berita.update', $unit->id_berita) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="mb-3">
+                                    <label for="nama_berita" class="form-label">Judul Berita</label>
+                                    <input type="text" class="form-control" name="nama_berita"
+                                        value="{{ $unit->nama_berita }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-control" name="status">
+                                        <option value="1" {{ $unit->status ? 'selected' : '' }}>Ditampilkan</option>
+                                        <option value="0" {{ !$unit->status ? 'selected' : '' }}>Disembunyikan</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="isi_berita" class="form-label">Isi Berita</label>
+                                    <textarea class="form-control ckeditor" name="isi_berita">{{ $unit->isi_berita }}</textarea>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.querySelectorAll('.ckeditor').forEach(editorEl => {
+                    ClassicEditor
+                        .create(editorEl)
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+            </script>
+
         </div>
     </div>
 </body>
+
 </html>

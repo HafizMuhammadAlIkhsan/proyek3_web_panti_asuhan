@@ -10,7 +10,8 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        $berita = Berita::orderBy('tgl_upload', 'desc')->get();
+        $berita = Berita::where('status', true)
+            ->orderBy('tgl_upload', 'desc')->get();
         return view('Masyarakat_Umum/Katalog_berita', compact('berita'));
     }
 
@@ -34,7 +35,7 @@ class BeritaController extends Controller
             'email_admin' => 'admin@example.com', // placholder
             'nama_berita' => $request->nama_berita,
             'isi_berita' => $request->isi_berita,
-            'tgl_upload' => now(), 
+            'tgl_upload' => now(),
             'gambar_berita' => $gambarBerita,
         ]);
 
@@ -44,12 +45,44 @@ class BeritaController extends Controller
 
     public function AmbilDataBerita_Admin()
     {
-        $berita = Berita::select('berita.*', )
-            ->orderBy('tgl_upload', 'asc') //  updated_at asc
+        $berita = Berita::with('admin') // Ambil relasi admin untuk mendapatkan nama_pengurus
+            ->orderBy('tgl_upload', 'asc')
             ->paginate(5);
 
         return view('Admin/list_berita', ['berita' => $berita]);
     }
+    public function destroy($id)
+    {
+        $berita = Berita::findOrFail($id);
+        $berita->delete();
+
+        return redirect()->back()->with('success', 'Berita berhasil dihapus.');
+    }
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_berita' => 'required|string|max:50',
+        'isi_berita' => 'required',
+        'status' => 'required|boolean',
+    ]);
+
+    $berita = Berita::findOrFail($id);
+
+    // Cek apakah status berubah
+    $statusChanged = $berita->status !== (bool)$request->status;
+
+    // Update berita
+    $berita->update([
+        'nama_berita' => $request->nama_berita,
+        'isi_berita' => $request->isi_berita,
+        'status' => $request->status,
+        'tgl_upload' => $statusChanged ? now() : $berita->tgl_upload,
+    ]);
+
+    return redirect()->back()->with('success', 'Berita berhasil diperbarui.');
+}
+
 
     public function show($id)
     {

@@ -10,18 +10,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <title>Berita</title>
-    
+
     <style>
         body {
             background-color: #F5F5F9;
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
+            display: flex;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .main-content {
-            margin-left: 50px;
+            width: 100%;
+            max-width: 900px;
+            margin-left: 200px;
         }
+
 
         .section-title {
             font-size: 24px;
@@ -53,18 +63,16 @@
         }
 
         .news-card img {
-            width: 300px;
-            height: 200px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover img {
+            transform: scale(1.1);
         }
 
         .news-card h5 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 18px;
+            color: #4F46E5;
         }
 
         .news-card p {
@@ -94,35 +102,130 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .bulletin button:hover {
             background-color: #4F46E5;
         }
-        .img{
+
+        .img {
             max-width: 500px;
             max-height: 300px;
+        }
+
+        .Top-Container {
+            background-color: #ffffff;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .Middle-Container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            margin: 20px auto;
+            width: 90%;
+            position: relative;
+        }
+
+        .Bottom-Container {
+            width: 100%;
+            background-color: #ffffff;
+            border-top: 3px solid #4F46E5;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .news-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .date {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 14px;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #F5F5F9;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 
 </head>
 
 <body>
-    @include('components.sidebar')
-    <div class="main-content">
-        <div class="section-title">Detail Berita</div>
-
-        <div class="news-detail">
-            <img src="{{ $berita->gambar_berita ? asset('storage/' . $berita->gambar_berita) : '#' }}" alt="Gambar Berita" class="img">
-            <h2>{{ $berita->nama_berita }}</h2>
-            <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($berita->tgl_upload)->format('d M, Y') }}</p>
-            <div class="content">{!! $berita->isi_berita !!}</div>
+   
+    <div class="content-wrapper">
+        @include('components.sidebar')
+        <div class="main-content">
+            <div class="Top-Container">
+                <div class="section-title">{{ $berita->nama_berita }}</div>
+            </div>
+            <div class="Middle-Container">
+                <div class="img-container">
+                    <img src="{{ $berita->gambar_berita ? asset('storage/' . $berita->gambar_berita) : '#' }}"
+                        alt="Gambar Berita" class="img">
+                    <p class="date">{{ \Carbon\Carbon::parse($berita->tgl_upload)->format('d M, Y') }}</p>
+                </div>
+                <h2 class="news-title">{{ $berita->nama_berita }}</h2>
+            </div>
+            <div class="Bottom-Container">
+                <div class="news-detail">
+                    <div class="content">{!! $berita->isi_berita !!}</div>
+                </div>
+            </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
 
 </html>

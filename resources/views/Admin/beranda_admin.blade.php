@@ -42,7 +42,7 @@
             height: 50px;
         }
 
-        /* Middle Container with user profile and donation summary */
+        
         .Middle-Container {
             display: flex;
             justify-content: space-around;
@@ -117,7 +117,7 @@
         .donation-stats .total {
             color: green;
         }
-
+        
         .Bottom-Container {
             width: 100%;
             height: auto; 
