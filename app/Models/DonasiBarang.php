@@ -8,7 +8,7 @@ class DonasiBarang extends Model
 {
     protected $table = 'donasi_barang';
     protected $primaryKey = 'id_donasi_barang';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'email_admin',
@@ -17,7 +17,8 @@ class DonasiBarang extends Model
         'jumlah_barang',
         'tanggal_verifikasi_barang',
         'bukti_foto',
-        'status'
+        'status',
+        'metode_pengiriman'
     ];
 
     protected $casts = [

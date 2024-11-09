@@ -1,4 +1,5 @@
 <?php
+use App\Models\DonasiBarang;
 use Illuminate\Support\Facades\Route;
 
 //Masyarakat Umum
@@ -112,12 +113,14 @@ Route::middleware(['isDonatur'])->group(function () {
     })->name('hal_donasi_donatur');
 
     Route::get('/donatur_donasi_jasa', function () {
-        return view('Donatur/donatur_donasi_jasa');
+        return view('Donatur/donatur_donasi_jasa',);
     })->name('hal_donasi_jasa');
     
     Route::get('/donatur_donasi_barang', function () {
-        return view('Donatur/donatur_donasi_barang');
+        $data = DonasiBarang::all();
+        return view('Donatur/donatur_donasi_barang',compact('data'));
     })->name('hal_donasi_barang');
+    Route::post('/donatur_donasi_barang',[DonasiController::class,'donasi_barang'])->name('post.donasi.barang');    
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
 });
 
@@ -187,11 +190,12 @@ Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->n
 // })->name('detail_barang');
 
 Route::get('/Detail_Barang', function () {
-    return view('Admin/detail_barang');
+    $donasi_barang = DonasiBarang::all();
+    return view('Admin/detail_barang',compact('donasi_barang'));
 });
 
 // Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
+    // Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
 //     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])->name('admin.donasi.show');
 //     Route::get('/admin/donasi-barang/{id}/edit', [DonasiBarangController::class, 'edit'])->name('admin.donasi.edit');
 //     Route::put('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'update'])->name('admin.donasi.update');

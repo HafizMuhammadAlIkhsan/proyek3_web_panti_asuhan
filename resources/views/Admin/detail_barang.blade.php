@@ -170,7 +170,7 @@
                                 <td><input type="checkbox" class="form-check-input"></td>
                                 <td>
                                     <div class="donatur-info">
-                                        <img src="{{ asset('storage/uploads/default.png') }}" alt="Profile">
+                                        <!-- <img src="{{ asset("storage/$donasi->bukti_foto") }}" alt="Profile"> -->
                                         <div>
                                             <div>{{ $donasi->nama_asli }}</div>
                                             <small>{{ $donasi->email }}</small>
@@ -183,6 +183,7 @@
                                 <td>{{ $donasi->tanggal_verifikasi_barang }}</td>
                                 <td class="aksi-column">
                                     {{ $donasi->metode_pengiriman }}
+                                    <button class="btn-detail">Detail</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -281,25 +282,26 @@
 
         // Load donations on page load
         $(document).ready(function() {
-            loadDonations();
+            // loadDonations();
         });
 
         // Show details in the modal
         $(document).on('click', '.btn-detail', function() {
-            const id = $(this).data('id');
-            $.ajax({
-                url: `/admin/donasi-barang/${id}/detail`,
-                method: 'GET',
-                success: function(response) {
-                    $('#detailDonatur').val(response.donatur);
-                    $('#detailTanggal').val(response.tanggal);
-                    $('#detailNamaBarang').val(response.nama_barang);
-                    $('#detailJumlahBarang').val(response.jumlah + ' Buah');
-                    $('#detailVerifikasi').attr('src', response.bukti_foto);
+            $('#detailModal').modal('show');
+            // const id = $(this).data('id');
+            // $.ajax({
+            //     url: `/admin/donasi-barang/${id}/detail`,
+            //     method: 'GET',
+            //     success: function(response) {
+            //         $('#detailDonatur').val(response.donatur);
+            //         $('#detailTanggal').val(response.tanggal);
+            //         $('#detailNamaBarang').val(response.nama_barang);
+            //         $('#detailJumlahBarang').val(response.jumlah + ' Buah');
+            //         $('#detailVerifikasi').attr('src', response.bukti_foto);
 
-                    $('#btnApprove, #btnReject').data('id', id);
-                }
-            });
+            //         $('#btnApprove, #btnReject').data('id', id);
+            //     }
+            // });
         });
 
         // Approve/Reject Handlers

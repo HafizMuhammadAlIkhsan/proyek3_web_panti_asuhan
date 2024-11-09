@@ -61,7 +61,8 @@ class CreateTables extends Migration
             $table->date('tanggal_verifikasi_barang');
             $table->string('bukti_foto')->nullable();
             $table->enum('status', ['Diterima','Menunggu_pengiriman', 'Dibatalkan','Diproses'])->default('Diproses');
-            $table->timestamps(); //Untuk Order by nya agar yang baru paling ata maka by ASC
+            $table->timestamps(); //Untuk Order by nya agar yang baru paling ata maka by ASC.
+            $table->enum('metode_pengiriman', ['Jasa Pengiriman', 'Pengiriman Mandiri'])->nullable();
             $table->primary(['id_donasi_barang', 'email']);
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
