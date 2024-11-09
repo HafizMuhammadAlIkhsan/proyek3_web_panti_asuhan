@@ -30,13 +30,13 @@ class CreateTables extends Migration
         });
 
         // Tabel ANAK_ASUH
-        Schema::create('anak_asuh', function (Blueprint $table) {
-            $table->id('id_anak')->primary();// Kolom ID auto increment
+        Schema::create('data_anak', function (Blueprint $table) {
+            $table->increments('id_anak')->primary();// Kolom ID auto increment
             $table->string('nama_anak', 50);
             $table->string('pendidikan');
             $table->string('jenis_kelamin');
             $table->string('status_ortu');
-            $table->date('tgl_lahir_anak_asuh');
+            $table->date('tanggal_lahir');
         });
 
         // Tabel BERITA

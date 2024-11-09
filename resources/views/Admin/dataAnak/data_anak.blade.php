@@ -131,7 +131,7 @@
 
         <!-- Tambah Data Button -->
         <div class="d-flex justify-content-end mb-3">
-            <a href="data-anak/create" class="btn btn-primary">Tambah Data</a>
+            <a href="data_anak/create" class="btn btn-primary">Tambah Data</a>
         </div>
 
         <!-- Tabel Anak Asuh -->
