@@ -145,7 +145,7 @@
         }
         
         .container {
-            margin-left: 300px;
+            margin-left: 290px;
             padding: 20px;
             background-color: #FFF;
             border-radius: 10px;
@@ -243,7 +243,7 @@
             border: 1px solid #EEE;
             border-radius: 5px;
             cursor: not-allowed;
-            margin-right: 5px;
+            margin-right: 3px;
         }
         .date-select select:disabled {
             cursor: not-allowed;
@@ -273,112 +273,108 @@
 
         <!-- Account details card-->
         <div class="container">
-            <div class="profile-form">
-                <button class="edit-btn" onclick="toggleEditMode()">Edit Bio</button>
-                <div class="form-group">
-                    <div class="input-field">
-                        <label>Username</label>
-                        <input type="text" value="{{ $profileData['username'] }}" disabled>
-                    </div>
-                    <div class="input-field">
-                        <label>Nama asli</label>
-                        <input type="text" value="{{ $profileData['nama_asli'] }}" disabled>
-                    </div>
-                    <div class="input-field">
-                        <label>Nomor HandPhone</label>
-                        <input type="text" value="{{ $profileData['kontak'] }}" disabled>
-                    </div>
-                    <div class="input-field">
-                        <label>Tanggal Lahir</label>
-                        <div class="date-select">
-                            <select id="year" disabled>
-                                <option value="" selected disabled>YYYY</option>
-                                <!-- Add year options here -->
-                                <script>
-                                    const yearSelect = document.getElementById('year');
-                                    const currentYear = new Date().getFullYear();
-                                    for (let y = currentYear; y >= 1950; y--) {
-                                        let option = document.createElement('option');
-                                        option.value = y;
-                                        option.textContent = y;
-                                        yearSelect.appendChild(option);
-                                    }
-                                </script>
-                            </select>
-                            <select id="month" disabled>
-                                <option value="" selected disabled>MM</option>
-                                <!-- Month options -->
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <select id="day" disabled>
-                                <option value="" selected disabled>DD</option>
-                                <!-- Day options -->
-                                <script>
-                                    // Populate day options from 1 to 31
-                                    const daySelect = document.getElementById('day');
-                                    for (let d = 1; d <= 31; d++) {
-                                        let option = document.createElement('option');
-                                        option.value = d < 10 ? '0' + d : d;
-                                        option.textContent = d < 10 ? '0' + d : d;
-                                        daySelect.appendChild(option);
-                                    }
-                                </script>
+            <form id="profileForm" action="{{ route('hal_profile_donatur.post') }}" method="POST">
+                @csrf
+                <div class="profile-form">
+                    <button type="button" class="edit-btn" onclick="toggleEditMode()">Edit Bio</button>
+                    <div class="form-group">
+                        <div class="input-field">
+                            <label>Username</label>
+                            <input type="text" name="username" value="{{ $profileData['username'] }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Nama asli</label>
+                            <input type="text" name="nama_asli" value="{{ $profileData['nama_asli'] }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Nomor HandPhone</label>
+                            <input type="text" name="nomor_handphone" value="{{ $profileData['kontak'] }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Tanggal Lahir</label>
+                            <div class="date-select">
+                                <select name="tahun_lahir" id="year" disabled>
+                                    @for ($y = now()->year; $y >= 1950; $y--)
+                                        <option value="{{ $y }}" {{ $y == $profileData['tahun_lahir'] ? 'selected' : '' }}>{{ $y }}</option>
+                                    @endfor
+                                </select>
+                                <select name="bulan_lahir" id="month" disabled>
+                                    @for ($m = 1; $m <= 12; $m++)
+                                        <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}" {{ $m == $profileData['bulan_lahir'] ? 'selected' : '' }}>
+                                            {{ str_pad($m, 2, '0', STR_PAD_LEFT) }}
+                                        </option>
+                                    @endfor
+                                </select>
+                                <select name="hari_lahir" id="day" disabled>
+                                    @for ($d = 1; $d <= 31; $d++)
+                                        <option value="{{ str_pad($d, 2, '0', STR_PAD_LEFT) }}" {{ $d == $profileData['hari_lahir'] ? 'selected' : '' }}>
+                                            {{ str_pad($d, 2, '0', STR_PAD_LEFT) }}
+                                        </option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label>Pekerjaan</label>
+                            <input type="text" name="pekerjaan" value="{{ $profileData['pekerjaan'] }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Gender</label>
+                            <select name="gender" id="gender" disabled>
+                                <option value="true" {{ $profileData['gender'] === true ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="false" {{ $profileData['gender'] === false ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
                     </div>
-                    <div class="input-field">
-                        <label>Pekerjaan</label>
-                        <input type="text" value="{{ $profileData['pekerjaan'] }}" disabled>
+                    <div class="contact-info">
+                        <h3>Contact Saya</h3>
+                        <div class="contact-email">
+                            <span class="email-icon">📧</span>
+                            <span>{{ $profileData['email'] }}</span>
+                        </div>
                     </div>
-                    <div class="input-field">
-                        <label>Gender</label>
-                        <select id="gender" disabled>
-                            <option value="" selected disabled>Gender</option>
-                            <option value="true" {{ $profileData['gender'] === true ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="false" {{ $profileData['gender'] === false ? 'selected' : '' }}>Perempuan</option>
-                        </select>
-                    </div>
+                    {{-- <button type="submit" id="saveChangesBtn">Save Changes</button> --}}
+
                 </div>
-                <div class="contact-info">
-                    <h3>Contact Saya</h3>
-                    <div class="contact-email">
-                        <span class="email-icon">📧</span>
-                        <span>{{ $profileData['email'] }}</span>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
+        
 
         <script>
             function toggleEditMode() {
-            const inputs = document.querySelectorAll('.input-field input, .input-field select');
-            const button = document.querySelector('.edit-btn');
+            const formFields = document.querySelectorAll('#profileForm input, #profileForm select');
+            const editButton = document.querySelector('.edit-btn');
             
-            if (button.textContent === "Edit Bio") {
-                inputs.forEach(input => {
-                    input.disabled = false;
-                    input.style.cursor = 'pointer';
-                });
-                button.textContent = "Save Changes"
+            if (editButton.innerText === "Edit Bio") {
+                formFields.forEach(field => field.disabled = false);
+                editButton.innerText = "Save Changes";
             } else {
-                inputs.forEach(input => {
-                    input.disabled = true;
-                    input.style.cursor = 'not-allowed';
-                });
-                button.textContent = "Edit Bio";
+                formFields.forEach(field => field.disabled = false); // pastikan semua input diaktifkan
+                document.getElementById("profileForm").submit();
             }
         }
+
+
+        //     function toggleEditMode() {
+        //     const inputs = document.querySelectorAll('.input-field input, .input-field select');
+        //     const button = document.querySelector('.edit-btn');
+            
+        //     if (button.textContent === "Edit Bio") {
+        //         inputs.forEach(input => {
+        //             input.disabled = false;
+        //             input.style.cursor = 'pointer';
+        //         });
+        //         button.textContent = "Save Changes"
+        //     } else {
+        //         inputs.forEach(input => {
+        //             input.disabled = true;
+        //             input.style.cursor = 'not-allowed';
+        //         });
+        //         button.textContent = "Edit Bio";
+        //     }
+        // }
+
+
             // function toggleEditMode() {
             //     const inputs = document.querySelectorAll('.input-field input');
             //     const button = document.querySelector('.edit-btn');
