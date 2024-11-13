@@ -11,24 +11,24 @@ class AnakAsuhSeeder extends Seeder
     {
         DB::table('data_anak')->insert([
             'nama_anak' => 'Budi',
-            'jenis_kelamin' => 'laki',
+            'jenis_kelamin' => 'Laki-laki',
             'pendidikan' => 'SD',
-            'status_ortu' => 'yatim',
+            'status_ortu' => 'Yatim',
             'tanggal_lahir' => '2015-06-01'
         ]);
 
         DB::table('data_anak')->insert([
-            'nama_anak' => 'yanto',
-            'jenis_kelamin' => 'laki',
+            'nama_anak' => 'Yanto',
+            'jenis_kelamin' => 'Laki-laki',
             'pendidikan' => 'SMP',
-            'status_ortu' => 'yatimPiatu',
+            'status_ortu' => 'Yatim Piatu',
             'tanggal_lahir' => '2010-06-01'
         ]);
 
         DB::table('data_anak')->insert([
             'nama_anak' => 'Sari',
             'jenis_kelamin' => 'Perempuan',
-            'pendidikan' => 'SMa',
+            'pendidikan' => 'SMA',
             'status_ortu' => 'Piatu',
             'tanggal_lahir' => '2006-06-01'
         ]);

@@ -4,176 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Anak Asuh</title>
+    <title>List Anak Asuh</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    @if (session('success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}'
-                });
-            });
-        </script>
-    @endif
     <style>
-        /* Menambahkan beberapa styling untuk memastikan layout yang baik */
-        .main-content {
-            margin-left: 250px; /* Menyesuaikan margin untuk konten utama agar tidak tertutup sidebar */
-            padding: 20px; /* Padding untuk konten utama */
-            background-color: #f9f9f9; /* Warna latar belakang konten utama */
-        }
-         body {
+        /* Styling untuk tampilan yang menyerupai gambar */
+        body {
             background-color: #F5F5F9;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100vh;
-            background: white;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .logo img {
-            width: 32px;
-            height: 32px;
-        }
-
-        .logo span {
-            font-weight: 600;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .menu-item {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .menu-item li {
-            margin-bottom: 15px;
-        }
-
-        .menu-item a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            text-decoration: none;
-            color: #6B7280;
-            border-radius: 8px;
-            transition: all 0.3s;
-            gap: 12px;
-        }
-
-        .menu-item a:hover, .menu-item a.active {
-            background-color: #F3F4F6;
-            color: #6366F1;
-        }
-
-        .menu-item ion-icon {
-            font-size: 20px;
-        }
-
-        .login-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: calc(250px - 40px);
-            padding: 12px;
-            background: #6366F1;
+        .header {
+            background-color: #d6bcfa;
             color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 20px;
             text-align: center;
-            text-decoration: none;
-            font-weight: 500;
         }
 
-        .login-btn:hover {
-            background: #4F46E5;
+        .table-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px;
         }
-        .sidebar ul li:last-child {
-        position:absolute;
-        bottom:0;
-        width:100%;
-        height:60px;
+
+        .table th {
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .btn {
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #6b46c1;
+            border-color: #6b46c1;
+        }
+
+        .btn-primary:hover {
+            background-color: #553c9a;
+            border-color: #553c9a;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+
+        .btn-action {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-    @include ('components.sidebaradmin')
-    <main class="main-content">
-    <!-- Main content -->
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h1 class="text-center">List Anak Asuh</h1>
-        </div>
-
-        <!-- Tambah Data Button -->
+    @include("components.sidebaradmin")
+    <div class="table-container">
         <div class="d-flex justify-content-end mb-3">
             <a href="data_anak/create" class="btn btn-primary">Tambah Data</a>
         </div>
 
-        <!-- Tabel Anak Asuh -->
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nama Anak</th>
-                        <th scope="col">Jenis Kelamin</th>
-                        <th scope="col">Pendidikan</th>
-                        <th scope="col">Status Orang Tua</th>
-                        <th scope="col">Tanggal Lahir</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = $data_anak->firstItem() ?>
-                    @foreach ($data_anak as $anak)
-                    <tr>
-                        <td>{{ $i }}</td>
-                        <td>{{ $anak->nama_anak }}</td>
-                        <td>{{ $anak->jenis_kelamin }}</td>
-                        <td>{{ $anak->pendidikan }}</td>
-                        <td>{{ $anak->status_ortu }}</td>
-                        <td>{{ $anak->tanggal_lahir }}</td>
-                        <td>
-                            <a href ='{{url('admin/data_anak/'.$anak->id_anak.'/edit')}}' class ="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('admin-data-anak-delete', $anak->id_anak) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');" onclick="showLoginAlert()">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php $i++ ?>
-                    @endforeach
-                </tbody>
-            </table>
-            {{$data_anak->links() }}
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Anak</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Pendidikan</th>
+                    <th>Status Orang Tua</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = $data_anak->firstItem() ?>
+                @foreach ($data_anak as $anak)
+                <tr>
+                    <td>{{ $i }}</td>
+                    <td>{{ $anak->nama_anak }}</td>
+                    <td>{{ $anak->jenis_kelamin }}</td>
+                    <td>{{ $anak->pendidikan }}</td>
+                    <td>{{ $anak->status_ortu }}</td>
+                    <td>{{ $anak->tanggal_lahir }}</td>
+                    <td class="btn-action">
+                        <a href ='{{url('admin/data_anak/'.$anak->id_anak.'/edit')}}' class ="btn btn-secondary btn-sm">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </a>
+                        <form action="{{ route('admin-data-anak-delete', $anak->id_anak) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-secondary btn-sm">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <?php $i++ ?>
+                @endforeach
+            </tbody>
+        </table>
+        
+        <div class="pagination-container">
+            <!-- Tombol Previous Page -->
+            @if ($data_anak->onFirstPage())
+                <button class="btn btn-secondary" disabled>Previous Page</button>
+            @else
+                <a href="{{ $data_anak->previousPageUrl() }}" class="btn btn-secondary">Previous Page</a>
+            @endif
+
+            <span>Page {{ $data_anak->currentPage() }} of {{ $data_anak->lastPage() }}</span>
+
+            <!-- Tombol Next Page -->
+            @if ($data_anak->hasMorePages())
+                <a href="{{ $data_anak->nextPageUrl() }}" class="btn btn-secondary">Next Page</a>
+            @else
+                <button class="btn btn-secondary" disabled>Next Page</button>
+            @endif
         </div>
-    </main>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
