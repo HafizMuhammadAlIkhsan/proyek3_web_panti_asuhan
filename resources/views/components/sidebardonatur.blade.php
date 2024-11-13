@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" action="{{ route('hal_profile_donatur') }}" method="POST">
     <div class="logo">
         <img src="{{ asset('image/logo_panti.png')}}"" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
         <span> Panti Asuhan </span>
@@ -40,7 +40,7 @@
                 <img src="{{ asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>
-                    <h4>Hafiz</h4>
+                    {{-- <h4>{{ $profileData['email'] }}</h4> --}}
                 </span>
                 <span class="arrow">&gt;</span>
             </a>
