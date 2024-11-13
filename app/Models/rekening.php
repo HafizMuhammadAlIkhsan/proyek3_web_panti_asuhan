@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataAnak extends Model
+class Rekening extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_anak';
-    protected $keyType = 'integer';
-    protected $table = 'data_anak';
+
+    protected $table = 'rekening';
+    protected $primaryKey = 'id_rekening';
     public $timestamps = false;
 
     protected $fillable = [
-        'nama_anak',
-        'jenis_kelamin',
-        'pendidikan',
-        'status_ortu',
-        'tanggal_lahir',
         'email_panti',
+        'no_rekening',
+        'nama_bank',
     ];
 
     public function pantiAsuhan()

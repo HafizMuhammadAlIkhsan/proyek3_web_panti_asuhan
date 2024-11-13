@@ -8,6 +8,12 @@ class CreateTables extends Migration
 {
     public function up()
     {
+        // Table: MASYARAKAT
+        Schema::create('masyarakat', function (Blueprint $table) {
+            $table->char('email', 50)->primary();
+            $table->string('nama_asli', 50);
+        });
+
         // Tabel DONATUR
         Schema::create('donatur', function (Blueprint $table) {
             $table->char('email', 50)->primary();
@@ -29,25 +35,15 @@ class CreateTables extends Migration
             $table->string('jabatan', 50);
         });
 
-        // Tabel ANAK_ASUH
-        Schema::create('data_anak', function (Blueprint $table) {
-            $table->increments('id_anak')->primary();// Kolom ID auto increment
-            $table->string('nama_anak', 50);
-            $table->string('pendidikan');
-            $table->string('jenis_kelamin');
-            $table->string('status_ortu');
-            $table->date('tanggal_lahir');
-        });
-
         // Tabel BERITA
         Schema::create('berita', function (Blueprint $table) {
-            $table->increments('id_berita')->primary(); 
-            $table->char('email_admin', 50); 
+            $table->increments('id_berita')->primary();
+            $table->char('email_admin', 50);
             $table->string('nama_berita', 50);
             $table->text('isi_berita');
             $table->date('tgl_upload');
             $table->boolean('status')->default(false);
-            $table->string('gambar_berita')->nullable();//Gambar cover
+            $table->string('gambar_berita')->nullable(); //Gambar cover
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
 
@@ -60,7 +56,7 @@ class CreateTables extends Migration
             $table->integer('jumlah_barang');
             $table->date('tanggal_verifikasi_barang');
             $table->string('bukti_foto')->nullable();
-            $table->enum('status', ['Diterima','Menunggu_pengiriman', 'Dibatalkan','Diproses'])->default('Diproses');
+            $table->enum('status', ['Diterima', 'Menunggu_pengiriman', 'Dibatalkan', 'Diproses'])->default('Diproses');
             $table->timestamps(); //Untuk Order by nya agar yang baru paling ata maka by ASC.
             $table->enum('metode_pengiriman', ['Jasa Pengiriman', 'Pengiriman Mandiri'])->nullable();
             $table->primary(['id_donasi_barang', 'email']);
@@ -93,25 +89,55 @@ class CreateTables extends Migration
             $table->string('cara_pembayaran', 30);
             $table->date('tanggal_donasi_uang');
             $table->String('bukti_transfer');
-            $table->enum('status', ['Diterima', 'Dibatalkan','Diproses'])->default('Diproses');
+            $table->enum('status', ['Diterima', 'Dibatalkan', 'Diproses'])->default('Diproses');
             $table->primary(['id_donasi_uang', 'email']);
             $table->timestamps();
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
 
+
+        // Table: PANTI_ASUHAN
+        Schema::create('panti_asuhan', function (Blueprint $table) {
+            $table->char('email_panti', 50)->primary();
+            $table->string('nama_panti', 50);
+            $table->string('lokasi_panti', 255);
+            $table->integer('nomer_cp')->nullable();
+        });
+
+        // Table: REKENING
+        Schema::create('rekening', function (Blueprint $table) {
+            $table->increments('id_rekening');
+            $table->char('email_panti', 50);
+            $table->string('no_rekening', 30);
+            $table->string('nama_bank', 30);
+            $table->foreign('email_panti')->references('email_panti')->on('panti_asuhan')->onDelete('restrict')->onUpdate('restrict');
+        });
+
+        // Tabel ANAK_ASUH
+        Schema::create('data_anak', function (Blueprint $table) {
+            $table->increments('id_anak')->primary();
+            $table->string('nama_anak', 50);
+            $table->string('pendidikan');
+            $table->string('jenis_kelamin');
+            $table->string('status_ortu', 30);
+            $table->date('tanggal_lahir');
+            $table->char('email_panti', 50); // Tambahkan kolom email_panti
+            $table->foreign('email_panti')->references('email_panti')->on('panti_asuhan')->onDelete('restrict')->onUpdate('restrict');
+        });
     }
 
     public function down()
     {
-        Schema::dropIfExists('donasi_uang');
-        Schema::dropIfExists('donasi_jasa');
-        Schema::dropIfExists('donasi_barang');
-        Schema::dropIfExists('berita');
-        Schema::dropIfExists('anak_asuh');
-        Schema::dropIfExists('donatur');
         Schema::dropIfExists('admin');
+        Schema::dropIfExists('donasi_barang');
+        Schema::dropIfExists('donasi_jasa');
+        Schema::dropIfExists('donasi_uang');
+        Schema::dropIfExists('donatur');
+        Schema::dropIfExists('berita');
+        Schema::dropIfExists('masyarakat');
+        Schema::dropIfExists('panti_asuhan');
+        Schema::dropIfExists('data_anak');
+        Schema::dropIfExists('rekening');
     }
 }
-
-

@@ -11,13 +11,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             DonaturSeeder::class,
-            AnakAsuhSeeder::class,
-            // BeritaSeeder::class,
             DonasiBarangSeeder::class,
             DonasiJasaSeeder::class,
             DonasiUangSeeder::class,
-            
+            PantiAsuhanSeeder::class,
+            AnakAsuhSeeder::class,
+            MasyarakatSeeder::class,
+            RekeningSeeder::class
         ]);
     }
 }
-

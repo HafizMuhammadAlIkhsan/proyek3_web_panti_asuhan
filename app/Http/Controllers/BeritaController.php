@@ -11,7 +11,8 @@ class BeritaController extends Controller
     public function index()
     {
         $berita = Berita::where('status', true)
-            ->orderBy('tgl_upload', 'desc')->get();
+            ->orderBy('tgl_upload', 'desc')
+            ->paginate(3);
         return view('Masyarakat_Umum/Katalog_berita', compact('berita'));
     }
 

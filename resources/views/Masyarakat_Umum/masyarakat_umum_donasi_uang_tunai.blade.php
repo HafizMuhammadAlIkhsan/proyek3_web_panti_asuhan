@@ -201,14 +201,14 @@
             <button type="submit" class="submit-button">Kirim Bukti Pembayaran</button>
             
     </div>
-    <div id="bankDetailsModal" class="modal" style="display: none;">
+    <div id="bankDetailsModal" class="modal" style="display: block;">
         <div class="modal-content">
             <span class="close" onclick="hideBankDetails()">&times;</span>
             <h2>Informasi Rekening Bank</h2>
             <p>Silakan lakukan pembayaran ke rekening berikut:</p>
-            <p><strong>Bank:</strong> Nama Bank Anda</p>
+            <p><strong>Bank:</strong> Bank BRI</p>
             <p><strong>Nomor Rekening:</strong> 1234567890</p>
-            <p><strong>Atas Nama:</strong> Yayasan Orphanage</p>
+            <p><strong>Atas Nama:</strong> Yayasan Lorem</p>
         </div>
     </div>
     
@@ -224,8 +224,9 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex; 
+            align-items: flex; 
+            padding: 20px; 
         }
         .modal-content {
             background-color: #fff;
@@ -234,6 +235,7 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .close {
             color: #aaa;
@@ -246,6 +248,7 @@
             color: #000;
         }
     </style>
+    
     
     <script>
         function showBankDetails() {

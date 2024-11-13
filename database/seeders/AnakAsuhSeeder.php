@@ -3,35 +3,28 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\DataAnak;
 
 class AnakAsuhSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('data_anak')->insert([
-            'nama_anak' => 'Budi',
-            'jenis_kelamin' => 'Laki-laki',
-            'pendidikan' => 'SD',
-            'status_ortu' => 'Yatim',
-            'tanggal_lahir' => '2015-06-01'
-        ]);
-
-        DB::table('data_anak')->insert([
+        DataAnak::create([
             'nama_anak' => 'Yanto',
+            'pendidikan' => 'SD',
             'jenis_kelamin' => 'Laki-laki',
-            'pendidikan' => 'SMP',
-            'status_ortu' => 'Yatim Piatu',
-            'tanggal_lahir' => '2010-06-01'
+            'status_ortu' => 'Yatim',
+            'tanggal_lahir' => '2015-05-10',
+            'email_panti' => 'panti1@example.com',
         ]);
 
-        DB::table('data_anak')->insert([
-            'nama_anak' => 'Sari',
+        DataAnak::create([
+            'nama_anak' => 'Anak B',
+            'pendidikan' => 'SMP',
             'jenis_kelamin' => 'Perempuan',
-            'pendidikan' => 'SMA',
             'status_ortu' => 'Piatu',
-            'tanggal_lahir' => '2006-06-01'
+            'tanggal_lahir' => '2012-08-15',
+            'email_panti' => 'panti2@example.com',
         ]);
     }
 }
-
