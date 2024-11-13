@@ -123,6 +123,8 @@ Route::middleware(['isDonatur'])->group(function () {
     })->name('hal_donasi_barang');
     Route::post('/donatur_donasi_barang',[DonasiController::class,'donasi_barang'])->name('post.donasi.barang');    
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
+    Route::post('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.post');
+    Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
 });
 
 
