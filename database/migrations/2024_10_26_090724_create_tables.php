@@ -122,8 +122,6 @@ class CreateTables extends Migration
             $table->string('jenis_kelamin');
             $table->string('status_ortu', 30);
             $table->date('tanggal_lahir');
-            $table->char('email_panti', 50); // Tambahkan kolom email_panti
-            $table->foreign('email_panti')->references('email_panti')->on('panti_asuhan')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

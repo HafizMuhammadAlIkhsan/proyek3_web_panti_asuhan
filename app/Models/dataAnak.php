@@ -19,11 +19,6 @@ class dataAnak extends Model
         'pendidikan',
         'status_ortu',
         'tanggal_lahir',
-        'email_panti',
     ];
 
-    public function pantiAsuhan()
-    {
-        return $this->belongsTo(PantiAsuhan::class, 'email_panti', 'email_panti');
-    }
 }
