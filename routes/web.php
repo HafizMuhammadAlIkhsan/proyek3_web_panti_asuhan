@@ -16,6 +16,8 @@ use App\Http\Controllers\dataAnakController;
 //Berita
 use App\Http\Controllers\BeritaController;
 
+//PrograpPanti
+use App\Http\Controllers\ProgramPantiController;
 //Unused?
 use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
@@ -144,6 +146,10 @@ Route::get('/beranda_berita_admin', function () {
     return view('Admin/beranda_berita_admin');
 })->name('hal_beranda_berita_admin');
 
+Route::get('/beranda_program_admin', function () {
+    return view('Admin/beranda_program_admin');
+})->name('hal_beranda_program_admin');
+
 
 Route::get('/Beranda_Donasi', function () {
     return view('Admin/beranda_donasi_admin');
@@ -152,6 +158,10 @@ Route::get('/Beranda_Donasi', function () {
 Route::get('/input_berita', function () {
     return view('Admin/input_berita');
 })->name('input_berita');
+
+Route::get('/input_program', function () {
+    return view('Admin/input_program');
+})->name('insert-program');
 
 // Uang Di Admin___________________________________________________________________________________________________________________________
 
@@ -178,6 +188,14 @@ Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('i
 //Berita_______________________________________________________________________________________________________________________________
 Route::get('/list_berita', [BeritaController::class, 'AmbilDataBerita_Admin'])->name('list-berita');
 Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
+
+//_________________________________________________________________________________________________________________________________________
+
+//Program_________________________________________________________________________________________________________________________________________
+Route::get('/list_program', [ProgramPantiController::class, 'AmbilDataProgram_Admin'])->name('list-program');
+Route::post('/input_program', [ProgramPantiController::class, 'store'])->name('insert-program');
+Route::put('/list_program', [ProgramPantiController::class, 'update'])->name('program.update');
+Route::delete('/list_program', [ProgramPantiController::class, 'destroy'])->name('hapus_program');
 
 //_________________________________________________________________________________________________________________________________________
 

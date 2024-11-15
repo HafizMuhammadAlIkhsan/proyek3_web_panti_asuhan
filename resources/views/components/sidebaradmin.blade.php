@@ -24,14 +24,14 @@
                 <span style="--i:2"> Donasi </span>
             </a>
         </li>
-        <li class="menu-item" id="news-item">
+        <li class="{{ request()->routeIs('hal_beranda_berita_admin') || request()->routeIs('hal_beranda_berita_admin') ? 'active' : '' }}" id="news-item">
             <a href="{{ route('hal_beranda_berita_admin') }}" class="link" onclick="setActive('input_berita')">
                 <ion-icon name="newspaper-outline"></ion-icon>
-                <span style="--i:3"> Berita</span>
+                <span style="--i:3">Berita</span>
             </a>
         </li>
-        <li class="menu-item" id="program-item">
-            <a href="#" class="link" onclick="setActive('program-item')">
+        <li class="{{ request()->routeIs('hal_beranda_program_admin') || request()->routeIs('hal_beranda_program_admin') ? 'active' : '' }}" id="program-item">
+            <a href="{{ route('hal_beranda_program_admin') }}" class="link" onclick="setActive('program-item')">
                 <ion-icon name="calendar-outline"></ion-icon>
                 <span style="--i:4"> Data Program </span>
             </a>

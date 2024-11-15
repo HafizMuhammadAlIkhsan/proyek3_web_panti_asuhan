@@ -96,7 +96,6 @@ class CreateTables extends Migration
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
 
-
         // Table: PANTI_ASUHAN
         Schema::create('panti_asuhan', function (Blueprint $table) {
             $table->char('email_panti', 50)->primary();
@@ -123,6 +122,18 @@ class CreateTables extends Migration
             $table->string('status_ortu', 30);
             $table->date('tanggal_lahir');
         });
+
+        Schema::create('program_panti', function (Blueprint $table) {
+            $table->char('nama_program',50)->primary();
+            $table->char('email_admin', 50);
+            $table->text('deskripsi_program', 50);
+            $table->integer('dana_program');
+            $table->date('tgl_upload');
+            $table->boolean('status')->default(false);
+            $table->string('gambar_program')->nullable(); //Gambar cover
+            $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
+        });
+
     }
 
     public function down()
@@ -137,5 +148,6 @@ class CreateTables extends Migration
         Schema::dropIfExists('panti_asuhan');
         Schema::dropIfExists('data_anak');
         Schema::dropIfExists('rekening');
+        Schema::dropIfExists('program_panti');
     }
 }
