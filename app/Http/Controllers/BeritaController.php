@@ -61,28 +61,25 @@ class BeritaController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'nama_berita' => 'required|string|max:50',
-        'isi_berita' => 'required',
-        'status' => 'required|boolean',
-    ]);
+    {
+        $request->validate([
+            'nama_berita' => 'required|string|max:50',
+            'isi_berita' => 'required',
+            'status' => 'required|boolean',
+        ]);
 
-    $berita = Berita::findOrFail($id);
+        $berita = Berita::findOrFail($id);
 
-    // Cek apakah status berubah
-    $statusChanged = $berita->status !== (bool)$request->status;
+        // Update berita
+        $berita->update([
+            'nama_berita' => $request->nama_berita,
+            'isi_berita' => $request->isi_berita,
+            'status' => $request->status,
+            'tgl_upload' => now(),
+        ]);
 
-    // Update berita
-    $berita->update([
-        'nama_berita' => $request->nama_berita,
-        'isi_berita' => $request->isi_berita,
-        'status' => $request->status,
-        'tgl_upload' => $statusChanged ? now() : $berita->tgl_upload,
-    ]);
-
-    return redirect()->back()->with('success', 'Berita berhasil diperbarui.');
-}
+        return redirect()->back()->with('success', 'Berita berhasil diperbarui.');
+    }
 
 
     public function show($id)

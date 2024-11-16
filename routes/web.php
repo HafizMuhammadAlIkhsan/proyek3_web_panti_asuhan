@@ -197,6 +197,9 @@ Route::post('/input_program', [ProgramPantiController::class, 'store'])->name('i
 Route::put('/list_program', [ProgramPantiController::class, 'update'])->name('program.update');
 Route::delete('/list_program', [ProgramPantiController::class, 'destroy'])->name('hapus_program');
 
+Route::get('/program', [ProgramPantiController::class, 'index'])->name('program.index');
+Route::get('/program/{id}', [ProgramPantiController::class, 'show'])->name('program.show');
+Route::put('/program/{id}', [ProgramPantiController::class, 'update'])->name('program.update');
 //_________________________________________________________________________________________________________________________________________
 
 Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('isAdmin');
