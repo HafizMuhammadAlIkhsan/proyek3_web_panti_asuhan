@@ -10,7 +10,7 @@ class ProgramPanti extends Model
     use HasFactory;
 
     protected $table = 'program_panti';
-    protected $primaryKey = 'nama_program';
+    protected $primaryKey = 'id_program';
     public $timestamps = false;
 
     protected $fillable = [

@@ -198,16 +198,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $program->nama_program ?? 'Nama Program Tidak Ditemukan' }}</td>
+                                <td>{{ $program->nama_program ?? 'Terjadi Kesalahan' }}</td>
                                 <td>{{ $program->tgl_upload }}</td>
                                 <td>Rp{{ number_format($program->dana_program, 0, ',', '.') }}</td>
-                                <td>
-                                    @if ($program->status)
-                                        terbuka
-                                    @else
-                                        tertutup
-                                    @endif
-                                </td>
+                                <td>{{ $program->status ? 'Terbuka' : 'Tertutup' }}</td>
                                 <td>
                                     <button class="icon-btn" title="Delete" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal-{{ $program->id_program }}">
@@ -219,6 +213,77 @@
                                     </button>
                                 </td>
                             </tr>
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal-{{ $program->id_program }}" tabindex="-1"
+                                aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Hapus Program</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus program "{{ $program->nama_program }}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{{ route('hapus_program') }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="id_program"
+                                                    value="{{ $program->id_program }}">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal-{{ $program->id_program }}" tabindex="-1"
+                                aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">Edit Program</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('program.update') }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="id_program"
+                                                    value="{{ $program->id_program }}">
+
+                                                <div class="mb-3">
+                                                    <label for="deskripsi_program" class="form-label">Deskripsi</label>
+                                                    <textarea class="form-control ckeditor" name="deskripsi_program">{{ $program->deskripsi_program }}</textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label">Status</label>
+                                                    <select class="form-control" name="status">
+                                                        <option value="1"
+                                                            {{ $program->status ? 'selected' : '' }}>
+                                                            Terbuka
+                                                        </option>
+                                                        <option value="0"
+                                                            {{ !$program->status ? 'selected' : '' }}>
+                                                            Tertutup
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Simpan
+                                                    Perubahan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     @else
                         <tr>
@@ -228,6 +293,7 @@
                 </tbody>
             </table>
 
+            <!-- Pagination -->
             <div class="pagination-container">
                 @if ($programpanti->onFirstPage())
                     <button class="btn btn-secondary" disabled>Previous Page</button>
@@ -244,71 +310,18 @@
                 @endif
             </div>
 
-            <!-- Modals -->
-            @foreach ($programpanti as $program)
-                <!-- Modal Delete -->
-                <div class="modal fade" id="deleteModal-{{ $program->id_program }}" tabindex="-1"
-                    aria-labelledby="deleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Hapus Program</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Apakah Anda yakin ingin menghapus program ini?
-                            </div>
-                            <div class="modal-footer">
-                                <form action="{{ route('hapus_program', $program->id_program) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Edit -->
-                <div class="modal fade" id="editModal-{{ $program->id_program }}" tabindex="-1"
-                    aria-labelledby="editModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Program</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('program.update', $program->id_program) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="mb-3">
-                                        <label for="nama_program" class="form-label">Nama Program</label>
-                                        <input type="text" class="form-control" name="nama_program"
-                                            value="{{ $program->nama_program }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="status" class="form-label">Status</label>
-                                        <select class="form-control" name="status">
-                                            <option value="1" {{ $program->status ? 'selected' : '' }}>Aktif
-                                            </option>
-                                            <option value="0" {{ !$program->status ? 'selected' : '' }}>Non-Aktif
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+            <script>
+                document.querySelectorAll('.ckeditor').forEach(editorEl => {
+                    ClassicEditor
+                        .create(editorEl)
+                        .catch(error => console.error(error));
+                });
+            </script>
         </div>
     </div>
 </body>
+
+
 
 
 </html>

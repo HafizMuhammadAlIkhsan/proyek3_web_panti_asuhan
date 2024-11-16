@@ -18,7 +18,6 @@ class ProgramPantiController extends Controller
             'dana_program' => 'required|integer|min:0',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('gambar_program')->store('program_panti_images', 'public');
 
         // Simpan data ke database
@@ -45,39 +44,31 @@ class ProgramPantiController extends Controller
         return view('Admin/list_program', ['programpanti' => $programpanti]);
     }
 
-    // Update a program
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
-            'nama_program' => 'required|string|max:255',
+        $validated = $request->validate([
+            'id_program' => 'required|exists:program_panti,id_program',
+            'deskripsi_program' => 'required|string',
             'status' => 'required|boolean',
         ]);
 
-        // Find the program by ID
-        $program = ProgramPanti::findOrFail($id);
-
-        // Update the program fields
-        $program->nama_program = $request->input('nama_program');
-        $program->status = $request->input('status');
-
-        // Save the changes
+        $program = ProgramPanti::find($validated['id_program']); // Cari berdasarkan primary key
+        $program->deskripsi_program = $validated['deskripsi_program'];
+        $program->status = $validated['status'];
+        $program->tgl_upload = now()->toDateString();
         $program->save();
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Program berhasil diperbarui.');
+        return redirect()->route('list-program')->with('success', 'Program berhasil diperbarui.');
     }
 
-    // Delete a program
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        // Find the program by ID
-        $program = ProgramPanti::findOrFail($id);
+        $validated = $request->validate([
+            'id_program' => 'required|exists:program_panti,id_program',
+        ]);
 
-        // Delete the program
-        $program->delete();
+        ProgramPanti::destroy($validated['id_program']); // Hapus berdasarkan primary key
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Program berhasil dihapus.');
+        return redirect()->route('list-program')->with('success', 'Program berhasil dihapus.');
     }
 }

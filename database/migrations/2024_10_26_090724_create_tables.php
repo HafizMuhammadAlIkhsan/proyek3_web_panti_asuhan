@@ -124,7 +124,8 @@ class CreateTables extends Migration
         });
 
         Schema::create('program_panti', function (Blueprint $table) {
-            $table->char('nama_program',50)->primary();
+            $table->increments('id_program')->primary();
+            $table->string('nama_program',50);
             $table->char('email_admin', 50);
             $table->text('deskripsi_program', 50);
             $table->integer('dana_program');
