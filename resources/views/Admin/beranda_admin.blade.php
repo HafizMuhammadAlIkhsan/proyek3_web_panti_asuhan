@@ -42,7 +42,7 @@
             height: 50px;
         }
 
-        
+
         .Middle-Container {
             display: flex;
             justify-content: space-around;
@@ -79,17 +79,6 @@
             color: #666;
         }
 
-        .donation-summary {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f5f5f5;
-            border-radius: 10px;
-            padding: 20px;
-            width: 300px;
-        }
-
         .donation-summary h3 {
             font-size: 20px;
             font-weight: bold;
@@ -98,8 +87,10 @@
 
         .donation-stats {
             display: flex;
+            flex-direction: column;
+            gap: 20px;
             justify-content: space-between;
-            width: 100%;
+            width: 200px;
         }
 
         .donation-stats div {
@@ -117,16 +108,17 @@
         .donation-stats .total {
             color: green;
         }
-        
+
         .Bottom-Container {
             width: 100%;
-            height: auto; 
+            height: auto;
             background-color: #ffffff;
             border-top: 3px solid black;
             display: flex;
             flex-direction: row;
-            justify-content: space-between; 
-            padding: 20px; 
+
+            justify-content: space-between;
+            padding: 20px;
         }
 
         .Bottom-container-stripe {
@@ -139,6 +131,7 @@
         .Bottom-Button {
             display: flex;
             flex-direction: Row;
+            gap: 50%;
             padding-top: 10px;
             padding-left: 20px;
         }
@@ -203,15 +196,16 @@
             align-items: center;
             background-color: #f5f5f5;
             border-radius: 10px;
-            padding: 20px;
-            width: 300px;
-            margin-left: 20px;
+            padding-left: 20px;
+            padding-right:20px; 
+            width: 400px;
         }
-        
-        .icon{
+
+        .icon {
             font-size: 100px;
         }
-        .icon-2{
+
+        .icon-2 {
             font-size: 33px;
         }
     </style>

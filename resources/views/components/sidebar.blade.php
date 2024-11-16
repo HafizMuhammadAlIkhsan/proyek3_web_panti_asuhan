@@ -23,8 +23,8 @@
                 <span style="--i:3"> Berita & Artikel </span>
             </a>
         </li>
-        <li class="menu-item" id="program-item">
-            <a href="#" class="link" onclick="setActive('program-item')">
+        <li class="{{ request()->routeIs('program.index') || request()->routeIs('program.index') ? 'active' : '' }}" id="program-item">
+            <a href="{{ route('program.index') }}" class="link" onclick="setActive('program-item')">
                 <ion-icon name="calendar-outline"></ion-icon>
                 <span style="--i:4"> Program </span>
             </a>

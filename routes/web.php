@@ -199,7 +199,6 @@ Route::delete('/list_program', [ProgramPantiController::class, 'destroy'])->name
 
 Route::get('/program', [ProgramPantiController::class, 'index'])->name('program.index');
 Route::get('/program/{id}', [ProgramPantiController::class, 'show'])->name('program.show');
-Route::put('/program/{id}', [ProgramPantiController::class, 'update'])->name('program.update');
 //_________________________________________________________________________________________________________________________________________
 
 Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('isAdmin');

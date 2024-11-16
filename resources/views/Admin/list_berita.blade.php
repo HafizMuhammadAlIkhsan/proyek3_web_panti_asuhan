@@ -186,16 +186,36 @@
                 <tbody>
                     @if (isset($berita) && $berita->count() > 0)
                         @foreach ($berita as $unit)
-                            <td>
-                                <button class="icon-btn delete-btn" title="Delete" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal-{{ $unit->id_berita }}">
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </button>
-                                <button class="icon-btn view-details-btn" title="Edit" data-bs-toggle="modal"
-                                    data-bs-target="#editModal-{{ $unit->id_berita }}">
-                                    <ion-icon name="brush-outline"></ion-icon>
-                                </button>
-                            </td>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+                                        <div class="ms-3">
+                                            <p class="mb-0">{{ $unit->admin->nama_pengurus ?? 'Terjadi Kesalahan' }}
+                                            </p>
+                                            <p class="text-muted mb-0">{{ $unit->email_admin }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $unit->nama_berita }}</td>
+                                <td>{{ $unit->tgl_upload }}</td>
+                                <td>
+                                    @if ($unit->status)
+                                        Ditampilkan
+                                    @else
+                                        Disembunyikan
+                                    @endif
+                                </td>
+                                <td>
+                                    <button class="icon-btn delete-btn" title="Delete" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal-{{ $unit->id_berita }}">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                    <button class="icon-btn view-details-btn" title="Edit" data-bs-toggle="modal"
+                                        data-bs-target="#editModal-{{ $unit->id_berita }}">
+                                        <ion-icon name="brush-outline"></ion-icon>
+                                    </button>
+                                </td>
                             </tr>
 
                             <!-- Modal Delete -->
@@ -210,7 +230,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus berita ini?
+                                            Apakah Anda yakin ingin menghapus berita <b>{{ $unit->nama_berita }}</b>?
                                         </div>
                                         <div class="modal-footer">
                                             <form action="{{ route('berita.destroy', $unit->id_berita) }}"
@@ -238,15 +258,16 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('berita.update', $unit->id_berita) }}"
-                                                method="POST">
+                                            <form action="{{ route('berita.update', $unit->id_berita) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
+
                                                 <div class="mb-3">
                                                     <label for="nama_berita" class="form-label">Judul Berita</label>
                                                     <input type="text" class="form-control" name="nama_berita"
                                                         value="{{ $unit->nama_berita }}">
                                                 </div>
+
                                                 <div class="mb-3">
                                                     <label for="status" class="form-label">Status</label>
                                                     <select class="form-control" name="status">
@@ -256,10 +277,12 @@
                                                             Disembunyikan</option>
                                                     </select>
                                                 </div>
+
                                                 <div class="mb-3">
                                                     <label for="isi_berita" class="form-label">Isi Berita</label>
                                                     <textarea class="form-control ckeditor" name="isi_berita">{{ $unit->isi_berita }}</textarea>
                                                 </div>
+
                                                 <button type="submit" class="btn btn-primary">Simpan
                                                     Perubahan</button>
                                             </form>
@@ -268,40 +291,44 @@
                                 </div>
                             </div>
                         @endforeach
-        </div>
-    @else
-        <tr>
-            <td colspan="5">Data tidak tersedia</td>
-        </tr>
-        @endif
-        </tbody>
-        </table>
+                    @else
+                        <tr>
+                            <td colspan="5">Data tidak tersedia</td>
+                        </tr>
+                    @endif
+                </tbody>
 
-        <!-- Pagination -->
-        <div class="pagination-container">
-            @if ($berita->onFirstPage())
-                <button class="btn btn-secondary" disabled>Previous Page</button>
-            @else
-                <a href="{{ $berita->previousPageUrl() }}" class="btn btn-primary">Previous Page</a>
-            @endif
+            </table>
 
-            <span>Page {{ $berita->currentPage() }} of {{ $berita->lastPage() }}</span>
+            <!-- Pagination -->
+            <div class="pagination-container">
+                @if ($berita->onFirstPage())
+                    <button class="btn btn-secondary" disabled>Previous Page</button>
+                @else
+                    <a href="{{ $berita->previousPageUrl() }}" class="btn btn-primary">Previous Page</a>
+                @endif
 
-            @if ($berita->hasMorePages())
-                <a href="{{ $berita->nextPageUrl() }}" class="btn btn-primary">Next Page</a>
-            @else
-                <button class="btn btn-secondary" disabled>Next Page</button>
-            @endif
+                <span>Page {{ $berita->currentPage() }} of {{ $berita->lastPage() }}</span>
+
+                @if ($berita->hasMorePages())
+                    <a href="{{ $berita->nextPageUrl() }}" class="btn btn-primary">Next Page</a>
+                @else
+                    <button class="btn btn-secondary" disabled>Next Page</button>
+                @endif
+            </div>
+
+            <script>
+                document.querySelectorAll('.ckeditor').forEach(editorEl => {
+                    ClassicEditor
+                        .create(editorEl)
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+            </script>
+
         </div>
     </div>
-
-    <script>
-    document.querySelectorAll('.ckeditor').forEach((editorEl, index) => {
-        ClassicEditor
-            .create(editorEl)
-            .catch(error => console.error(`Error initializing CKEditor for element ${index}:`, error));
-    });
-    </script>
 </body>
 
 </html>

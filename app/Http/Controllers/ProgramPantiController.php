@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Storage;
 
 class ProgramPantiController extends Controller
 {
+
+    public function index()
+    {
+        $programpanti = ProgramPanti::where('status', true)
+            ->orderBy('tgl_upload', 'desc')
+            ->paginate(3);
+        return view('Masyarakat_Umum/Katalog_Program', compact('programpanti'));
+    }
+
     public function store(Request $request)
     {
         // Validasi data
@@ -71,4 +80,6 @@ class ProgramPantiController extends Controller
 
         return redirect()->route('list-program')->with('success', 'Program berhasil dihapus.');
     }
+
+
 }
