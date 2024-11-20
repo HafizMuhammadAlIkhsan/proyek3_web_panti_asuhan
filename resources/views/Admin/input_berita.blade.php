@@ -152,7 +152,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+                <form action="{{ route('berita.insert') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
 
 

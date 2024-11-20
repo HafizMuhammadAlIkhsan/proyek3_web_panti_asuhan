@@ -83,7 +83,7 @@ class DonasiJasaController extends Controller
 
     public function HapusDataJasa($id)
     {
-        // Cari data donasi jasa berdasarkan ID
+       
         $jasa = DonasiJasa::find($id);
 
         if ($jasa) {

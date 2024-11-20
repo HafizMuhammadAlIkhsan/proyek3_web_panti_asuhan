@@ -224,11 +224,11 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-bfody">
                                             Apakah Anda yakin ingin menghapus program "{{ $program->nama_program }}"?
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('hapus_program') }}" method="POST">
+                                            <form action="{{ route('program.delete') }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="id_program"

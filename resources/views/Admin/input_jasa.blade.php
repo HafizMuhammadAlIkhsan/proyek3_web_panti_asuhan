@@ -131,7 +131,7 @@
             <div class="stripe"></div>
             <div class="welcome-card">
                 <h1>Donasi Jasa</h1>
-                <form action="{{ route('insert-jasa') }}" method="POST">
+                <form action="{{ route('jasa.insert') }}" method="POST">
                     @csrf
                     @if(session('success'))
                         <div class="alert alert-success">

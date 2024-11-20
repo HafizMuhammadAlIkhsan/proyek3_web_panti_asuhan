@@ -151,7 +151,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('insert-program') }}" method="POST" enctype="multipart/form-data" novalidate>
+                <form action="{{ route('program.insert') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
 
                     <div class="mb-3">
