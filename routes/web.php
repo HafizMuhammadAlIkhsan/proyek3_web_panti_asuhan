@@ -70,15 +70,17 @@ Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show
 Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
 Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
-// Insert Donasi Uang _______________________________________________________________________________________________________________
+// Insert Donasi Uang Umum_______________________________________________________________________________________________________________
+
+Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
+
+Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
 
 Route::get('/Donasi_Uang_Umum', function () {
     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
 })->name('donasi_uang_umum');
 
-Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
 Route::get('/Donasi_Uang_Umum', [DonasiUangController::class, 'create'])->name('form_donasi_uang');
-Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
 //______________________________________________________________________________________________________________________
 //Donatur
 

@@ -15,7 +15,7 @@ class DonasiUangController extends Controller
     public function create()
     {
         $programs = ProgramPanti::all(); // Mengambil semua program
-        return view('donasi_uang_form', compact('programs'));
+        return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai', compact('programs'));
     }
 
 
