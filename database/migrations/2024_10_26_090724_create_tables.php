@@ -35,6 +35,18 @@ class CreateTables extends Migration
             $table->string('jabatan', 50);
         });
 
+        Schema::create('program_panti', function (Blueprint $table) {
+            $table->increments('id_program')->primary();
+            $table->string('nama_program',50);
+            $table->char('email_admin', 50);
+            $table->text('deskripsi_program', 50);
+            $table->integer('dana_program');
+            $table->date('tgl_upload');
+            $table->boolean('status')->default(false);
+            $table->string('gambar_program')->nullable(); //Gambar cover
+            $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
+        });
+
         // Tabel BERITA
         Schema::create('berita', function (Blueprint $table) {
             $table->increments('id_berita')->primary();
@@ -85,13 +97,16 @@ class CreateTables extends Migration
             $table->increments('id_donasi_uang');
             $table->char('email_admin', 50)->nullable();
             $table->char('email', 50)->default('Anonim');
+            $table->id('id_program');
             $table->integer('jumlah_uang');
             $table->string('cara_pembayaran', 30);
             $table->date('tanggal_donasi_uang');
             $table->String('bukti_transfer');
+            $table->boolean('status_anonim')->default('true');
             $table->enum('status', ['Diterima', 'Dibatalkan', 'Diproses'])->default('Diproses');
             $table->primary(['id_donasi_uang', 'email']);
             $table->timestamps();
+            $table->foreign('id_program')->references('id_program')->on('program_panti')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email')->references('email')->on('donatur')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
         });
@@ -123,17 +138,7 @@ class CreateTables extends Migration
             $table->date('tanggal_lahir');
         });
 
-        Schema::create('program_panti', function (Blueprint $table) {
-            $table->increments('id_program')->primary();
-            $table->string('nama_program',50);
-            $table->char('email_admin', 50);
-            $table->text('deskripsi_program', 50);
-            $table->integer('dana_program');
-            $table->date('tgl_upload');
-            $table->boolean('status')->default(false);
-            $table->string('gambar_program')->nullable(); //Gambar cover
-            $table->foreign('email_admin')->references('email_admin')->on('admin')->restrictOnDelete()->restrictOnUpdate();
-        });
+        
 
     }
 

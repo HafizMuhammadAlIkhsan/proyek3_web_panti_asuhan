@@ -7,38 +7,46 @@ use Illuminate\Http\Request;
 use App\Models\DonasiUang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\ProgramPanti;
 
 class DonasiUangController extends Controller
 {
+
+    public function create()
+    {
+        $programs = ProgramPanti::all(); // Mengambil semua program
+        return view('donasi_uang_form', compact('programs'));
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'jumlah_uang' => 'required|numeric',
             'cara_pembayaran' => 'required|string|max:30',
+            'id_program' => 'required|exists:program_panti,id_program',
         ]);
 
-        // Upload the payment proof image
+        // Upload bukti transfer
         $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
-
-
-        Log::info('File path: ' . $buktiTransferPath);
 
         $email = Auth::check() ? Auth::user()->email : 'anonim@example.com';
 
-        // Create a new donation entry
+        // Buat entri baru di donasi_uang
         DonasiUang::create([
             'email' => $email,
             'jumlah_uang' => $request->input('jumlah_uang'),
             'cara_pembayaran' => $request->input('cara_pembayaran'),
+            'id_program' => $request->input('id_program'),
             'tanggal_donasi_uang' => now(),
             'bukti_transfer' => $buktiTransferPath,
             'status' => 'Diproses',
         ]);
 
-
         return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
     }
+
 
     public function store_donatur(Request $request)
     {

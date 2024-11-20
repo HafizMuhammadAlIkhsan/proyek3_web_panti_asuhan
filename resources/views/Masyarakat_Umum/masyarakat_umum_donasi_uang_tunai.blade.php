@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donasi Uang Tunai</title>
     <link rel="stylesheet" href="css/style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,7 +23,7 @@
 
         .content {
             width: calc(100% - 260px);
-            padding-top:10px;
+            padding-top: 10px;
         }
 
         .navigation {
@@ -155,39 +156,52 @@
         .menu-item .active a {
             color: #8B5CF6;
         }
-
     </style>
 </head>
+
 <body>
     @include('components.sidebar')
     <!-- Main content -->
     <div class="content">
         <div class="navigation">
             <button class="nav-button active">Uang</button>
-            <button class="nav-button">Barang</button>
-            <button class="nav-button">Jasa</button>
+            <button class="nav-button" onclick="showLoginAlert()">Barang</button>
+            <button class="nav-button" onclick="showLoginAlert()">Jasa</button>
         </div>
-        
+
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
 
-        @if(session('success')) <!--Alert untuk mempermudah cek-->
+        @if (session('success'))
+            <!--Alert untuk mempermudah cek-->
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_umum') }}" method="POST" enctype="multipart/form-data">
+        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_umum') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="bukti_transfer" class="form-label">Bukti Pembayaran</label>
                 <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" required>
             </div>
-        
+
+            <div class="form-group">
+                <label for="id_program">Pilih Program</label>
+                <select id="id_program" name="id_program" class="form-control" required>
+                    <option value="" disabled selected>Pilih Program</option>
+                    @foreach ($programs as $program)
+                        <option value="{{ $program->id_program }}">{{ $program->nama_program }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="jumlah_uang">Jumlah Donasi</label>
-                <input type="number" id="jumlah_uang" name="jumlah_uang" class="form-control" placeholder="Masukkan jumlah donasi" required>
+                <input type="number" id="jumlah_uang" name="jumlah_uang" class="form-control"
+                    placeholder="Masukkan jumlah donasi" required>
             </div>
-        
+
             <div class="form-group">
                 <label for="cara_pembayaran">Metode Pembayaran</label>
                 <select id="cara_pembayaran" name="cara_pembayaran" class="form-control" required>
@@ -196,71 +210,26 @@
                     <option value="ewallet">E-Wallet</option>
                 </select>
             </div>
-        
+
             <button type="button" class="submit-button" onclick="showBankDetails()">Lihat Rekening Bank</button>
             <button type="submit" class="submit-button">Kirim Bukti Pembayaran</button>
-            
+
     </div>
-    <div id="bankDetailsModal" class="modal" style="display: block;">
-        <div class="modal-content">
-            <span class="close" onclick="hideBankDetails()">&times;</span>
-            <h2>Informasi Rekening Bank</h2>
-            <p>Silakan lakukan pembayaran ke rekening berikut:</p>
-            <p><strong>Bank:</strong> Bank BRI</p>
-            <p><strong>Nomor Rekening:</strong> 1234567890</p>
-            <p><strong>Atas Nama:</strong> Yayasan Lorem</p>
-        </div>
-    </div>
-    
-    <style>
-        /* Pop-up Modal Styling */
-        .modal {
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: flex; 
-            align-items: flex; 
-            padding: 20px; 
-        }
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close:hover {
-            color: #000;
-        }
-    </style>
-    
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function showBankDetails() {
-            document.getElementById('bankDetailsModal').style.display = 'block';
-        }
-    
-        function hideBankDetails() {
-            document.getElementById('bankDetailsModal').style.display = 'none';
+        function showLoginAlert() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Perhatian',
+                text: 'Silakan login terlebih dahulu untuk melakukan donasi barang atau jasa.',
+                confirmButtonText: 'OK'
+            });
         }
     </script>
-    
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>

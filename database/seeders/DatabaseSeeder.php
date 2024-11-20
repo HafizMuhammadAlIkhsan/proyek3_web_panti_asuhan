@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
             DonaturSeeder::class,
             DonasiBarangSeeder::class,
             DonasiJasaSeeder::class,
-            DonasiUangSeeder::class,
+            // DonasiUangSeeder::class,
             PantiAsuhanSeeder::class,
             AnakAsuhSeeder::class,
             MasyarakatSeeder::class,

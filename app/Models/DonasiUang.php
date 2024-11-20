@@ -22,5 +22,6 @@ class DonasiUang extends Model
         'tanggal_donasi_uang',
         'bukti_transfer',
         'status',
+        'id_program',
     ];
 }
