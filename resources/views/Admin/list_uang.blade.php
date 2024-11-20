@@ -197,7 +197,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $uang->jumlah_uang }}</td>
+                                <td>Rp{{ number_format($uang->jumlah_uang, 0, ',', '.') }}</td>
                                 <td>{{ $uang->status }}</td>
                                 <td>{{ $uang->tanggal_donasi_uang }}</td>
                                 <td>

@@ -227,7 +227,7 @@
         <div class="Middle-Container">
             <div class="profile-section">
                 <ion-icon name="person-circle-outline" class="icon"></ion-icon>
-                <h2>Selamat Datang, &lt;Nama&gt;!</h2>
+                <h2>Selamat Datang, {{ $ProfileAdmin['nama_pengurus'] }}</h2>
                 <p>Halo Saya &lt;Nama&gt;, &lt;Personal Bio&gt;</p>
             </div>
         </div>

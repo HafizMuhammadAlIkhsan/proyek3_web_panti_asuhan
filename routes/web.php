@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\DonasiBarang;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ use App\Http\Controllers\ProgramPantiController;
 //Unused?
 use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
+
+use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\HalamanDonasiController;
 use App\Http\Controllers\DonasiBarangController;
 use App\Models\DonasiUang;
@@ -57,7 +61,7 @@ Route::get('/Halaman_Donasi_Umum', function () {
 
 
 
-Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])-> name('masyarakat-data-anak');
+Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])->name('masyarakat-data-anak');
 
 
 
@@ -65,10 +69,7 @@ Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])-> name
 //Berita_______________________________________________________________________________________________________________
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-Route::post('/input_berita', [BeritaController::class, 'store'])->name('berita.store');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
-Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
-Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
 // Insert Donasi Uang Umum_______________________________________________________________________________________________________________
 
@@ -123,18 +124,18 @@ Route::middleware(['isDonatur'])->group(function () {
     Route::get('/donatur_donasi_jasa', function () {
         return view('Donatur/donatur_donasi_jasa',);
     })->name('hal_donasi_jasa');
-    
+
     Route::get('/donatur_donasi_barang', function () {
         $data = DonasiBarang::all();
-        return view('Donatur/donatur_donasi_barang',compact('data'));
+        return view('Donatur/donatur_donasi_barang', compact('data'));
     })->name('hal_donasi_barang');
 
-    Route::post('/donatur_donasi_barang',[DonasiController::class,'donasi_barang'])->name('post.donasi.barang');    
-    
+    Route::post('/donatur_donasi_barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
+
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
-    
+
     Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.put');
-    
+
     Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
 });
 
@@ -143,34 +144,68 @@ Route::middleware(['isDonatur'])->group(function () {
 //______________________________________________________________________________________________________________________
 //Admin
 
+//Beranda
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/Beranda_Admin', [AdminController::class, 'BerandaAdmin']
+    )->name('hal_beranda_admin');
+
+    Route::get('/Beranda_Berita', function () {
+        return view('Admin/beranda_berita_admin');
+    })->name('hal_beranda_berita_admin');
+
+    Route::get('/Beranda_Donasi', function () {
+        return view('Admin/beranda_donasi_admin');
+    })->name('hal_beranda_donasi_admin');
+
+    Route::get('/Beranda_Program', function () {
+        return view('Admin/beranda_program_admin');
+    })->name('hal_beranda_program_admin');
+});
+
+
+//Program
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/list_program', [ProgramPantiController::class, 'AmbilDataProgram_Admin'])->name('list-program');
+    Route::post('/input_program', [ProgramPantiController::class, 'store'])->name('insert-program');
+    Route::put('/list_program', [ProgramPantiController::class, 'update'])->name('program.update');
+    Route::delete('/list_program', [ProgramPantiController::class, 'destroy'])->name('hapus_program');
+});
+
+//Jasa
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
+    Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('update_data_jasa');
+    Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'])->name('hapus_data_jasa');
+
+    Route::get('/beranda_jasa_admin', function () {
+        return view('Admin/beranda_jasa_admin');
+    })->name('hal_beranda_jasa_admin')->middleware('isAdmin');;
+
+    Route::get('/input_jasa', function () {
+        return view('Admin/input_jasa');
+    })->name('input-jasa');
+
+    Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
+    Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
+});
+
 Route::get('/Login_Admin', [LoginAdminController::class, 'showLoginForm'])->name('loginadmin');
 Route::post('/Login_Admin', [LoginAdminController::class, 'login']);
 
-Route::get('/Beranda_Admin', function () {
-    return view('Admin/beranda_admin');
-})->name('hal_beranda_admin')->middleware('isAdmin');;
+//Berita
+Route::middleware(['isAdmin'])->group(function () {
 
+    Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
-Route::get('/beranda_berita_admin', function () {
-    return view('Admin/beranda_berita_admin');
-})->name('hal_beranda_berita_admin');
+    Route::get('/input_berita', function () {
+        return view('Admin/input_berita');
+    })->name('input_berita');
 
-Route::get('/beranda_program_admin', function () {
-    return view('Admin/beranda_program_admin');
-})->name('hal_beranda_program_admin');
+    Route::get('/list_berita', [BeritaController::class, 'AmbilDataBerita_Admin'])->name('list-berita');
+    Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
+});
 
-
-Route::get('/Beranda_Donasi', function () {
-    return view('Admin/beranda_donasi_admin');
-})->name('hal_beranda_donasi_admin');
-
-Route::get('/input_berita', function () {
-    return view('Admin/input_berita');
-})->name('input_berita');
-
-Route::get('/input_program', function () {
-    return view('Admin/input_program');
-})->name('insert-program');
 
 // Uang Di Admin___________________________________________________________________________________________________________________________
 
@@ -179,32 +214,10 @@ Route::put('/donasi_uang/{id}', [DonasiUangController::class, 'UpdateDataUang'])
 Route::delete('/donasi_uang/{id}', [DonasiUangController::class, 'HapusDataUang'])->name('hapus_data_uang');
 
 // JASA Di Admin___________________________________________________________________________________________________________________________
-Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
-Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('update_data_jasa');
-Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'])->name('hapus_data_jasa');
 
-Route::get('/beranda_jasa_admin', function () {
-    return view('Admin/beranda_jasa_admin');
-})->name('hal_beranda_jasa_admin')->middleware('isAdmin');;
 
-Route::get('/input_jasa', function () {
-    return view('Admin/input_jasa');
-})->name('input-jasa');
-
-Route::get('/list_jasa', [DonasiJasaController::class, 'AmbilDataJasa_Admin'])->name('list-jasa');
-Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('insert-jasa');
-
-//Berita_______________________________________________________________________________________________________________________________
-Route::get('/list_berita', [BeritaController::class, 'AmbilDataBerita_Admin'])->name('list-berita');
-Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.store');
-
-//_________________________________________________________________________________________________________________________________________
 
 //Program_________________________________________________________________________________________________________________________________________
-Route::get('/list_program', [ProgramPantiController::class, 'AmbilDataProgram_Admin'])->name('list-program');
-Route::post('/input_program', [ProgramPantiController::class, 'store'])->name('insert-program');
-Route::put('/list_program', [ProgramPantiController::class, 'update'])->name('program.update');
-Route::delete('/list_program', [ProgramPantiController::class, 'destroy'])->name('hapus_program');
 
 Route::get('/program', [ProgramPantiController::class, 'index'])->name('program.index');
 Route::get('/program/{id}', [ProgramPantiController::class, 'show'])->name('program.show');
@@ -216,14 +229,14 @@ Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name
 Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view')->middleware('isAdmin');
 Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit')->middleware('isAdmin');
 Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete')->middleware('isAdmin');
-    
+
 // Route::get('/Beranda_Donasi_Admin', function () {
 //     return view('Admin/beranda_donasi_admin');
 // })->name('detail_barang');
 
 Route::get('/Detail_Barang', function () {
     $donasi_barang = DonasiBarang::all();
-    return view('Admin/detail_barang',compact('donasi_barang'));
+    return view('Admin/detail_barang', compact('donasi_barang'));
 });
 
 // Route::middleware(['auth', 'admin'])->group(function () {

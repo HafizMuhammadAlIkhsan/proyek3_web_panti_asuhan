@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BeritaController extends Controller
 {
@@ -18,7 +19,9 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data yang masuk
+        
+        $admin = Auth::guard('admin')->user();
+
         $request->validate([
             'nama_berita' => 'required|string|max:50',
             'isi_berita' => 'required',
@@ -33,7 +36,7 @@ class BeritaController extends Controller
 
         // Insert data ke tabel berita
         Berita::create([
-            'email_admin' => 'admin@example.com', // placholder
+            'email_admin' => $admin->email_admin, 
             'nama_berita' => $request->nama_berita,
             'isi_berita' => $request->isi_berita,
             'tgl_upload' => now(),

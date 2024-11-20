@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DonasiJasa;
+use Illuminate\Support\Facades\Auth;
 
 class DonasiJasaController extends Controller
 {
     public function store(Request $request)
     {
+
+        $admin = Auth::guard('admin')->user();
         // Validasi input
         $request->validate([
             'email' => 'required|email|exists:donatur,email', // Memastikan email donatur ada di tabel donatur
@@ -20,7 +23,7 @@ class DonasiJasaController extends Controller
 
         // Menyimpan data ke database
         DonasiJasa::create([
-            'email_admin' => 'admin@example.com', // Default email admin nanti kalau Done semua ganti jadi dinamis
+            'email_admin' => $admin->email_admin, 
             'email' => $request->email,
             'nama_jasa' => $request->nama_jasa,
             'deskripsi_jasa' => $request->deskripsi_jasa,

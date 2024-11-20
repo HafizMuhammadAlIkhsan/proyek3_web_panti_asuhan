@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProgramPanti;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramPantiController extends Controller
 {
@@ -19,6 +20,8 @@ class ProgramPantiController extends Controller
 
     public function store(Request $request)
     {
+        $admin = Auth::guard('admin')->user();
+
         // Validasi data
         $validatedData = $request->validate([
             'nama_program' => 'required|string|max:50|unique:program_panti,nama_program',
@@ -32,7 +35,7 @@ class ProgramPantiController extends Controller
         // Simpan data ke database
         ProgramPanti::create([
             'nama_program' => $validatedData['nama_program'],
-            'email_admin' => 'admin@example.com', // Default value
+            'email_admin' => $admin->email_admin,
             'deskripsi_program' => $validatedData['deskripsi_program'],
             'dana_program' => $validatedData['dana_program'],
             'tgl_upload' => now(),
