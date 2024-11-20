@@ -126,9 +126,13 @@ Route::middleware(['isDonatur'])->group(function () {
         $data = DonasiBarang::all();
         return view('Donatur/donatur_donasi_barang',compact('data'));
     })->name('hal_donasi_barang');
+
     Route::post('/donatur_donasi_barang',[DonasiController::class,'donasi_barang'])->name('post.donasi.barang');    
+    
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
-    Route::post('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.post');
+    
+    Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.put');
+    
     Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
 });
 
