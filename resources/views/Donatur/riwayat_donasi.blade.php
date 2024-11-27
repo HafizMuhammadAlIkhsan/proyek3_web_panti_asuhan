@@ -176,6 +176,7 @@
                     <tr>
                         <th scope="col">Nama</th>
                         <th scope="col">Jenis</th>
+                        <th scope="col">nama donasi</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Status donasi</th>
@@ -190,6 +191,7 @@
                                 <td>{{ $riwayat->nama_donasi }}</td>
                                 <td>{{ $riwayat->jumlah ?? '-' }}</td>
                                 <td>{{ $riwayat->tanggal ?? '-' }}</td>
+                                <td>{{ $riwayat->status_donasi ?? '-' }}</td>
                                 <td>
                                     <button class="icon-btn view-details-btn" title="Detail Jasa">
                                         <ion-icon name="brush-outline"></ion-icon>
