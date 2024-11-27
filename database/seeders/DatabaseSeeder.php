@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             // DonasiUangSeeder::class,
             PantiAsuhanSeeder::class,
             AnakAsuhSeeder::class,
-            MasyarakatSeeder::class,
             RekeningSeeder::class
         ]);
     }

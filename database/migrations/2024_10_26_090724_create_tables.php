@@ -8,11 +8,6 @@ class CreateTables extends Migration
 {
     public function up()
     {
-        // Table: MASYARAKAT
-        Schema::create('masyarakat', function (Blueprint $table) {
-            $table->char('email', 50)->primary();
-            $table->string('nama_asli', 50);
-        });
 
         // Tabel DONATUR
         Schema::create('donatur', function (Blueprint $table) {

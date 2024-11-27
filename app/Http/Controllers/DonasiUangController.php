@@ -18,9 +18,16 @@ class DonasiUangController extends Controller
         return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai', compact('programs'));
     }
 
+    public function FormDonatur()
+    {
+        $programs = ProgramPanti::all(); // Mengambil semua program
+        return view('Donatur/donatur_donasi_uang_tunai', compact('programs'));
+    }
 
     public function store(Request $request)
     {
+        
+
         $request->validate([
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'jumlah_uang' => 'required|numeric',
@@ -28,10 +35,10 @@ class DonasiUangController extends Controller
             'id_program' => 'required|exists:program_panti,id_program',
         ]);
 
-        // Upload bukti transfer
+        // Upload bukti transferd
         $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
-
-        $email = Auth::check() ? Auth::user()->email : 'anonim@example.com';
+        
+        $email = Auth::check() ? Auth::guard('donatur')->user()->email : 'anonim@example.com';
 
         // Buat entri baru di donasi_uang
         DonasiUang::create([
@@ -50,6 +57,7 @@ class DonasiUangController extends Controller
 
     public function store_donatur(Request $request)
     {
+        $email=Auth::guard('donatur')->user()->email;
         $request->validate([
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'jumlah_uang' => 'required|numeric',
@@ -64,7 +72,7 @@ class DonasiUangController extends Controller
         // Create a new donation entry
         DonasiUang::create([
             'email_admin' => 'admin@example.com', // Default email admin
-            'email' => 'sulthan@example.com', // Menggunakan nilai tetap
+            'email' => $email,
             'jumlah_uang' => $request->input('jumlah_uang'),
             'cara_pembayaran' => $request->input('cara_pembayaran'),
             'tanggal_donasi_uang' => now(),

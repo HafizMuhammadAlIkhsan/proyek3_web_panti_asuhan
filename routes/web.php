@@ -73,9 +73,7 @@ Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show
 
 // Insert Donasi Uang Umum_______________________________________________________________________________________________________________
 
-Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang_umum');
-
-Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
+Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang');
 
 Route::get('/Donasi_Uang_Umum', function () {
     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
@@ -85,9 +83,7 @@ Route::get('/Donasi_Uang_Umum', [DonasiUangController::class, 'create'])->name('
 //______________________________________________________________________________________________________________________
 //Donatur
 
-Route::get('/Donasi_Uang_Donatur', function () {
-    return view('Donatur/donatur_donasi_uang_tunai');
-})->name('donasi_uang_Donatur');
+
 
 Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak')->middleware('isDonatur');
 
@@ -137,6 +133,11 @@ Route::middleware(['isDonatur'])->group(function () {
     Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.put');
 
     Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
+});
+
+Route::middleware(['isDonatur'])->group(function () {
+    Route::get('/Donasi_Uang_Umum_Donatur', [DonasiUangController::class, 'FormDonatur'])->name('form_donasi_uang_donatur');
+    Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
 });
 
 
@@ -210,6 +211,14 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('/list_berita', [BeritaController::class, 'AmbilDataBerita_Admin'])->name('list-berita');
     Route::post('/berita/store', [BeritaController::class, 'store'])->name('berita.insert');
 });
+
+//Uang
+Route::middleware(['isAdmin'])->group(function () {
+
+
+});
+
+
 
 
 // Uang Di Admin___________________________________________________________________________________________________________________________

@@ -178,7 +178,7 @@
             </div>
         @endif
 
-        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_umum') }}" method="POST"
+        <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="mb-3">

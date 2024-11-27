@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donasi Uang Tunai Donatur</title>
+    <title>Donasi Uang Tunai</title>
     <link rel="stylesheet" href="css/style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -165,8 +165,8 @@
     <div class="content">
         <div class="navigation">
             <button class="nav-button active">Uang</button>
-            <button class="nav-button">Barang</button>
-            <button class="nav-button">Jasa</button>
+            <button class="nav-button" onclick="showLoginAlert()">Barang</button>
+            <button class="nav-button" onclick="showLoginAlert()">Jasa</button>
         </div>
 
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
@@ -178,22 +178,22 @@
             </div>
         @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <form class="donation-form" id="donationForm" action="{{ route('insert_donasi_uang_donatur') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="bukti_transfer" class="form-label">Bukti Pembayaran</label>
                 <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_program">Pilih Program</label>
+                <select id="id_program" name="id_program" class="form-control" required>
+                    <option value="" disabled selected>Pilih Program</option>
+                    @foreach ($programs as $program)
+                        <option value="{{ $program->id_program }}">{{ $program->nama_program }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
@@ -215,63 +215,6 @@
             <button type="submit" class="submit-button">Kirim Bukti Pembayaran</button>
 
     </div>
-    <div id="bankDetailsModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="hideBankDetails()">&times;</span>
-            <h2>Informasi Rekening Bank</h2>
-            <p>Silakan lakukan pembayaran ke rekening berikut:</p>
-            <p><strong>Bank:</strong> Nama Bank Anda</p>
-            <p><strong>Nomor Rekening:</strong> 1234567890</p>
-            <p><strong>Atas Nama:</strong> Yayasan Orphanage</p>
-        </div>
-    </div>
-
-    <style>
-        .modal {
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: #000;
-        }
-    </style>
-
-    <script>
-        function showBankDetails() {
-            document.getElementById('bankDetailsModal').style.display = 'block';
-        }
-
-        function hideBankDetails() {
-            document.getElementById('bankDetailsModal').style.display = 'none';
-        }
-    </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
