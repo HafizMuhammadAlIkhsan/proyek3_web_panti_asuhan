@@ -165,8 +165,8 @@
     <div class="content">
         <div class="navigation">
             <button class="nav-button active">Uang</button>
-            <button class="nav-button" onclick="showLoginAlert()">Barang</button>
-            <button class="nav-button" onclick="showLoginAlert()">Jasa</button>
+            <button class="nav-button" onclick="window.location.href='{{ route('hal_donasi_barang') }}'">Barang</button>
+            <button class="nav-button" onclick="window.location.href='{{ route('hal_donasi_jasa') }}'">Jasa</button>
         </div>
 
         <h1 class="page-title">Donasi <span>Uang Tunai</span></h1>
