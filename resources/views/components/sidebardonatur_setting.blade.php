@@ -10,8 +10,8 @@
                 <span style="--i:1"> Profile </span>
             </a>
         </li>
-        <li class="#">
-            <a href="#}">
+        <li class="menu-item">
+            <a href="{{ route('RiwayatDonasi_donasi') }}">
                 <ion-icon name="wallet-outline"></ion-icon>
                 <span style="--i:2"> Riwayat Donasi </span>
             </a>

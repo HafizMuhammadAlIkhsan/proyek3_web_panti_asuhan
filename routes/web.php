@@ -136,6 +136,7 @@ Route::middleware(['isDonatur'])->group(function () {
 });
 
 Route::middleware(['isDonatur'])->group(function () {
+    Route::get('/Riwayat_Donasi', [DonaturController::class, 'RiwayatDonasi'])->name('RiwayatDonasi_donasi');
     Route::get('/Donasi_Uang_Umum_Donatur', [DonasiUangController::class, 'FormDonatur'])->name('form_donasi_uang_donatur');
     Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
 });
