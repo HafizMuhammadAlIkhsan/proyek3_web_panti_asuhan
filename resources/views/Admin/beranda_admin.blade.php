@@ -228,7 +228,7 @@
             <div class="profile-section">
                 <ion-icon name="person-circle-outline" class="icon"></ion-icon>
                 <h2>Selamat Datang, {{ $ProfileAdmin['nama_pengurus'] }}</h2>
-                <p>Halo Saya &lt;Nama&gt;, &lt;Personal Bio&gt;</p>
+                <p>Halo Saya {{ $ProfileAdmin['nama_pengurus'] }}, {{ $ProfileAdmin['jabatan'] }}</p>
             </div>
         </div>
 
@@ -246,14 +246,14 @@
                             <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
                         </a>
 
-                        <a href="#" class="button">
+                        <a href="{{ route('hal_beranda_berita_admin') }}" class="button">
                             <div class="button-icon">
                                 <ion-icon name="newspaper-outline" class="icon-2"></ion-icon>
                             </div>
                             <span>Upload Berita</span>
                         </a>
 
-                        <a href="#" class="button">
+                        <a href="{{ route('admin-data-anak') }}" class="button">
                             <div class="button-icon">
                                 <ion-icon name="people-outline" class="icon-2"></ion-icon>
                             </div>

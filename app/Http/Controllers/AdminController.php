@@ -20,4 +20,17 @@ class AdminController extends Controller
         return view('Admin/beranda_admin', compact('ProfileAdmin'));
         
     }
+
+    public function BerandaDonasi()
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $ProfileAdmin = [
+            'email' => $admin->email_admin,
+            'nama_pengurus'=>$admin->nama_pengurus,
+            'jabatan'=>$admin->jabatan
+        ];
+        return view('Admin/beranda_donasi_admin', compact('ProfileAdmin'));
+        
+    }
 }

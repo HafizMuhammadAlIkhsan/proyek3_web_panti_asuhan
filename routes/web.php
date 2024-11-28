@@ -154,13 +154,13 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('/Beranda_Admin', [AdminController::class, 'BerandaAdmin']
     )->name('hal_beranda_admin');
 
+    Route::get('/Beranda_Donasi', [AdminController::class, 'BerandaDonasi']
+    )->name('hal_beranda_donasi_admin');
+
     Route::get('/Beranda_Berita', function () {
         return view('Admin/beranda_berita_admin');
     })->name('hal_beranda_berita_admin');
 
-    Route::get('/Beranda_Donasi', function () {
-        return view('Admin/beranda_donasi_admin');
-    })->name('hal_beranda_donasi_admin');
 
     Route::get('/Beranda_Program', function () {
         return view('Admin/beranda_program_admin');

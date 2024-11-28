@@ -148,8 +148,8 @@
             <div class="welcome-card">
                 <div class="row align-items-center">
                     <div class="col-md-9">
-                        <h2>Selamat Datang, <-Nama Pengurus-></h2>
-                        <p>Lorem ipsum Dolor sit amet</p>
+                        <h2>Selamat Datang, {{ $ProfileAdmin['nama_pengurus'] }}</h2>
+                        <p>{{ $ProfileAdmin['jabatan'] }}</p>
                     </div>
                     <div class="col-md-3 text-end">
                         <ion-icon name="person-circle-outline" class="icon"></ion-icon>
