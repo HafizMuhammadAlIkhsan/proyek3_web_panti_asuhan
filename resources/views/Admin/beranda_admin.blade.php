@@ -19,13 +19,11 @@
             background-color: #F5F5F9;
             overflow-x: hidden;
         }
-
         .main {
             width: 100%;
             height: 100%;
             background-color: #F5F5F9;
         }
-
         .Top-Container {
             background-color: #ffffff;
             width: 100%;
@@ -35,14 +33,11 @@
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         .Center-Top {
             border: 3px solid #000000;
             width: 50px;
             height: 50px;
         }
-
-
         .Middle-Container {
             display: flex;
             justify-content: space-around;
@@ -54,37 +49,31 @@
             margin: 20px auto;
             width: 90%;
         }
-
         .profile-section {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         .profile-section img {
             border-radius: 50%;
             width: 100px;
             height: 100px;
             margin-bottom: 15px;
         }
-
         .profile-section h2 {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
         }
-
         .profile-section p {
             font-size: 18px;
             color: #666;
         }
-
         .donation-summary h3 {
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-
         .donation-stats {
             display: flex;
             flex-direction: column;
@@ -92,23 +81,18 @@
             justify-content: space-between;
             width: 200px;
         }
-
         .donation-stats div {
             text-align: center;
         }
-
         .donation-stats .approved {
             color: blue;
         }
-
         .donation-stats .pending {
             color: orange;
         }
-
         .donation-stats .total {
             color: green;
         }
-
         .Bottom-Container {
             width: 100%;
             height: auto;
@@ -120,14 +104,12 @@
             justify-content: space-between;
             padding: 20px;
         }
-
         .Bottom-container-stripe {
             background-color: #661AD1;
             width: 100%;
             height: 25px;
             margin-top: 2px;
         }
-
         .Bottom-Button {
             display: flex;
             flex-direction: Row;
@@ -135,13 +117,11 @@
             padding-top: 10px;
             padding-left: 20px;
         }
-
         .button-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-
         .button {
             display: flex;
             align-items: center;
@@ -155,11 +135,9 @@
             font-size: 16px;
             transition: all 0.3s ease;
         }
-
         .button:hover {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-
         .button-icon {
             background-color: #FFFFFF;
             border-radius: 50%;
@@ -169,16 +147,13 @@
             justify-content: center;
             margin-right: 15px;
         }
-
         .button-icon img {
             width: 25px;
             height: 25px;
         }
-
         .notification-icon {
             position: relative;
         }
-
         .notification-dot {
             position: absolute;
             top: 0;
@@ -188,7 +163,6 @@
             background-color: #FF5722;
             border-radius: 50%;
         }
-
         .donation-summary {
             display: flex;
             flex-direction: column;
@@ -200,11 +174,23 @@
             padding-right:20px; 
             width: 400px;
         }
-
+        .Right-Top {
+            margin-left: auto;
+        }
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
         .icon {
             font-size: 100px;
         }
-
         .icon-2 {
             font-size: 33px;
         }
@@ -221,6 +207,12 @@
         <!-- Top container -->
         <div class="Top-Container">
             <div class="Center-Top"></div>
+            <div class="Right-Top">
+                <form id="logoutForm" action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
         </div>
 
         <!-- Middle container with profile and donation summary -->
