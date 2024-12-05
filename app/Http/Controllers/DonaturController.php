@@ -22,7 +22,6 @@ class DonaturController extends Controller
             'tgl_lahir_donatur' => $donatur->tgl_lahir_donatur,
             'pekerjaan' => $donatur->pekerjaan,
             'gender' => $donatur->gender,
-            // Mengambil tahun, bulan, dan hari dari tgl_lahir_donatur
             'tahun_lahir' => $donatur->tgl_lahir_donatur ? date('Y', strtotime($donatur->tgl_lahir_donatur)) : null,
             'bulan_lahir' => $donatur->tgl_lahir_donatur ? date('m', strtotime($donatur->tgl_lahir_donatur)) : null,
             'hari_lahir' => $donatur->tgl_lahir_donatur ? date('d', strtotime($donatur->tgl_lahir_donatur)) : null,
@@ -45,9 +44,6 @@ class DonaturController extends Controller
 
     public function updateProfile(Request $request)
     {
-        // Debug jika perlu
-        // dd($request->all());
-        
         $request->merge([
             'bulan_lahir' => (int) $request->bulan_lahir,
             'hari_lahir' => (int) $request->hari_lahir,
