@@ -42,6 +42,12 @@
                 <span style="--i:5"> Data Anak Asuh </span>
             </a>
         </li>
+        <li class="{{ request()->routeIs('beranda_create_admin') ? 'active' : ''}}">
+            <a href="{{ route('beranda_create_admin') }}">
+                <ion-icon name="accessibility-outline"></ion-icon>
+                <span style="--i:5"> Data Admin </span>
+            </a>
+        </li>
         <li class="menu-item no-hover">
             {{-- <a href="#" class="link" id="user-info">
                 <!-- Konten yang akan ditampilkan jika sudah login -->
