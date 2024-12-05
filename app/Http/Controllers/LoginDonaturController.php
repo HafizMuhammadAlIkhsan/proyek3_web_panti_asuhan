@@ -21,23 +21,23 @@ class LoginDonaturController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Cari pengguna berdasarkan email
         $donatur = Donatur::where('email', $request->email)->first();
 
         if ($donatur && Hash::check($request->password, $donatur->password)) {
             Auth::guard('donatur')->login($donatur);         
             return redirect()->intended('beranda_donatur');
+        } else {
+            return redirect()->back()->withErrors(['email' => 'Email atau password salah']);
         }
-
-        // Jika login gagal, kembalikan error
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('donatur')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
         return redirect('/');
     }
+    
 }

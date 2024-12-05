@@ -73,10 +73,28 @@
         .form-container a:hover {
             text-decoration: underline;
         }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="image-container"></div>
         <div class="form-container">
@@ -92,5 +110,15 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($errors->has('email'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                text: '{{ $errors->first('email') }}'
+            });
+        </script>
+    @endif
 </body>
 </html>
