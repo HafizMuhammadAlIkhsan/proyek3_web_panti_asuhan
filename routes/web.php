@@ -167,23 +167,23 @@ Route::middleware(['isAdmin'])->group(function () {
         return view('Admin/beranda_program_admin');
     })->name('hal_beranda_program_admin');
 
-    Route::get('/admin/create_admin', function () {
-        return view('Admin/create_admin');
-    })->name('create_admin.show');
+    // Route::get('/admin/create_admin', function () {
+    //     return view('Admin/create_admin');
+    // })->name('create_admin.show');
 
-    Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
+    // Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
 
-    Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
+    // Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
 
-    Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
+    // Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
 
-    Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
+    // Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
 
-    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+    // Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 
-    Route::get('/admin/beranda_create_admin', function () {
-        return view('Admin/beranda_create_admin');
-    })->name('beranda_create_admin');
+    // Route::get('/admin/beranda_create_admin', function () {
+    //     return view('Admin/beranda_create_admin');
+    // })->name('beranda_create_admin');
 });
 
 
@@ -273,6 +273,25 @@ Route::get('/Detail_Barang', function () {
     return view('Admin/detail_barang', compact('donasi_barang'));
 });
 
+Route::middleware(['isManager'])->group(function () {
+    Route::get('/admin/create_admin', function () {
+        return view('Admin/create_admin');
+    })->name('create_admin.show');
+
+    Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
+
+    Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
+
+    Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
+
+    Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
+
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
+    Route::get('/admin/beranda_create_admin', function () {
+        return view('Admin/beranda_create_admin');
+    })->name('beranda_create_admin');
+});
 // Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
 //     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])->name('admin.donasi.show');
