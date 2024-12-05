@@ -24,7 +24,7 @@ use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
 
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\AkunAdminController;
 use App\Http\Controllers\HalamanDonasiController;
 use App\Http\Controllers\DonasiBarangController;
 use App\Models\DonasiUang;
@@ -39,17 +39,17 @@ Route::get('/Login', function () {
     return view('Masyarakat_Umum/login');
 });
 
-Route::get('/Register1', [RegisterController::class, 'showRegister1'])->name('register.step1');
+Route::get('/register1', [RegisterController::class, 'showRegister1'])->name('register.step1');
 
-Route::post('/Register1', [RegisterController::class, 'postRegister1'])->name('register.step1.post');
+Route::post('/register1', [RegisterController::class, 'postRegister1'])->name('register.step1.post');
 
-Route::get('/Register2', [RegisterController::class, 'showRegister2'])->name('register.step2');
+Route::get('/register2', [RegisterController::class, 'showRegister2'])->name('register.step2');
 
-Route::post('/Register2', [RegisterController::class, 'postRegister2'])->name('register.step2.post');
+Route::post('/register2', [RegisterController::class, 'postRegister2'])->name('register.step2.post');
 
 Route::get('/login', [LoginDonaturController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginDonaturController::class, 'login']);
-Route::post('/logout', [LoginDonaturController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginDonaturController::class, 'logout'])->name('donatur.logout');
 
 Route::get('/', function () {
     return view('Masyarakat_Umum/beranda_masyarakat_umum');
@@ -128,9 +128,9 @@ Route::middleware(['isDonatur'])->group(function () {
 
     Route::post('/donatur_donasi_barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
 
-    Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur');
+    Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur.show');
 
-    Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.put');
+    Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.update');
 
     Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
 });
@@ -146,11 +146,13 @@ Route::middleware(['isDonatur'])->group(function () {
 //______________________________________________________________________________________________________________________
 //Admin
 
-Route::get('/Login_Admin', [LoginAdminController::class, 'showLoginForm'])->name('loginadmin');
-Route::post('/Login_Admin', [LoginAdminController::class, 'login']);
+Route::get('/login_admin', [LoginAdminController::class, 'showLoginForm'])->name('login_admin');
+Route::post('/login_admin', [LoginAdminController::class, 'login']);
 
 //Beranda
 Route::middleware(['isAdmin'])->group(function () {
+    Route::post('/logout', [LoginAdminController::class, 'logout'])->name('admin.logout');
+
     Route::get('/Beranda_Admin', [AdminController::class, 'BerandaAdmin']
     )->name('hal_beranda_admin');
 
@@ -161,10 +163,27 @@ Route::middleware(['isAdmin'])->group(function () {
         return view('Admin/beranda_berita_admin');
     })->name('hal_beranda_berita_admin');
 
-
     Route::get('/Beranda_Program', function () {
         return view('Admin/beranda_program_admin');
     })->name('hal_beranda_program_admin');
+
+    Route::get('/admin/create_admin', function () {
+        return view('Admin/create_admin');
+    })->name('create_admin.show');
+
+    Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
+
+    Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
+
+    Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
+
+    Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
+
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
+    Route::get('/admin/beranda_create_admin', function () {
+        return view('Admin/beranda_create_admin');
+    })->name('beranda_create_admin');
 });
 
 
