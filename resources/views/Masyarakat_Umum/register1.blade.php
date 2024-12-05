@@ -89,47 +89,27 @@
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-                <input type="text" name="kontak" placeholder="Kontak" required>
+                <input type="text" name="kontak" placeholder="No Handphone" required>
                 <button type="submit" class="btn btn-register btn-block btn-success">Buat Akun!</button>
                 <a href="Login">Sudah Memiliki Akun? Log in</a>
-                <a href="#">Atau Gunakan Google</a>
             </form>
         </div>
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
-          $(".btn-register").click(function() {
-            var email = $("#email").val();
-            var password = $("#password").val();
-            var confirm_password = $("#confirm_password").val();
-            var no_hp = $("#no_hp").val();
-
-            if (email === "") {
-              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Email Wajib Diisi !' });
-            } else if (password === "") {
-              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Password Wajib Diisi !' });
-            } else if (confirm_password === "") {
-              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Konfirmasi Password Wajib Diisi !' });
-            } else if (password !== confirm_password) {
-              Swal.fire({ type: 'warning', title: 'Oops...', text: 'Confirm Password Harus Sama dengan Password !' });
-            } else {
-              // Lanjutkan submit form
-              $("form").submit();
-            }
-          });
-        });
+        @if ($errors->any())
+            let errorMessages = {!! json_encode($errors->all()) !!};
+            let formattedMessages = errorMessages.join('<br>');
+    
+            Swal.fire({
+                title: 'Input Tidak Valid',
+                html: formattedMessages,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
     </script>
-
-    {{-- <script>
-        function goToRegister2(event) {
-            // Menghentikan aksi submit default
-            event.preventDefault();
-
-            // Arahkan ke halaman register2.html
-            window.location.href = "Register2";
-        }
-    </script> --}}
 
 </body>
 </html>

@@ -282,7 +282,7 @@
         <div class="Top-Container">
             <div class="Center-Top"></div>
             <div class="Right-Top">
-                <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <form id="logoutForm" action="{{ route('donatur.logout') }}" method="POST" style="display: inline;">
                     @csrf
                     <button type="submit" class="logout-btn">Logout</button>
                 </form>
@@ -299,7 +299,7 @@
 
         <!-- Account details card-->
         <div class="container">
-            <form id="profileForm" action="{{ route('hal_profile_donatur.put') }}" method="POST">
+            <form id="profileForm" action="{{ route('hal_profile_donatur.update') }}" method="POST">
                 @csrf
                 @method('PUT')
                 @if (session('success'))
