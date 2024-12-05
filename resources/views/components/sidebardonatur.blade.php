@@ -1,10 +1,9 @@
-<div class="sidebar" action="{{ route('hal_profile_donatur') }}" method="POST">
+<div class="sidebar" action="{{ route('hal_profile_donatur.show') }}" method="POST">
     <div class="logo">
         <img src="{{ asset('image/logo_panti.png')}}"" alt="Logo" width="32.519" height="30.7" style="fill: #363b46;">
         <span> Panti Asuhan </span>
     </div>
     <ul class="menu-item">
-        {{-- <li class="menu-item" id="home-item"> --}}
         <li class="{{ request()->routeIs('beranda_donatur') ? 'active' : '' }}">
             <a href="{{ route('beranda_donatur') }}">
                 <ion-icon name="apps-outline"></ion-icon>
@@ -36,7 +35,7 @@
             </a>
         </li>
         <li class="{{ request()->routeIs('hal_profile_donatur') ? 'active' : '' }}">
-            <a href="{{ route('hal_profile_donatur') }}" >
+            <a href="{{ route('hal_profile_donatur.show') }}" >
                 <img src="{{ asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>

@@ -5,7 +5,7 @@
     </div>
     <ul class="menu-item">
         <li class="{{ request()->routeIs('hal_profile_donatur') ? 'active' : '' }}">
-            <a href="{{ route('hal_profile_donatur') }}" >
+            <a href="{{ route('hal_profile_donatur.show') }}" >
                 <ion-icon name="apps-outline"></ion-icon>
                 <span style="--i:1"> Profile </span>
             </a>
