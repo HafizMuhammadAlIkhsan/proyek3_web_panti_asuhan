@@ -19,7 +19,7 @@ class CreateTables extends Migration
             $table->decimal('kontak', 12, 0);
             $table->string('pekerjaan', 50)->nullable();
             $table->boolean('gender')->nullable();
-            $table->char('kota', 30)->nullable();
+            $table->string('kota', 30)->nullable();
         });
 
         // Tabel ADMIN
