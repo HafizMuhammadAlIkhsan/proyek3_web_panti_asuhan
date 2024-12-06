@@ -8,7 +8,7 @@ class DonasiBarang extends Model
 {
     protected $table = 'donasi_barang';
     protected $primaryKey = 'id_donasi_barang';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'email_admin',
@@ -35,4 +35,5 @@ class DonasiBarang extends Model
     {
         return $this->belongsTo(Admin::class, 'email_admin', 'email_admin');
     }
+    
 }

@@ -34,66 +34,32 @@ class DonasiBarangController extends Controller
     public function approve($id)
     {
         $donasi = DonasiBarang::findOrFail($id);
-        $donasi->update(['status' => 'Diterima']);
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Donasi berhasil diapprove'
-        ]);
+        $donasi->update(['status' => 'Menunggu_pengiriman']);
+        return response()->json(['message' => 'Donasi berhasil diapprove']);
     }
 
     public function reject($id)
     {
         $donasi = DonasiBarang::findOrFail($id);
         $donasi->update(['status' => 'Dibatalkan']);
-        
-        return response()->json([
-            'status' => 'success', 
-            'message' => 'Donasi berhasil direject'
-        ]);
-    }
-
-    public function approveSelected(Request $request)
-    {
-        $ids = $request->input('ids', []);
-        
-        DonasiBarang::whereIn('id_donasi_barang', $ids)
-            ->update(['status' => 'Diterima']);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Donasi terpilih berhasil diapprove'
-        ]);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $donasi = DonasiBarang::findOrFail($id);
-        
-        $validated = $request->validate([
-            'status' => 'required|in:Diproses,Diterima,Dibatalkan',
-            'nama_barang' => 'required|string|max:50',
-            'jumlah_barang' => 'required|integer|min:1',
-            'tanggal_verifikasi_barang' => 'required|date',
-        ]);
-
-        $donasi->update($validated);
-
-        return redirect()->route('admin.donasi.index')
-            ->with('success', 'Data donasi berhasil diperbarui');
+        return response()->json(['message' => 'Donasi berhasil dibatalkan']);
     }
 
     public function destroy($id)
     {
         $donasi = DonasiBarang::findOrFail($id);
-        
         if($donasi->bukti_foto) {
             Storage::disk('public')->delete($donasi->bukti_foto);
         }
-        
         $donasi->delete();
+        return response()->json(['message' => 'Donasi berhasil dihapus']);
+    }
 
-        return redirect()->route('admin.donasi.index')
-            ->with('success', 'Data donasi berhasil dihapus');
+    public function bulkApprove(Request $request)
+    {
+        $ids = $request->ids;
+        DonasiBarang::whereIn('id_donasi_barang', $ids)
+            ->update(['status' => 'Menunggu_pengiriman']);
+        return response()->json(['message' => 'Donasi berhasil diapprove']);
     }
 }

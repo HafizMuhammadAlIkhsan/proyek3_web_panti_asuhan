@@ -166,7 +166,6 @@
                 <button type="button" class="btn-submit" id="donation-submit" disabled>Lanjutkan Donasi</button>
             </div>
 
-
             <!-- Form Verifikasi -->
             <div id="verification-form">
                 <div class="form-title">
@@ -221,6 +220,15 @@
         // Form switching
         document.getElementById('donation-submit').addEventListener('click', function(e) {
             e.preventDefault();
+
+            // Check if the jumlah_barang is valid
+            const jumlahBarang = document.querySelector('input[name="jumlah_barang"]').value;
+            if (jumlahBarang <= 0) {
+                alert('Jumlah barang tidak valid!');
+                return;
+            }
+
+            // Hide donation form and show verification form
             document.getElementById('donation-form').style.display = 'none';
             document.getElementById('verification-form').style.display = 'block';
         });
@@ -228,7 +236,7 @@
         // Image preview
         document.getElementById('file-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if(file) {
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const preview = document.getElementById('image-preview');
@@ -239,30 +247,42 @@
             }
         });
 
-        // Form verification submission
-        // document.getElementById('verification-submit').addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     // alert('Donasi berhasil dikirim!');
-            
-        //     // Create notification element
-        //     const notification = document.createElement('div');
-        //     notification.textContent = 'Form verifikasi telah berhasil dikirim.';
-        //     notification.classList.add('notification');
-            
-        //     // Append notification to the body
-        //     document.body.appendChild(notification);
-            
-        //     // Remove notification after 3 seconds
-        //     // setTimeout(() => {
-        //     //     notification.remove();
-        //     // }, 3000);
+        // Form verification submission (with notification and redirect)
+        document.getElementById('verification-submit').addEventListener('click', function(e) {
+            e.preventDefault();
 
-        //     // window.location.reload();
-        // });
+            // Get the selected shipping date
+            const tanggalPengiriman = document.querySelector('input[name="tanggal_verifikasi_barang"]').value;
+            const today = new Date().toISOString().split('T')[0];
+
+            // Ensure the selected date is not in the past
+            if (tanggalPengiriman < today) {
+                alert('Tanggal pengiriman tidak valid!');
+                return;
+            }
+
+            // Simulate form submission (replace with actual submission logic)
+            const notification = document.createElement('div');
+            notification.textContent = 'Donasi berhasil dikirim!';
+            notification.classList.add('notification');
+            
+            // Append notification to the body
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+            
+            // Redirect to donation page after notification
+            setTimeout(() => {
+                window.location.href = "{{ route('hal_donasi_barang') }}";  // Replace with the actual donation page URL
+            }, 3000);
+        });
 
         // Drag and drop functionality
         const dropZone = document.querySelector('.image-upload');
-        
+
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.style.borderColor = '#9f5ffe';
@@ -277,7 +297,7 @@
             e.preventDefault();
             dropZone.style.borderColor = '#D1B2FF';
             const file = e.dataTransfer.files[0];
-            if(file) {
+            if (file) {
                 document.getElementById('file-input').files = e.dataTransfer.files;
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -289,7 +309,5 @@
             }
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
