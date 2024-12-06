@@ -9,18 +9,8 @@
 </head>
 <body>
     <div class="container mt-5">
-        @if (session('success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}'
-                });
-            });
-        </script>
-        @endif
         <h2>Tambah Anak Asuh</h2>
+        <a href ='{{ route('admin-data-anak') }}' class ="btn btn-secondary"><< Kembali</a>
         <form action="{{ route('admin-data-anak-edit', ['id' => $data_anak->id_anak]) }}" method="POST">
             @csrf
             <div class="form-group">
@@ -36,7 +26,14 @@
             </div>
             <div class="form-group">
                 <label for="pendidikan">Pendidikan</label>
-                <input type="text" class="form-control" id="pendidikan" name="pendidikan" value ="{{$data_anak->pendidikan}}" required>
+                <select class="form-control" id="pendidikan" name="pendidikan">
+                    <option value="Tidak Sekolah" {{ $data_anak->pendidikan == 'Tidak Sekolah' ? 'selected' : '' }}>Tidak Sekolah</option>
+                    <option value="TK" {{ $data_anak->pendidikan == 'TK' ? 'selected' : '' }}>TK</option>
+                    <option value="SD" {{ $data_anak->pendidikan == 'SD' ? 'selected' : '' }}>SD</option>
+                    <option value="SMP" {{ $data_anak->pendidikan == 'SMP' ? 'selected' : '' }}>SMP</option>
+                    <option value="SMA" {{ $data_anak->pendidikan == 'SMA' ? 'selected' : '' }}>SMA</option>
+                    <option value="Kuliah" {{ $data_anak->pendidikan == 'Kuliah' ? 'selected' : '' }}>Kuliah</option>       
+                </select>
             </div>
             <div class="form-group">
                 <label for="status_ortu">Status Orang Tua</label>
@@ -53,5 +50,37 @@
             <button type="submit" class="btn btn-primary" show>Ubah Data</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+    @if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}'
+            });
+        });
+    </script>
+    @endif
+    @if (session('error'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Gagal membuat data!",
+            });
+        });
+    </script>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </body>
 </html>
