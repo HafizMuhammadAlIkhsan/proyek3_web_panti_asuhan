@@ -40,13 +40,21 @@ class dataAnakController extends Controller
             'jenis_kelamin' => 'required|string|max:10',
             'pendidikan' => 'required|string|max:100',
             'status_ortu' => 'required|string|max:50',
-            'tanggal_lahir' => 'required|date',
-        ]);
-
-        // Buat data anak baru
-        $dataAnak = dataAnak::create($validatedData);
-        
-        return redirect()->route('admin-data-anak-create')->with('success', 'Data telah tersimpan.');
+            'tanggal_lahir' => 'required|date|before_or_equal:today',
+        ],[
+            'before_or_equal' => 'Tanggal Lahir harus tanggal sebelum atau sama dengan hari ini.'
+        ]
+        );
+    
+        try {
+            // Buat data anak baru
+            $dataAnak = dataAnak::create($validatedData);
+    
+            return redirect()->route('admin-data-anak-create')->with('success', 'Data telah tersimpan.');
+        } catch (\Exception $e) {
+            // Tangkap error dan tampilkan pesan gagal
+            return redirect()->route('admin-data-anak-create')->with('error', 'Insert gagal: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -74,25 +82,36 @@ class dataAnakController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Validasi input
+        $validatedData = $request->validate([
+            'nama_anak' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|string|max:10',
+            'pendidikan' => 'required|string|max:100',
+            'status_ortu' => 'required|string|max:50',
+            'tanggal_lahir' => 'required|date|before_or_equal:today',
+        ],[
+            'before_or_equal' => 'Tanggal Lahir harus tanggal sebelum atau sama dengan hari ini.'
+        ]
+        );
         
-         // Validasi input
-         $validatedData = $request->validate([
-            'nama_anak' => 'sometimes|required|string|max:255',
-            'jenis_kelamin' => 'sometimes|required|string|max:10',
-            'pendidikan' => 'sometimes|required|string|max:100',
-            'status_ortu' => 'sometimes|required|string|max:50',
-            'tanggal_lahir' => 'sometimes|required|date',
-        ]);
-
         // Cari data anak berdasarkan ID
         $dataAnak = dataAnak::find($id);
 
-       
-            // Update data anak
-        $dataAnak->update($validatedData);
+        if (!$dataAnak) {
+            return redirect()->route('admin-data-anak')->with('error', 'Data anak tidak ditemukan.');
+        }
 
-        return redirect()->route('admin-data-anak')->with('success', 'Data telah terupdate.');
+        try {
+            // Update data anak
+            $dataAnak->update($validatedData);
+
+            return redirect()->to("admin/data_anak/$id/edit")->with('success', 'Data telah terupdate.');
+        } catch (\Exception $e) {
+            return redirect()->to("admin/data_anak/$id/edit")->with('error', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -103,7 +122,7 @@ class dataAnakController extends Controller
 
         if ($dataAnak) {
             $dataAnak->delete();
-            return redirect()->to('admin/data-anak')->with('success', 'Berhasil melakukan delete data!');
+            return redirect()->to('admin/data_anak')->with('success', 'Berhasil melakukan delete data!');
         } else {
             return response()->json(['message' => 'Data anak tidak ditemukan'], 404);
         }

@@ -8,19 +8,6 @@
 </head>
 <body>
     <div class="container mt-5">
-        <!-- Menampilkan pesan sukses jika ada -->
-        @if (session('success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}'
-                });
-            });
-        </script>
-        @endif
-
         <h2>Tambah Anak Asuh</h2>
         <form action="{{ route('admin-data-anak-store') }}" method="POST">
             @csrf
@@ -38,7 +25,14 @@
             </div>
             <div class="form-group">
                 <label for="pendidikan">Pendidikan</label>
-                <input type="text" class="form-control" id="pendidikan" name="pendidikan" required>
+                <select class="form-control" id="pendidikan" name="pendidikan">
+                    <option value="Tidak Sekolah">Tidak Sekolah</option>
+                    <option value="TK">TK</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                    <option value="Kuliah">Kuliah</option>       
+                </select>
             </div>
             <div class="form-group">
                 <label for="status_ortu">Status Orang Tua</label>
@@ -56,5 +50,36 @@
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+    @if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}'
+            });
+        });
+    </script>
+    @endif
+    @if (session('error'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Gagal mengupdate data!",
+            });
+        });
+    </script>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </body>
 </html>

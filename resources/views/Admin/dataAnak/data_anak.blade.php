@@ -11,7 +11,6 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <style>
-        /* Styling untuk tampilan yang menyerupai gambar */
         body {
             background-color: #F5F5F9;
             margin: 0;
@@ -28,19 +27,14 @@
 
         .table-container {
             background-color: #fff;
-            padding: 20px;
+            padding: 100px;
             border-radius: 8px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            margin-left: 10px;
+            margin-top: 10px;
         }
 
-        .table th {
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-        }
-
-        .table td {
+        .table th, .table td {
             text-align: center;
             vertical-align: middle;
         }
@@ -48,7 +42,7 @@
         .pagination-container {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
+            padding: 50px;
         }
 
         .btn {
