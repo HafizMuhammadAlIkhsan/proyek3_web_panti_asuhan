@@ -11,15 +11,17 @@ class RekeningSeeder extends Seeder
     public function run()
     {
         Rekening::create([
-            'email_panti' => 'panti1@example.com',
+            'nama_nasabah' => 'Leqo',
             'no_rekening' => '1234567890',
             'nama_bank' => 'Bank A',
+            'status' => false,
         ]);
 
         Rekening::create([
-            'email_panti' => 'panti2@example.com',
+            'nama_nasabah' => 'Dudung',
             'no_rekening' => '0987654321',
             'nama_bank' => 'Bank B',
+            'status' => false,
         ]);
     }
 }

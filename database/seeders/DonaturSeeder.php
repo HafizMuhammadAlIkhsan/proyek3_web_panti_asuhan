@@ -27,7 +27,7 @@ class DonaturSeeder extends Seeder
             'nama_asli' => 'sulthan',
             'password' => bcrypt('sulthan123'),
             'tgl_lahir_donatur' => '1990-01-01',
-            'kontak' => '123456789012',
+            'kontak' => '085860631381',
             'pekerjaan' => 'Programmer',
             'gender' => true,
             'kota' => 'Bandung'

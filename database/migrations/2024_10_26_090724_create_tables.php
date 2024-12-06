@@ -108,7 +108,8 @@ class CreateTables extends Migration
 
         // Table: PANTI_ASUHAN
         Schema::create('panti_asuhan', function (Blueprint $table) {
-            $table->char('email_panti', 50)->primary();
+            $table->increments('id_panti')->primary();
+            $table->char('email_panti', 50);
             $table->string('nama_panti', 50);
             $table->string('lokasi_panti', 255);
             $table->integer('nomer_cp')->nullable();
@@ -116,11 +117,12 @@ class CreateTables extends Migration
 
         // Table: REKENING
         Schema::create('rekening', function (Blueprint $table) {
-            $table->increments('id_rekening');
-            $table->char('email_panti', 50);
+            $table->increments('id_rekening')->primary();
+            $table->string('nama_nasabah', 30);
             $table->string('no_rekening', 30);
             $table->string('nama_bank', 30);
-            $table->foreign('email_panti')->references('email_panti')->on('panti_asuhan')->onDelete('restrict')->onUpdate('restrict');
+            $table->boolean('status');
+            $table->timestamps();
         });
 
         // Tabel ANAK_ASUH

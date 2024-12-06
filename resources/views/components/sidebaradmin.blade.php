@@ -47,6 +47,12 @@
                 <span style="--i:5"> Data Admin </span>
             </a>
         </li>
+        <li class="{{ request()->routeIs('hal_beranda_data_panti') ? 'active' : ''}}">
+            <a href="{{ route('hal_beranda_data_panti') }}">
+                <ion-icon name="business-outline"></ion-icon>
+                <span style="--i:5"> Data Panti Asuhan</span>
+            </a>
+        </li>
         <li class="menu-item no-hover">
             <a href="#" class="link" onclick="setActive('info-item')">
                 <img src="{{asset ('image/user.png')}}" alt="" >

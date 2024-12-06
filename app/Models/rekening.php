@@ -11,16 +11,12 @@ class Rekening extends Model
 
     protected $table = 'rekening';
     protected $primaryKey = 'id_rekening';
-    public $timestamps = false;
+    public $timestamps = true; 
 
     protected $fillable = [
-        'email_panti',
+        'nama_nasabah',
         'no_rekening',
         'nama_bank',
+        'status',
     ];
-
-    public function pantiAsuhan()
-    {
-        return $this->belongsTo(PantiAsuhan::class, 'email_panti', 'email_panti');
-    }
 }

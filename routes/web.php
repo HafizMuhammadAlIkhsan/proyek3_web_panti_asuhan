@@ -16,6 +16,9 @@ use App\Http\Controllers\dataAnakController;
 
 //Berita
 use App\Http\Controllers\BeritaController;
+//DataPanti
+use App\Http\Controllers\PantiAsuhanController;
+use App\Http\Controllers\RekeningController;
 
 //PrograpPanti
 use App\Http\Controllers\ProgramPantiController;
@@ -238,6 +241,27 @@ Route::middleware(['isAdmin'])->group(function () {
 
 });
 
+//Data Panti
+Route::middleware(['isAdmin'])->group(function () {
+
+    Route::get('/Beranda_DataPanti', function () {
+        return view('Admin/beranda_datapanti_admin');
+    })->name('hal_beranda_data_panti');
+
+
+    Route::get('/input_rekening', function () {
+        return view('Admin/input_rekening');
+    })->name('input_rekening');
+
+    Route::get('/list_rekening', [RekeningController::class, 'AmbilListRekening'])->name('list_rekening');
+    Route::post('/rekening', [RekeningController::class, 'store'])->name('rekening.store');
+    Route::put('/rekening/{id}/update-status', [RekeningController::class, 'updateStatus'])->name('rekening.update');
+    Route::delete('/rekening/{id}/delete', [RekeningController::class, 'delete'])->name('rekening.delete');
+    
+    Route::get('/panti/edit', [PantiAsuhanController::class, 'edit'])->name('panti.edit');
+    Route::put('/panti/update', [PantiAsuhanController::class, 'update'])->name('panti.update');
+
+});
 
 
 
