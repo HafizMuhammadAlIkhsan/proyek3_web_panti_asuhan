@@ -292,6 +292,8 @@ Route::middleware(['isManager'])->group(function () {
         return view('Admin/beranda_create_admin');
     })->name('beranda_create_admin');
 });
+
+Route::post('/donasi-barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
 // Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/admin/donasi-barang', [DonasiBarangController::class, 'index'])->name('admin.donasi.index');
 //     Route::get('/admin/donasi-barang/{id}', [DonasiBarangController::class, 'show'])->name('admin.donasi.show');

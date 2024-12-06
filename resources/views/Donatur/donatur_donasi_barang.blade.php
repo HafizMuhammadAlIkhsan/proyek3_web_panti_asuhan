@@ -224,7 +224,7 @@
             // Check if the jumlah_barang is valid
             const jumlahBarang = document.querySelector('input[name="jumlah_barang"]').value;
             if (jumlahBarang <= 0) {
-                alert('Jumlah barang tidak valid!');
+                alert('Jumlah barang harus lebih dari 0!');
                 return;
             }
 
@@ -249,15 +249,13 @@
 
         // Form verification submission (with notification and redirect)
         document.getElementById('verification-submit').addEventListener('click', function(e) {
-            e.preventDefault();
-
             // Get the selected shipping date
             const tanggalPengiriman = document.querySelector('input[name="tanggal_verifikasi_barang"]').value;
             const today = new Date().toISOString().split('T')[0];
 
             // Ensure the selected date is not in the past
             if (tanggalPengiriman < today) {
-                alert('Tanggal pengiriman tidak valid!');
+                alert('Tanggal pengiriman tidak boleh di masa lalu!');
                 return;
             }
 
@@ -273,40 +271,14 @@
             setTimeout(() => {
                 notification.remove();
             }, 3000);
-            
+
+            // Submit the form
+            document.querySelector('form').submit();  // This will submit the form
+
             // Redirect to donation page after notification
             setTimeout(() => {
-                window.location.href = "{{ route('hal_donasi_barang') }}";  // Replace with the actual donation page URL
+                window.location.href = "{{ route('hal_donasi_barang') }}";  // Replace with actual route
             }, 3000);
-        });
-
-        // Drag and drop functionality
-        const dropZone = document.querySelector('.image-upload');
-
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#9f5ffe';
-        });
-
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#D1B2FF';
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#D1B2FF';
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                document.getElementById('file-input').files = e.dataTransfer.files;
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('image-preview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
         });
     </script>
 </body>
