@@ -131,7 +131,7 @@ Route::middleware(['isDonatur'])->group(function () {
 
     Route::get('/katalog_program', [ProgramPantiController::class, 'katalog'])->name('katalog_program');
 
-    Route::get('/berita', [BeritaController::class, 'Katalog'])->name('katalog_berita');
+    Route::get('/katalog_berita', [BeritaController::class, 'Katalog'])->name('katalog_berita');
 
     Route::post('/donatur_donasi_barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
 

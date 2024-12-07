@@ -203,7 +203,6 @@
 <body>
    
     <div class="content-wrapper">
-        @include('components.sidebar')
         <div class="main-content">
             <div class="Top-Container">
                 <div class="section-title">{{ $berita->nama_berita }}</div>
