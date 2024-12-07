@@ -82,7 +82,7 @@ Route::get('/Donasi_Uang_Umum', function () {
     return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
 })->name('donasi_uang_umum');
 
-Route::get('/Donasi_Uang_Umum', [DonasiUangController::class, 'create'])->name('form_donasi_uang');
+Route::get('/Donasi_Uang_Umum', [DonasiUangController::class, 'FormUmum'])->name('form_donasi_uang');
 //______________________________________________________________________________________________________________________
 //Donatur
 

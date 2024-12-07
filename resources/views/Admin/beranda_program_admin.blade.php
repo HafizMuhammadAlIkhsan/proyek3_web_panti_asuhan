@@ -97,20 +97,20 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <div class="main">
-        <div class="header-banner">Donasi Jasa</div>
+        <div class="header-banner">Program Panti Asuhan</div>
 
         <div class="card-container">
             <div class="custom-card">
                 <ion-icon name="medkit-outline" class="icon"></ion-icon>
                 <h5>List Program</h5>
                 <p>Lihat Program Yang tersedia</p>
-                <button class="custom-button" onclick="window.location.href='{{ route('list-program') }}'" >Ke List Donasi</button>
+                <button class="custom-button" onclick="window.location.href='{{ route('list-program') }}'" >Ke List Program</button>
             </div>
             <div class="custom-card">
                 <ion-icon name="person-add-outline" class="icon"></ion-icon>
                 <h5>Tambah Program</h5>
                 <p>Tambahkan Program baru </p>
-                <button class="custom-button" onclick="window.location.href='{{ route('insert-program') }}'">Donasi Jasa</button>
+                <button class="custom-button" onclick="window.location.href='{{ route('insert-program') }}'">Insert Program</button>
             </div>
         </div>
     </div>

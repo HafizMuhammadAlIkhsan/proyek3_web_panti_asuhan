@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DonasiUang;
+use App\Models\Rekening;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\ProgramPanti;
@@ -12,75 +13,82 @@ use App\Models\ProgramPanti;
 class DonasiUangController extends Controller
 {
 
-    public function create()
+    public function FormUmum()
     {
-        $programs = ProgramPanti::all(); // Mengambil semua program
-        return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai', compact('programs'));
+        $programs = ProgramPanti::all();
+        $rekening = Rekening::where('status', true)->get();
+        return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai', compact('programs', 'rekening'));
     }
 
     public function FormDonatur()
     {
-        $programs = ProgramPanti::all(); // Mengambil semua program
-        return view('Donatur/donatur_donasi_uang_tunai', compact('programs'));
+        $programs = ProgramPanti::all();
+        $rekening = Rekening::where('status', true)->get();
+        return view('Donatur/donatur_donasi_uang_tunai', compact('programs', 'rekening'));
     }
 
     public function store(Request $request)
     {
-        
-
         $request->validate([
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'jumlah_uang' => 'required|numeric',
+            'jumlah_uang' => 'required|numeric|gt:0',
             'cara_pembayaran' => 'required|string|max:30',
             'id_program' => 'required|exists:program_panti,id_program',
+        ], [
+            'jumlah_uang.gt' => 'Jumlah uang harus lebih besar dari 0.',
         ]);
 
-        // Upload bukti transferd
-        $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
-        
-        $email = Auth::check() ? Auth::guard('donatur')->user()->email : 'anonim@example.com';
+        try {
+            $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
+            $email = Auth::check() ? Auth::guard('donatur')->user()->email : 'anonim@example.com';
+            DonasiUang::create([
+                'email' => $email,
+                'jumlah_uang' => $request->input('jumlah_uang'),
+                'cara_pembayaran' => $request->input('cara_pembayaran'),
+                'id_program' => $request->input('id_program'),
+                'tanggal_donasi_uang' => now(),
+                'bukti_transfer' => $buktiTransferPath,
+                'status' => 'Diproses',
+            ]);
 
-        // Buat entri baru di donasi_uang
-        DonasiUang::create([
-            'email' => $email,
-            'jumlah_uang' => $request->input('jumlah_uang'),
-            'cara_pembayaran' => $request->input('cara_pembayaran'),
-            'id_program' => $request->input('id_program'),
-            'tanggal_donasi_uang' => now(),
-            'bukti_transfer' => $buktiTransferPath,
-            'status' => 'Diproses',
-        ]);
-
-        return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+            return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses donasi.');
+        }
     }
+
 
 
     public function store_donatur(Request $request)
     {
-        $email=Auth::guard('donatur')->user()->email;
+        $email = Auth::guard('donatur')->user()->email;
         $request->validate([
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'jumlah_uang' => 'required|numeric',
+            'jumlah_uang' => 'required|numeric|gt:0',
             'cara_pembayaran' => 'required|string|max:30',
+            'id_program' => 'required|exists:program_panti,id_program',
+        ], [
+            'jumlah_uang.gt' => 'Jumlah uang harus lebih besar dari 0.',
         ]);
 
-        // Upload the payment proof image
-        $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
+        try {
+            $buktiTransferPath = $request->file('bukti_transfer')->store('public/bukti_transfer');
+            Log::info('File path: ' . $buktiTransferPath);
 
-        Log::info('File path: ' . $buktiTransferPath);
+            DonasiUang::create([
+                'email' => $email,
+                'jumlah_uang' => $request->input('jumlah_uang'),
+                'cara_pembayaran' => $request->input('cara_pembayaran'),
+                'id_program' => $request->input('id_program'),
+                'tanggal_donasi_uang' => now(),
+                'bukti_transfer' => $buktiTransferPath,
+                'status' => 'Diproses',
+            ]);
 
-        // Create a new donation entry
-        DonasiUang::create([
-            'email_admin' => 'admin@example.com', // Default email admin
-            'email' => $email,
-            'jumlah_uang' => $request->input('jumlah_uang'),
-            'cara_pembayaran' => $request->input('cara_pembayaran'),
-            'tanggal_donasi_uang' => now(),
-            'bukti_transfer' => $buktiTransferPath,
-            'status' => 'Diproses',
-        ]);
-
-        return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+            return redirect()->back()->with('success', 'Donasi berhasil dikirim untuk diverifikasi.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses donasi.');
+        }
     }
 
 
@@ -100,24 +108,24 @@ class DonasiUangController extends Controller
     {
         $donasiUang = DonasiUang::join('donatur', 'donasi_uang.email', '=', 'donatur.email')
             ->leftJoin('admin', 'donasi_uang.email_admin', '=', 'admin.email_admin')
-            ->select('donasi_uang.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
-            ->orderBy('donasi_uang.updated_at', 'asc') //  updated_at asc
+            ->select('donasi_uang.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email','admin.email_admin as admin_email')
+            ->orderBy('donasi_uang.updated_at', 'desc') //  updated_at asc
             ->paginate(5);
 
         return view('Admin/list_uang', ['donasiUang' => $donasiUang]);
     }
 
-    // DonasiUangController.php
     public function UpdateDataUang(Request $request, $id)
     {
         $donasiUang = DonasiUang::findOrFail($id);
+        $admin = Auth::guard('admin')->user();
 
-        // Validasi status
         $request->validate([
             'status' => 'required|string|max:255',
         ]);
 
         // Update status
+        $donasiUang->email_admin = $admin->email_admin;
         $donasiUang->status = $request->input('status');
         $donasiUang->save();
 
@@ -126,7 +134,6 @@ class DonasiUangController extends Controller
 
     public function HapusDataUang($id)
     {
-        // Cari data donasi Uang berdasarkan ID
         $donasi = DonasiUang::find($id);
 
         if ($donasi) {

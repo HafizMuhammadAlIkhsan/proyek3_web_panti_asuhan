@@ -181,6 +181,7 @@
                         <th scope="col">Jumlah</th>
                         <th scope="col">Status</th>
                         <th scope="col">Tanggal Penginputan</th>
+                        <th scope="col">Admin</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -200,6 +201,7 @@
                                 <td>Rp{{ number_format($uang->jumlah_uang, 0, ',', '.') }}</td>
                                 <td>{{ $uang->status }}</td>
                                 <td>{{ $uang->tanggal_donasi_uang }}</td>
+                                <td>{{ $uang->admin_email ?? 'belum diverifikasi'}}</td>
                                 <td>
                                     <button class="icon-btn delete-btn" title="Delete"
                                         data-id="{{ $uang->id_donasi_uang }}" jumlah_uang="{{ $uang->jumlah_uang }}">

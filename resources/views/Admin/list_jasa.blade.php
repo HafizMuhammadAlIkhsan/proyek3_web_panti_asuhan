@@ -190,6 +190,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Tanggal Mulai</th>
                         <th scope="col">Tanggal Berakhir</th>
+                        <th scope="col">Admin</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -211,6 +212,7 @@
                                 <td>{{ $jasa->status == 'Diterima' ? 'Approve' : 'Canceled' }}</td>
                                 <td>{{ $jasa->jadwal_mulai }}</td>
                                 <td>{{ $jasa->jadwal_selesai ?? '-' }}</td>
+                                <td>{{ $jasa->email_admin ?? '-' }}</td>
                                 <td>
                                     <button class="icon-btn delete-btn" title="Delete" data-id="{{ $jasa->id_donasi_jasa }}" data-nama-jasa="{{ $jasa->nama_jasa }}">
                                         <ion-icon name="trash-outline"></ion-icon>

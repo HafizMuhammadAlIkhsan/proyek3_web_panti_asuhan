@@ -10,30 +10,31 @@ class DonasiJasaController extends Controller
 {
     public function store(Request $request)
     {
-
-        $admin = Auth::guard('admin')->user();
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email|exists:donatur,email', // Memastikan email donatur ada di tabel donatur
-            'nama_jasa' => 'required|string|max:50',
-            'deskripsi_jasa' => 'required|string|max:500',
-            'jadwal_mulai' => 'required|date',
-            'jadwal_selesai' => 'nullable|date|after_or_equal:jadwal_mulai',
-        ]);
-
-        // Menyimpan data ke database
-        DonasiJasa::create([
-            'email_admin' => $admin->email_admin, 
-            'email' => $request->email,
-            'nama_jasa' => $request->nama_jasa,
-            'deskripsi_jasa' => $request->deskripsi_jasa,
-            'jadwal_mulai' => $request->jadwal_mulai,
-            'jadwal_selesai' => $request->jadwal_selesai,
-            'created_at' => now(),
-        ]);
-
-        // Redirect setelah sukses
-        return redirect()->back()->with('success', 'Data donasi jasa berhasil ditambahkan.');
+        try {
+            $admin = Auth::guard('admin')->user();
+        
+            $request->validate([
+                'email' => 'required|email|exists:donatur,email',
+                'nama_jasa' => 'required|string|max:50',
+                'deskripsi_jasa' => 'required|string|max:500',
+                'jadwal_mulai' => 'required|date|after:today',
+                'jadwal_selesai' => 'required|date|after:jadwal_mulai',
+            ]);
+        
+            DonasiJasa::create([
+                'email_admin' => $admin->email_admin,
+                'email' => $request->email,
+                'nama_jasa' => $request->nama_jasa,
+                'deskripsi_jasa' => $request->deskripsi_jasa,
+                'jadwal_mulai' => $request->jadwal_mulai,
+                'jadwal_selesai' => $request->jadwal_selesai,
+                'created_at' => now(),
+            ]);
+        
+            return redirect()->back()->with('success', 'Data donasi jasa berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan. Data gagal disimpan.');
+        }
     }
 
     // Mengambil Data Dari database struktur nya seperti sql query
@@ -68,18 +69,24 @@ class DonasiJasaController extends Controller
     }
 
     public function UpdateDataJasa(Request $request, $id)
-    {
-        $jasa = DonasiJasa::findOrFail($id);
-        // replace jasa dengan yang di request
-        $jasa->deskripsi_jasa = $request->deskripsi_jasa;
-        $jasa->status = $request->status;
-        $jasa->jadwal_mulai = $request->jadwal_mulai;
-        $jasa->jadwal_selesai = $request->jadwal_selesai;
+{
+    $jasa = DonasiJasa::findOrFail($id);
+    $admin = Auth::guard('admin')->user();
 
-        $jasa->save();
-
-        return response()->json(['message' => 'Data berhasil diperbarui.']);
+    if (strtotime($request->jadwal_selesai) < strtotime($request->jadwal_mulai)) {
+        return response()->json(['message' => 'Jadwal selesai tidak boleh lebih kecil dari jadwal mulai.'], 400);
     }
+
+    $jasa->email_admin = $admin->email_admin;
+    $jasa->deskripsi_jasa = $request->deskripsi_jasa;
+    $jasa->status = $request->status;
+    $jasa->jadwal_mulai = $request->jadwal_mulai;
+    $jasa->jadwal_selesai = $request->jadwal_selesai;
+
+    $jasa->save();
+
+    return response()->json(['message' => 'Data berhasil diperbarui.'], 200);
+}
 
     public function HapusDataJasa($id)
     {

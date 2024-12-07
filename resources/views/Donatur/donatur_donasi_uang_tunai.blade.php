@@ -218,6 +218,70 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showBankDetails() {
+            const rekening = @json($rekening);
+
+            if (rekening.length === 0) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Tidak Ada Rekening Aktif',
+                    text: 'Saat ini tidak ada rekening yang tersedia.',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                let Listrekening = '<ul>';
+                rekening.forEach(rekening => {
+                    Listrekening +=
+                        `<li>${rekening.nama_bank} - ${rekening.no_rekening} (a.n ${rekening.nama_nasabah})</li>`;
+                });
+                Listrekening += '</ul>';
+
+                Swal.fire({
+                    title: 'Daftar Rekening Bank Aktif',
+                    html: Listrekening,
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    </script>
+
+    <script>
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Input Tidak Valid',
+                html: `
+                <ul style="text-align: left;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+                confirmButtonText: 'Coba Lagi'
+            });
+        @endif
+
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'Coba Lagi'
+            });
+        @endif
+    </script>
 </body>
 
 </html>

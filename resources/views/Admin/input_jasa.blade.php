@@ -110,7 +110,7 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 250px; 
+            width: 250px;
             background-color: #F5F5F9;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
@@ -133,45 +133,76 @@
                 <h1>Donasi Jasa</h1>
                 <form action="{{ route('jasa.insert') }}" method="POST">
                     @csrf
-                    @if(session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                     @endif
-                    
+
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Donatur</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Donatur" required>
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Email Donatur" required>
                     </div>
-                
+
                     <div class="mb-3">
                         <label for="nama_jasa" class="form-label">Nama Jasa</label>
-                        <input type="text" class="form-control" id="nama_jasa" name="nama_jasa" placeholder="Nama Jasa" required>
+                        <input type="text" class="form-control" id="nama_jasa" name="nama_jasa"
+                            placeholder="Nama Jasa" required>
                     </div>
-                
+
                     <div class="mb-3">
                         <label for="description" class="form-label">Deskripsi Jasa</label>
-                        <textarea class="form-control" id="description" name="deskripsi_jasa" placeholder="Deskripsi Jasa" rows="3" required></textarea>
+                        <textarea class="form-control" id="description" name="deskripsi_jasa" placeholder="Deskripsi Jasa" rows="3"
+                            required></textarea>
                     </div>
-                
+
                     <div class="mb-3">
                         <label for="start-date" class="form-label">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="start_date" name="jadwal_mulai" required>
                     </div>
-                
+
                     <div class="mb-3">
                         <label for="end-date" class="form-label">Tanggal Berakhir</label>
                         <input type="date" class="form-control" id="end_date" name="jadwal_selesai">
                     </div>
-                
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                
+
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        // Menangkap error dari validasi laravel
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Input Tidak Valid!',
+                html: '<ul style="text-align: left;">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 </body>
 
 </html>
