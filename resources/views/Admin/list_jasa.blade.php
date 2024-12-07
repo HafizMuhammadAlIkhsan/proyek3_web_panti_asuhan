@@ -170,12 +170,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Jasa" class="form-control">
-                    <button type="submit" class="search-button">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+                
             </div>
         </div>
 
@@ -190,7 +185,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Tanggal Mulai</th>
                         <th scope="col">Tanggal Berakhir</th>
-                        <th scope="col">Admin</th>
+                        <th scope="col">Penanggun Jawab</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -212,7 +207,14 @@
                                 <td>{{ $jasa->status == 'Diterima' ? 'Approve' : 'Canceled' }}</td>
                                 <td>{{ $jasa->jadwal_mulai }}</td>
                                 <td>{{ $jasa->jadwal_selesai ?? '-' }}</td>
-                                <td>{{ $jasa->email_admin ?? '-' }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="ms-3">
+                                            <p class="mb-0">{{$jasa->nama_admin ?? 'belum diverifikasi' }}</p>
+                                            <p class="text-muted mb-0">{{$jasa->admin_email ?? ''}}</p>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>
                                     <button class="icon-btn delete-btn" title="Delete" data-id="{{ $jasa->id_donasi_jasa }}" data-nama-jasa="{{ $jasa->nama_jasa }}">
                                         <ion-icon name="trash-outline"></ion-icon>

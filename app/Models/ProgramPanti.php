@@ -27,5 +27,9 @@ class ProgramPanti extends Model
     {
         return $this->belongsTo(Admin::class, 'email_admin', 'email_admin');
     }
-}
 
+    public function donasiUang()
+    {
+        return $this->hasMany(DonasiUang::class, 'id_program');
+    }
+}

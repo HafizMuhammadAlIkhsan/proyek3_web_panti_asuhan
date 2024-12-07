@@ -131,7 +131,7 @@
 </head>
 
 <body>
-    @include('components.sidebar')
+    @include('components.sidebardonatur')
 
     <div class="main-content">
         <div class="section-title">Berita & Artikel</div>

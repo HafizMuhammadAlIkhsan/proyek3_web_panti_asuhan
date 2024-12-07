@@ -161,12 +161,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Berita" class="form-control">
-                    <button type="submit" class="search-button">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+
             </div>
         </div>
 
@@ -258,7 +253,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('berita.update', $unit->id_berita) }}" method="POST">
+                                            <form action="{{ route('berita.update', $unit->id_berita) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -326,6 +322,31 @@
                         });
                 });
             </script>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script>
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ session('success') }}',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                @endif
+
+                @if (session('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: '{{ session('error') }}',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                @endif
+            </script>
+
 
         </div>
     </div>

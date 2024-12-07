@@ -159,12 +159,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Jasa" class="form-control">
-                    <button type="submit" class="search-button">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+                
             </div>
         </div>
 
@@ -192,16 +187,11 @@
                                 <td>{{ $riwayat->jumlah ?? '-' }}</td>
                                 <td>{{ $riwayat->tanggal ?? '-' }}</td>
                                 <td>{{ $riwayat->status_donasi ?? '-' }}</td>
-                                <td>
-                                    <button class="icon-btn view-details-btn" title="Detail Jasa">
-                                        <ion-icon name="brush-outline"></ion-icon>
-                                    </button>
-                                </td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8">Data tidak tersedia</td>
+                            <td colspan="6">Data tidak tersedia</td>
                         </tr>
                     @endif
                 </tbody>

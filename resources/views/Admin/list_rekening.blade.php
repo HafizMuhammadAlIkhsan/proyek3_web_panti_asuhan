@@ -171,12 +171,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Rekening" class="form-control">
-                    <button type="submit" class="search-button">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+                
             </div>
         </div>
 

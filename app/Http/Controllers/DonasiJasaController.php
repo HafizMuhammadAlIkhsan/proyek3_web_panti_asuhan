@@ -42,7 +42,7 @@ class DonasiJasaController extends Controller
     {
         $donasiJasa = DonasiJasa::join('donatur', 'donasi_jasa.email', '=', 'donatur.email')
             ->leftJoin('admin', 'donasi_jasa.email_admin', '=', 'admin.email_admin')
-            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email')
+            ->select('donasi_jasa.*', 'donatur.username as donatur_nama', 'donatur.email as donatur_email','admin.email_admin as admin_email','admin.nama_pengurus as nama_admin')
             ->orderBy('donasi_jasa.updated_at', 'asc') //  updated_at asc
             ->paginate(10);
            

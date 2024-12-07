@@ -129,6 +129,10 @@ Route::middleware(['isDonatur'])->group(function () {
         return view('Donatur/donatur_donasi_barang', compact('data'));
     })->name('hal_donasi_barang');
 
+    Route::get('/katalog_program', [ProgramPantiController::class, 'katalog'])->name('katalog_program');
+
+    Route::get('/berita', [BeritaController::class, 'Katalog'])->name('katalog_berita');
+
     Route::post('/donatur_donasi_barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
 
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur.show');
@@ -154,7 +158,7 @@ Route::post('/login_admin', [LoginAdminController::class, 'login']);
 
 //Beranda
 Route::middleware(['isAdmin'])->group(function () {
-    Route::post('/logout', [LoginAdminController::class, 'logout'])->name('admin.logout');
+    Route::post('/logout_admin', [LoginAdminController::class, 'logout'])->name('admin.logout');
 
     Route::get('/Beranda_Admin', [AdminController::class, 'BerandaAdmin']
     )->name('hal_beranda_admin');

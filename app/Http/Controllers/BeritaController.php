@@ -13,13 +13,21 @@ class BeritaController extends Controller
     {
         $berita = Berita::where('status', true)
             ->orderBy('tgl_upload', 'desc')
-            ->paginate(3);
+            ->paginate(9);
         return view('Masyarakat_Umum/Katalog_berita', compact('berita'));
+    }
+
+    public function Katalog()
+    {
+        $berita = Berita::where('status', true)
+            ->orderBy('tgl_upload', 'desc')
+            ->paginate(9);
+        return view('Donatur/Katalog_berita', compact('berita'));
     }
 
     public function store(Request $request)
     {
-        
+
         $admin = Auth::guard('admin')->user();
 
         $request->validate([
@@ -36,7 +44,7 @@ class BeritaController extends Controller
 
         // Insert data ke tabel berita
         Berita::create([
-            'email_admin' => $admin->email_admin, 
+            'email_admin' => $admin->email_admin,
             'nama_berita' => $request->nama_berita,
             'isi_berita' => $request->isi_berita,
             'tgl_upload' => now(),
@@ -71,17 +79,21 @@ class BeritaController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        $berita = Berita::findOrFail($id);
+        try {
+            $berita = Berita::findOrFail($id);
 
-        // Update berita
-        $berita->update([
-            'nama_berita' => $request->nama_berita,
-            'isi_berita' => $request->isi_berita,
-            'status' => $request->status,
-            'tgl_upload' => now(),
-        ]);
+            // Update berita
+            $berita->update([
+                'nama_berita' => $request->nama_berita,
+                'isi_berita' => $request->isi_berita,
+                'status' => $request->status,
+                'tgl_upload' => now(),
+            ]);
 
-        return redirect()->back()->with('success', 'Berita berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Berita berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui berita.');
+        }
     }
 
 

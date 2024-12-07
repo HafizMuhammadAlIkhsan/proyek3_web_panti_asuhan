@@ -178,21 +178,51 @@
     </div>
 
     <script>
-    let editorInstance;
-    ClassicEditor
-        .create(document.querySelector('#isi_berita'))
-        .then(editor => {
-            editorInstance = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        let editorInstance;
+        ClassicEditor
+            .create(document.querySelector('#isi_berita'))
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-    // Synchronize CKEditor content with the original textarea
-    document.querySelector('form').addEventListener('submit', (event) => {
-        document.querySelector('#isi_berita').value = editorInstance.getData();
-    });
-</script>
+        // Synchronize CKEditor content with the original textarea
+        document.querySelector('form').addEventListener('submit', (event) => {
+            document.querySelector('#isi_berita').value = editorInstance.getData();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        // Menangkap error dari validasi laravel
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Input Tidak Valid!',
+                html: '<ul style="text-align: left;">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

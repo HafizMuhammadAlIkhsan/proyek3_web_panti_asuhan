@@ -17,13 +17,13 @@
             </a>
         </li>
         <li class="menu-item" id="news-item">
-            <a href="#" class="link" onclick="setActive('news-item')">
+            <a href="{{ route('katalog_berita') }}" class="link" onclick="setActive('news-item')">
                 <ion-icon name="newspaper-outline"></ion-icon>
                 <span style="--i:3"> Berita & Artikel </span>
             </a>
         </li>
         <li class="menu-item" id="program-item">
-            <a href="#" class="link" onclick="setActive('program-item')">
+            <a href="{{ route('katalog_program') }}" class="link" onclick="setActive('program-item')">
                 <ion-icon name="calendar-outline"></ion-icon>
                 <span style="--i:4"> Program </span>
             </a>

@@ -14,8 +14,32 @@ class ProgramPantiController extends Controller
     {
         $programpanti = ProgramPanti::where('status', true)
             ->orderBy('tgl_upload', 'desc')
-            ->paginate(3);
+            ->with(['donasiUang' => function ($query) {
+                $query->where('status', 'Diterima');
+            }])
+            ->get();
+
+        foreach ($programpanti as $program) {
+            $program->dana_terkumpul = $program->donasiUang->sum('jumlah_uang');
+        }
+
         return view('Masyarakat_Umum/Katalog_Program', compact('programpanti'));
+    }
+
+    public function Katalog()
+    {
+        $programpanti = ProgramPanti::where('status', true)
+            ->orderBy('tgl_upload', 'desc')
+            ->with(['donasiUang' => function ($query) {
+                $query->where('status', 'Diterima');
+            }])
+            ->get();
+
+        foreach ($programpanti as $program) {
+            $program->dana_terkumpul = $program->donasiUang->sum('jumlah_uang');
+        }
+
+        return view('Donatur/Katalog_Program', compact('programpanti'));
     }
 
     public function store(Request $request)
@@ -83,6 +107,4 @@ class ProgramPantiController extends Controller
 
         return redirect()->route('list-program')->with('success', 'Program berhasil dihapus.');
     }
-
-
 }

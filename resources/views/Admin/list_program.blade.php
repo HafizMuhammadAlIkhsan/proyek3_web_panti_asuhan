@@ -161,12 +161,7 @@
     <div class="main">
         <div class="Top-Container">
             <div class="Center-Top">
-                <form action="/" method="GET">
-                    <input type="text" name="query" placeholder="Search Program" class="form-control">
-                    <button type="submit" class="search-button">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+                
             </div>
         </div>
 
@@ -176,10 +171,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Admin</th>
+                        <th scope="col">Penulis</th>
                         <th scope="col">Program</th>
                         <th scope="col">Tanggal</th>
-                        <th scope="col">Dana</th>
+                        <th scope="col">Dana Dibutuhkan</th>
                         <th scope="col">Status</th>
                         <th scope="col">Aksi</th>
                     </tr>
