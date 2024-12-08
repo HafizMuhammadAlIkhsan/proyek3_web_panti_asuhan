@@ -21,6 +21,7 @@ class Admin extends Authenticatable
         'password_admin',
         'nama_pengurus',
         'jabatan',
+        'status_akun'
     ];
     
     protected $hidden = [
