@@ -41,12 +41,14 @@
                 <span style="--i:5"> Data Anak Asuh </span>
             </a>
         </li>
+        @if (Auth::guard('admin')->user()->jabatan == 'Manager')
         <li class="{{ request()->routeIs('beranda_create_admin') ? 'active' : ''}}">
             <a href="{{ route('beranda_create_admin') }}">
                 <ion-icon name="accessibility-outline"></ion-icon>
                 <span style="--i:5"> Data Admin </span>
             </a>
         </li>
+        @endif
         <li class="{{ request()->routeIs('hal_beranda_data_panti') ? 'active' : ''}}">
             <a href="{{ route('hal_beranda_data_panti') }}">
                 <ion-icon name="business-outline"></ion-icon>
@@ -58,26 +60,10 @@
                 <img src="{{asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>
-                    <h4>user</h4>
+                    <h4>{{ $admin->nama_pengurus }}</h4>
                 </span>
                 <span class="arrow">&gt;</span>
             </a>
         </li>
     </ul>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
-@if(session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Akses Ditolak',
-            text: '{{ session('error') }}',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "{{ route('hal_beranda_admin') }}";
-            }
-        });
-    </script>
-@endif
