@@ -86,7 +86,6 @@
                 <input type="text" name="email_admin" placeholder="Email atau Nama" required>
                 <input type="password" name="password_admin" placeholder="Password" required>
                 <button type="submit">Login</button>
-                <a href="#">Lupa password?</a>
             </form>        
         </div>
     </div>

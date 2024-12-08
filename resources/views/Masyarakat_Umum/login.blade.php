@@ -104,7 +104,6 @@
                 <input type="text" name="email" placeholder="Email atau Nomor HP" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
-                <a href="#">Lupa password?</a>
                 <a href="{{ route('register.step1') }}">Belum punya akun? Daftar</a>
             </form>
         </div>
