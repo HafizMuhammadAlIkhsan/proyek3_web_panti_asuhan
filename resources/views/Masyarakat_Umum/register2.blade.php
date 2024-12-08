@@ -80,7 +80,7 @@
             <h2>Complete Your Profile</h2>
             <form method="POST" action="{{ route('register.step2.post') }}">
                 @csrf
-                <input type="text" class="form-control" name="username" placeholder="Username" required>
+                <input type="text" class="form-control" name="username" placeholder="Username">
                 <input type="text" class="form-control" name="kota" placeholder="Alamat">
                 <input type="text" class="form-control" name="pekerjaan" placeholder="Pekerjaan">
                 <label for="tanggal-lahir">Tanggal Lahir</label>
@@ -152,7 +152,7 @@
             
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Kesalahan!',
                 html: errorMessages.join('<br>'),
             });
         @endif
@@ -160,7 +160,7 @@
         @if ($errors->has('tanggal_lahir'))
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Kesalahan!',
                 text: '{{ $errors->first('tanggal_lahir') }}',
                 confirmButtonText: 'OK'
             });

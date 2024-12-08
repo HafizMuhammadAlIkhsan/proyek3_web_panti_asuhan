@@ -16,12 +16,13 @@ class RegisterController extends Controller
     public function postRegister1(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email|unique:donatur,email|regex:/^[\w._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/',
+            'email' => 'required|email|unique:donatur,email',
             'password' => 'required|confirmed|min:8',
             'kontak' => 'required|regex:/^[0-9]+$/|max:12',
         ], [
+            'email.email' => 'Format email tidak valid',
+            'email.required' => 'Email Wajib diisi.',
             'email.unique' => 'Email sudah terdaftar. Silakan gunakan email lain.',
-            'email.regex' => 'Format email tidak valid. Pastikan email berformat seperti example@example.com.',
             'password.required' => 'Password wajib diisi.',
             'password.confirmed' => 'Password dan konfirmasi password tidak cocok.',
             'password.min' => 'Password harus memiliki minimal 8 karakter.',
@@ -51,9 +52,14 @@ class RegisterController extends Controller
 
         $request->validate([
             'username' => 'required|string|max:50',
+            'kota' => 'nullable|string|max:30',
+            'pekerjaan' => 'nullable|string|max:50',
+            'gender' => 'nullable|boolean',
         ], [
             'username.required' => 'Username wajib diisi.',
             'username.max' => 'Username maksimal 50 karakter.',
+            'kota.max' => 'Kota maksimal 30 karakter.',
+            'pekerjaan.max' => 'Pekerjaan maksimal 50 karakter.',
         ]);
 
         $tahun = $request->input('tahun');
@@ -76,7 +82,7 @@ class RegisterController extends Controller
         } else {
             $tglLahir = null;
         }
-        // dd($request->input('kota'));
+
         Donatur::create([
             'email' => $register1Data['email'],
             'password' => bcrypt($register1Data['password']),
