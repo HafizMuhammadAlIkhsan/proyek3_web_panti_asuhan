@@ -18,7 +18,9 @@ class isAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user() instanceof Admin) {
-            return $next($request);
+            if (Auth::guard('admin')->user()->status_akun == 'Aktif') {
+                return $next($request);
+            }
         }
         abort(401);
     }
