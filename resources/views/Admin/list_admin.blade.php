@@ -215,7 +215,7 @@
                         <th scope="col">Nama Admin</th>
                         <th scope="col">Email</th>
                         <th scope="col">Jabatan</th>
-                        <th scope="col">Tanggal Dibuat</th>
+                        <th scope="col">Status Akun</th>
                         <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -233,25 +233,16 @@
                             </td>
                             <td>{{ $admin->email_admin }}</td>
                             <td>{{ $admin->jabatan }}</td>
-                            <td>{{ \Carbon\Carbon::parse($admin->created_at)->format('d-m-Y') }}</td>
+                            <td>{{ $admin->status_akun }}</td>
                             <td class="text-center">
-                                <!-- Button Edit -->
                                 <button class="btn btn-primary btn-sm edit-btn" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#editModal"
                                         data-email="{{ $admin->email_admin }}"
                                         data-nama="{{ $admin->nama_pengurus }}"
-                                        data-jabatan="{{ $admin->jabatan }}">
+                                        data-jabatan="{{ $admin->jabatan }}"
+                                        data-status-akun="{{ $admin->status_akun }}">
                                     Edit
-                                </button>
-        
-                                <!-- Button Delete -->
-                                <button class="btn btn-danger btn-sm delete-btn" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal"
-                                        data-email="{{ $admin->email_admin }}"
-                                        data-nama="{{ $admin->nama_pengurus }}">
-                                    Hapus
                                 </button>
                             </td>
                         </tr>
@@ -262,16 +253,13 @@
                     @endforelse
                 </tbody>
             </table>
-        
-            <div class="pagination-container mt-3">
-                {{ $admins->links() }}
-            </div>
+
         </div>
         
         <!-- Modal Edit -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form id="editForm" method="POST">
+                <form id="editForm" method="POST" >
                     @csrf
                     @method('PUT')
                     <div class="modal-content">
@@ -293,6 +281,13 @@
                                 <input type="text" id="editJabatan" name="jabatan" class="form-control" required>
                             </div>
                             <div class="mb-3">
+                                <label for="editStatus" class="form-label">Status</label>
+                                <select id="editStatus" name="status_akun" class="form-select">
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="editPassword" class="form-label">Password Baru (Opsional)</label>
                                 <input type="password" id="editPassword" name="password_admin" class="form-control">
                             </div>
@@ -305,31 +300,63 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Modal Delete -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <form id="deleteForm" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Hapus Admin</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus admin <strong id="deleteNama"></strong>?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+        <div class="pagination-container">
+            @if ($admins->onFirstPage())
+                <button class="btn btn-secondary" disabled>Previous Page</button>
+            @else
+                <a href="{{ $admins->previousPageUrl() }}" class="btn btn-primary">Previous Page</a>
+            @endif
+
+            <span>Page {{ $admins->currentPage() }} of {{ $admins->lastPage() }}</span>
+
+            @if ($admins->hasMorePages())
+                <a href="{{ $admins->nextPageUrl() }}" class="btn btn-primary">Next Page</a>
+            @else
+                <button class="btn btn-secondary" disabled>Next Page</button>
+            @endif
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    @elseif (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                showConfirmButton: true
+            });
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Ada kesalahan!',
+                html: `
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                `,
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 
     <script>
         const editModal = document.getElementById('editModal');
@@ -338,49 +365,17 @@
             const email = button.getAttribute('data-email');
             const nama = button.getAttribute('data-nama');
             const jabatan = button.getAttribute('data-jabatan');
+            const status_akun = button.getAttribute('data-status-akun');
     
             editModal.querySelector('#editNamaPengurus').value = nama;
             editModal.querySelector('#editEmailAdmin').value = email;
             editModal.querySelector('#editJabatan').value = jabatan;
+            editModal.querySelector('#editStatus').value = status_akun;
     
             const form = editModal.querySelector('#editForm');
             form.action = `/admin/update_admin/${email}`;
         });
-    
-        const deleteModal = document.getElementById('deleteModal');
-        deleteModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const email = button.getAttribute('data-email');
-            const nama = button.getAttribute('data-nama');
-    
-            deleteModal.querySelector('#deleteNama').textContent = nama;
-    
-            const form = deleteModal.querySelector('#deleteForm');
-            form.action = `/admin/delete_admin/${email}`;
-        });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}'
-            });
-        @elseif (session('error'))
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: '{{ session('error') }}'
-            });
-        @endif
-    </script>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
     <script>
         function searchAdmins() {
             var query = $('#searchQuery').val();

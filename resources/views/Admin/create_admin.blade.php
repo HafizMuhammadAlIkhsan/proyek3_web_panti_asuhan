@@ -154,8 +154,12 @@
                 
                     <div class="mb-3">
                         <label for="jabatan" class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan" required>
-                    </div>
+                        <select class="form-control" id="jabatan" name="jabatan" required>
+                            <option value="" disabled selected>Pilih Jabatan</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>                    
                 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -190,6 +194,15 @@
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 confirmButtonText: 'OK'
+            });
+        </script>
+    @elseif (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                showConfirmButton: true
             });
         </script>
     @endif
