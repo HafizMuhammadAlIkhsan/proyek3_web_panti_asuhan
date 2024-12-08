@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HOME_DONATUR</title>
+    <title>Beranda Admin</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -235,7 +235,7 @@
                                 <ion-icon name="notifications-outline" class="icon-2"></ion-icon>
                                 <span class="notification-dot"></span>
                             </div>
-                            <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
+                            <span>{{ $donasiPending ?? '0' }} Donasi Menunggu untuk di konfirmasi</span>
                         </a>
 
                         <a href="{{ route('hal_beranda_berita_admin') }}" class="button">
