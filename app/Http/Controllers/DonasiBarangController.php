@@ -36,8 +36,8 @@ class DonasiBarangController extends Controller
     {
         // Menyetujui donasi dan memperbarui status
         $donasi = DonasiBarang::findOrFail($id);
-        $donasi->update(['status' => $request->status]);
-
+        $admin = auth('admin')->user()?->email_admin;
+        $donasi->update(['status' => $request->status, 'email_admin' => $admin]);
         return response()->json(['message' => 'Donasi berhasi diubah']);
     }
 

@@ -46,6 +46,12 @@
             gap: 8px;
         }
 
+        .search-button {
+            border: none;
+            background: none;
+            font-size: 1.2em;
+        }
+
         .Mid-Container {
             background-color: #D1B2FF;
             width: 100%;
@@ -163,7 +169,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> <!--Untuk Pop Up-->
 
     <div class="main">
-
         <div class="Mid-Container">List Barang</div>
 
         <div class="container">
@@ -232,7 +237,7 @@
             <!-- Pop Up Edit -->
             <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl modal-dialog-center">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalNamaBarang">Nama Barang</h5>
@@ -240,20 +245,46 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="modalStatus" class="form-label">Status</label>
-                                    <select id="modalStatus" class="form-select">
-                                        <option value="Diproses">Diproses</option>
-                                        <option value="Diterima">Diterima</option>
-                                        <option value="Dibatalkan">Dibatalkan</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label for="donatur" class="form-label">Donatur</label>
+                                        <input type="text" id="donatur" placeholder="Ex: Anonymous"
+                                            class="form-control" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-label">Verifikasi</div>
+                                        <img id="image-preview" style="width: 250px;height: 250px;object-fit:cover;">
+                                    </div>
                                 </div>
-                            </form>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label for="modalStatus" class="form-label">Status</label>
+                                        <select id="modalStatus" class="form-select">
+                                            <option value="Diproses">Diproses</option>
+                                            <option value="Menunggu pengiriman">Menunggu pengiriman</option>
+                                            <option value="Diterima">Diterima</option>
+                                            <option value="Dibatalkan">Dibatalkan</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="itemName">Nama Barang</label>
+                                        <input class="form-control" type="text" id="itemName"
+                                            placeholder="Ex: Buku/Pensil" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="itemQuantity">Jumlah Barang</label>
+                                        <input class="form-control" type="text" id="itemQuantity"
+                                            placeholder="Ex: 8 Buah/1 Lusin" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                            <button type="button" id="confirmButton" class="btn btn-primary">Konfirmasi</button>
+                            <button type="button" id="confirmButton"
+                                class="btn bg-primary text-white">Konfirmasi</button>
                         </div>
                     </div>
                 </div>
@@ -270,7 +301,8 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus jasa <strong id="deleteNamaBarang"></strong>?</p>
+                            <p>Apakah Anda yakin ingin menghapus donasi barang <strong id="deleteNamaBarang"></strong>?
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -314,8 +346,15 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
+
+                        document.getElementById('image-preview').src = data.bukti_foto
                         // Mengisi data modal
                         document.getElementById("modalNamaBarang").textContent = data.nama_barang;
+                        document.getElementById("donatur").value = data.donatur;
+                        // document.getElementById('date').value = data.tanggal
+                        document.getElementById('itemName').value = data.nama_barang
+                        document.getElementById("itemQuantity").value = data.jumlah;
+                        // status
                         const modalStatus = document.getElementById("modalStatus");
                         modalStatus.value = data.status;
                         modalStatus.dispatchEvent(new Event('change'));
