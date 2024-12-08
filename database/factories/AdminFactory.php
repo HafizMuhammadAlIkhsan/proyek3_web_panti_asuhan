@@ -17,6 +17,7 @@ class AdminFactory extends Factory
             'nama_pengurus' => $this->faker->name,
             'password_admin' => bcrypt('password'), // Gunakan bcrypt untuk password
             'jabatan' => $this->faker->jobTitle,
+            'status_akun' => 'Aktif',
         ];
     }
 }
