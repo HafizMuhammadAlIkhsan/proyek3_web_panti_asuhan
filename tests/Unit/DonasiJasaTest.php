@@ -16,14 +16,14 @@ class DonasiJasaTest extends TestCase
     /** @test */
     public function test_insert_donasi_jasa_valid_data()
     {
-        
+
         Admin::factory()->create();
         $donatur = Donatur::factory()->create();
         $admin = Admin::first();
 
         $this->actingAs($admin, 'admin');
 
- 
+
         $data = [
             'email' => $donatur->email,
             'nama_jasa' => 'Jasa Mengajar',
@@ -50,7 +50,6 @@ class DonasiJasaTest extends TestCase
     public function handles_exception()
     {
         Admin::factory()->create();
-        $donatur = Donatur::factory()->create();
         $admin = Admin::first();
 
         Auth::guard('admin')->login($admin);
@@ -65,5 +64,25 @@ class DonasiJasaTest extends TestCase
         $response = $this->post(route('jasa.insert'), $data);
         $response->assertRedirect()
             ->assertSessionHas('error', 'Terjadi kesalahan. Data gagal disimpan.');
+    }
+
+    /** @test */
+    public function test_update_donasi_jasa_null()
+    {
+        Admin::factory()->create();
+        $admin = Admin::first();
+
+        $this->actingAs($admin, 'admin');
+
+        $nonExistentId = 9999;
+        $data = [
+            'deskripsi_jasa' => 'Some description.',
+            'jadwal_mulai' => now()->addDays(1)->toDateString(),
+            'jadwal_selesai' => now()->addDays(5)->toDateString(),
+        ];
+
+        $response = $this->putJson(route('jasa.update', $nonExistentId), $data);
+
+        $response->assertStatus(404);
     }
 }
