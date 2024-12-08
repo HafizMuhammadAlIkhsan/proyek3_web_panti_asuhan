@@ -32,10 +32,8 @@ class DonasiJasaTest extends TestCase
             'jadwal_selesai' => now()->addDays(5)->toDateString(),
         ];
 
-        // Kirim request POST untuk menyimpan data
         $response = $this->post(route('jasa.insert'), $data);
 
-        // Periksa apakah data tersimpan di database
         $this->assertDatabaseHas('donasi_jasa', [
             'email' => $data['email'],
             'nama_jasa' => $data['nama_jasa'],
@@ -44,7 +42,6 @@ class DonasiJasaTest extends TestCase
             'jadwal_selesai' => $data['jadwal_selesai'],
         ]);
 
-        // Periksa apakah respons mengarah ke halaman sebelumnya dan ada pesan sukses
         $response->assertRedirect()
             ->assertSessionHas('success', 'Data donasi jasa berhasil ditambahkan.');
     }
@@ -52,16 +49,11 @@ class DonasiJasaTest extends TestCase
     /** @test */
     public function handles_exception()
     {
-        // Buat admin
         Admin::factory()->create();
         $donatur = Donatur::factory()->create();
         $admin = Admin::first();
 
-
-        // Login sebagai admin
         Auth::guard('admin')->login($admin);
-
-        // Data valid
         $data = [
             'email' => 'donatur@example.com',
             'nama_jasa' => 'Jasa Mengajar',
@@ -70,10 +62,7 @@ class DonasiJasaTest extends TestCase
             'jadwal_selesai' => now()->addDays(5)->toDateString(),
         ];
 
-        // Simpan data
         $response = $this->post(route('jasa.insert'), $data);
-
-        // Periksa respons error
         $response->assertRedirect()
             ->assertSessionHas('error', 'Terjadi kesalahan. Data gagal disimpan.');
     }

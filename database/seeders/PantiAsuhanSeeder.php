@@ -14,7 +14,7 @@ class PantiAsuhanSeeder extends Seeder
             'email_panti' => 'panti1@example.com',
             'nama_panti' => 'Panti Asuhan A',
             'lokasi_panti' => 'Jalan Mawar No. 1',
-            'nomer_cp' => 123456789,
+            'nomer_cp' => 81214431135,
         ]);
     }
 }

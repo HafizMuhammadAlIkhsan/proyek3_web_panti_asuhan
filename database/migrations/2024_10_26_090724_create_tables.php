@@ -113,7 +113,7 @@ class CreateTables extends Migration
             $table->char('email_panti', 50);
             $table->string('nama_panti', 50);
             $table->string('lokasi_panti', 255);
-            $table->integer('nomer_cp')->nullable();
+            $table->string('nomer_cp',15)->nullable();
         });
 
         // Table: REKENING

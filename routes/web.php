@@ -95,7 +95,7 @@ Route::middleware(['CheckDonaturAccess'])->group(function () {
     Route::post('/donatur/logout', [AuthDonatur::class, 'logout'])->name('donatur.logout');
     Route::get('/beranda_donatur', function () {return view('Donatur/beranda_donatur');})->name('beranda_donatur');
     Route::get('/Halaman_Donasi', function () {return view('Donatur/beranda_donasi');})->name('hal_donasi_donatur');
-    Route::get('/donatur_donasi_jasa', function () {return view('Donatur/donatur_donasi_jasa',);})->name('hal_donasi_jasa');
+    Route::get('/donatur_donasi_jasa', [DonasiJasaController::class, 'Toindex'])->name('hal_donasi_jasa');
     Route::get('/donatur_donasi_barang', function () {$data = DonasiBarang::all();return view('Donatur/donatur_donasi_barang', compact('data'));})->name('hal_donasi_barang');
     Route::get('/katalog_program', [ProgramPantiController::class, 'katalog'])->name('katalog_program');
     Route::get('/katalog_berita', [BeritaController::class, 'Katalog'])->name('katalog_berita');

@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DonasiJasa;
+use App\Models\PantiAsuhan;
 use Illuminate\Support\Facades\Auth;
 
 class DonasiJasaController extends Controller
 {
+    public function Toindex()
+    {
+        $data = PantiAsuhan::where('id_panti', 1)->firstOrFail();
+        return view('Donatur/donatur_donasi_jasa', ['data' => $data]);
+    }
+
     public function store(Request $request)
     {
         try {
