@@ -17,9 +17,10 @@ class AdminController extends Controller
         $request->validate([
             'email_admin' => 'required|email|unique:admin,email_admin',
             'nama_pengurus' => 'required|string|regex:/^[A-Za-z\s]+$/|max:50',
-            'password_admin' => 'required|string|min:8',
+            'password_admin' => 'required|confirmed|string|min:8',
             'jabatan' => 'required|string|max:50',
         ], [
+            'email_admin.required' => 'Email wajib diisi.',
             'email_admin.email' => 'Format email tidak valid.',
             'email_admin.unique' => 'Email sudah terdaftar.',
             'nama_pengurus.required' => 'Nama pengurus wajib diisi.',
@@ -27,6 +28,7 @@ class AdminController extends Controller
             'nama_pengurus.max' => 'Nama pengurus maksimal 50 karakter.',
             'password_admin.required' => 'Password wajib diisi.',
             'password_admin.min' => 'Password minimal terdiri dari 8 karakter.',
+            'password_admin.confirmed' => 'Password dan konfirmasi password tidak cocok.',
             'jabatan.required' => 'Jabatan wajib diisi.',
             'jabatan.max' => 'Jabatan maksimal 50 karakter.',
         ]);
@@ -65,6 +67,8 @@ class AdminController extends Controller
             'jabatan.max' => 'Jabatan maksimal 50 karakter.',
             'password_admin.min' => 'Password minimal terdiri dari 8 karakter.',
             'password_admin.max' => 'Password maksimal 60 karakter.',
+            'status_akun.required' => 'Status akun wajib diisi.',
+            'status_akun.max' => 'Status akun maksimal 11 karakter.',
         ]);
         
         $admin = Admin::where('email_admin', $email)->first();

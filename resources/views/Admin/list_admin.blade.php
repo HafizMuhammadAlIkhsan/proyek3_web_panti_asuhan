@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Jasa</title>
+    <title>List Akun Admin</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
@@ -270,7 +270,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="editNamaPengurus" class="form-label">Nama Pengurus</label>
-                                <input type="text" id="editNamaPengurus" name="nama_pengurus" class="form-control" required>
+                                <input type="text" id="editNamaPengurus" name="nama_pengurus" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="editEmailAdmin" class="form-label">Email</label>
@@ -278,7 +278,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="editJabatan" class="form-label">Jabatan</label>
-                                <input type="text" id="editJabatan" name="jabatan" class="form-control" required>
+                                <select id="editJabatan" name="jabatan" class="form-select">
+                                    <option value="Manager">Manager</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="editStatus" class="form-label">Status</label>
