@@ -16,7 +16,7 @@ class CreateTables extends Migration
             $table->string('nama_asli', 50)->nullable();
             $table->string('password', 60);
             $table->date('tgl_lahir_donatur')->nullable();
-            $table->decimal('kontak', 12, 0);
+            $table->String('kontak', 12, 0);
             $table->string('pekerjaan', 50)->nullable();
             $table->boolean('gender')->nullable();
             $table->string('kota', 30)->nullable();
@@ -28,6 +28,7 @@ class CreateTables extends Migration
             $table->string('nama_pengurus', 50);
             $table->string('password_admin', 60);
             $table->string('jabatan', 50);
+            $table->string('status_akun', 11);
         });
 
         Schema::create('program_panti', function (Blueprint $table) {
