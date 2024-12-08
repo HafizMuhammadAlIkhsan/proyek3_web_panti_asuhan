@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 
-class LoginAdminController extends Controller
+class AuthController extends Controller
 {
     public function showLoginForm()
     {
@@ -19,15 +20,18 @@ class LoginAdminController extends Controller
         $request->validate([
             'email_admin' => 'required|string',
             'password_admin' => 'required|string',
+        ], [
+            'email_admin.required' => 'Email wajib diisi.',
+            'password_admin.required' => 'Password wajib diisi.',
         ]);
 
         $admin = Admin::where('email_admin', $request->email_admin)->first();
 
         if ($admin && Hash::check($request->password_admin, $admin->password_admin)) {
             Auth::guard('admin')->login($admin);
-            return redirect()->intended('Beranda_Admin');
+            return redirect()->intended('beranda_admin');
         } else {
-            return redirect()->back()->withErrors(['email' => 'Email atau password salah']);
+            return redirect()->back()->withErrors(['email_admin' => 'Email atau password salah']);
         }
     }
 

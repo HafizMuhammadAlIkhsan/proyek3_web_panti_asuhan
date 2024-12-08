@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HOME_DONATUR</title>
+    <title>Beranda Admin</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -235,7 +235,7 @@
                                 <ion-icon name="notifications-outline" class="icon-2"></ion-icon>
                                 <span class="notification-dot"></span>
                             </div>
-                            <span>&lt;INT&gt; Donasi Menunggu untuk di konfirmasi</span>
+                            <span>{{ $donasiPending ?? '0' }} Donasi Menunggu untuk di konfirmasi</span>
                         </a>
 
                         <a href="{{ route('hal_beranda_berita_admin') }}" class="button">
@@ -256,15 +256,13 @@
                         <h3>Rekap Donasi</h3>
                         <div class="donation-stats">
                             <div class="approved">
-                                <strong>Approved</strong><br> 151 Donasi
+                                <strong>Donasi Diterima: </strong> {{ $donasiDiterima ?? 'Data tidak tersedia' }}
                             </div>
                             <div class="pending">
-                                <strong>Pending</strong><br>
-                                100 Donasi
+                                <strong>Donasi Pending: </strong> {{ $donasiPending ?? 'Data tidak tersedia' }}
                             </div>
                             <div class="total">
-                                <strong>Jumlah Donasi</strong><br>
-                                251 Donasi
+                                <strong>Total Donasi: </strong> {{ $totalDonasi ?? 'Data tidak tersedia'}}
                             </div>
                         </div>
                     </div>

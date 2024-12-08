@@ -4,9 +4,9 @@ use App\Models\DonasiBarang;
 use Illuminate\Support\Facades\Route;
 
 //Masyarakat Umum
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginDonaturController;
-use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\Donatur\RegisterController;
+use App\Http\Controllers\Donatur\AuthController as AuthDonatur;
+use App\Http\Controllers\Admin\AuthController as AuthAdmin;
 
 //Donasi
 use App\Http\Controllers\DonasiJasaController;
@@ -26,7 +26,7 @@ use App\Http\Controllers\ProgramPantiController;
 use App\Http\Controllers\DonaturController;
 use App\Http\Controllers\DonasiController;
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AkunAdminController;
 use App\Http\Controllers\HalamanDonasiController;
 use App\Http\Controllers\DonasiBarangController;
@@ -42,53 +42,33 @@ Route::get('/Login', function () {
     return view('Masyarakat_Umum/login');
 });
 
-Route::get('/register1', [RegisterController::class, 'showRegister1'])->name('register.step1');
-
-Route::post('/register1', [RegisterController::class, 'postRegister1'])->name('register.step1.post');
-
-Route::get('/register2', [RegisterController::class, 'showRegister2'])->name('register.step2');
-
-Route::post('/register2', [RegisterController::class, 'postRegister2'])->name('register.step2.post');
-
-Route::get('/login', [LoginDonaturController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginDonaturController::class, 'login']);
-Route::post('/logout', [LoginDonaturController::class, 'logout'])->name('donatur.logout');
-
-Route::get('/', function () {
-    return view('Masyarakat_Umum/beranda_masyarakat_umum');
-})->name('beranda_umum');
-
-Route::get('/Halaman_Donasi_Umum', function () {
-    return view('Masyarakat_Umum/beranda_donasi_masyarakat_umum');
-})->name('hal_donasi_umum');
-
-
+Route::get('/register_step1', [RegisterController::class, 'showRegister1'])->name('register.step1');
+Route::post('/register_step1', [RegisterController::class, 'postRegister1'])->name('register.step1.post');
+Route::get('/register_step2', [RegisterController::class, 'showRegister2'])->name('register.step2');
+Route::post('/register_step2', [RegisterController::class, 'postRegister2'])->name('register.step2.post');
+Route::get('/login', [AuthDonatur::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthDonatur::class, 'login']);
+Route::get('/', function () {return view('Masyarakat_Umum/beranda_masyarakat_umum');})->name('beranda_umum');
+Route::get('/Halaman_Donasi_Umum', function () {return view('Masyarakat_Umum/beranda_donasi_masyarakat_umum');})->name('hal_donasi_umum');
 
 Route::get('/data_anak', [dataAnakController::class, 'index_masyarakat'])->name('masyarakat-data-anak');
 
 
-
-
 //Berita_______________________________________________________________________________________________________________
-
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Insert Donasi Uang Umum_______________________________________________________________________________________________________________
 
 Route::post('/Donasi_Uang_Umum', [DonasiUangController::class, 'store'])->name('insert_donasi_uang');
-
-Route::get('/Donasi_Uang_Umum', function () {
-    return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');
-})->name('donasi_uang_umum');
-
+Route::get('/Donasi_Uang_Umum', function () {return view('Masyarakat_Umum/masyarakat_umum_donasi_uang_tunai');})->name('donasi_uang_umum');
 Route::get('/Donasi_Uang_Umum', [DonasiUangController::class, 'FormUmum'])->name('form_donasi_uang');
 //______________________________________________________________________________________________________________________
 //Donatur
 
 
 
-Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak')->middleware('isDonatur');
+Route::get('donatur/data_anak', [dataAnakController::class, 'index_donatur'])->name('donatur-data-anak')->middleware('CheckDonaturAccess');
 
 // // Route untuk beranda donatur
 // Route::get('/beranda-donatur', [DonaturController::class, 'index'])->name('beranda_donatur');
@@ -111,38 +91,20 @@ Route::get('/riwayat_donasi_jasa', [DonasiJasaController::class, 'AmbilDataJasa_
 Route::get('/riwayat_donasi_uang', [DonasiUangController::class, 'AmbilDataUang_Riwayat'])->name('riwayat_donasi_Uang');
 
 //________________________________________________________________________________________________________________
-Route::middleware(['isDonatur'])->group(function () {
-    Route::get('/beranda_donatur', function () {
-        return view('Donatur/beranda_donatur');
-    })->name('beranda_donatur');
-
-    Route::get('/Halaman_Donasi', function () {
-        return view('Donatur/beranda_donasi');
-    })->name('hal_donasi_donatur');
-
-    Route::get('/donatur_donasi_jasa', function () {
-        return view('Donatur/donatur_donasi_jasa',);
-    })->name('hal_donasi_jasa');
-
-    Route::get('/donatur_donasi_barang', function () {
-        $data = DonasiBarang::all();
-        return view('Donatur/donatur_donasi_barang', compact('data'));
-    })->name('hal_donasi_barang');
-
+Route::middleware(['CheckDonaturAccess'])->group(function () {
+    Route::post('/donatur/logout', [AuthDonatur::class, 'logout'])->name('donatur.logout');
+    Route::get('/beranda_donatur', function () {return view('Donatur/beranda_donatur');})->name('beranda_donatur');
+    Route::get('/Halaman_Donasi', function () {return view('Donatur/beranda_donasi');})->name('hal_donasi_donatur');
+    Route::get('/donatur_donasi_jasa', [DonasiJasaController::class, 'Toindex'])->name('hal_donasi_jasa');
+    Route::get('/donatur_donasi_barang', function () {$data = DonasiBarang::all();return view('Donatur/donatur_donasi_barang', compact('data'));})->name('hal_donasi_barang');
     Route::get('/katalog_program', [ProgramPantiController::class, 'katalog'])->name('katalog_program');
-
     Route::get('/katalog_berita', [BeritaController::class, 'Katalog'])->name('katalog_berita');
-
     Route::post('/donatur_donasi_barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');
-
     Route::get('/profile_donatur', [DonaturController::class, 'showProfile'])->name('hal_profile_donatur.show');
-
     Route::put('/profile_donatur', [DonaturController::class, 'updateProfile'])->name('hal_profile_donatur.update');
-
-    Route::get('sidebar', [DonaturController::class, 'showEmail'])->name('showEmail');
 });
 
-Route::middleware(['isDonatur'])->group(function () {
+Route::middleware(['CheckDonaturAccess'])->group(function () {
     Route::get('/Riwayat_Donasi', [DonaturController::class, 'RiwayatDonasi'])->name('RiwayatDonasi_donasi');
     Route::get('/Donasi_Uang_Umum_Donatur', [DonasiUangController::class, 'FormDonatur'])->name('form_donasi_uang_donatur');
     Route::post('/Donasi_Uang_Donatur', [DonasiUangController::class, 'store_donatur'])->name('insert_donasi_uang_donatur');
@@ -153,52 +115,22 @@ Route::middleware(['isDonatur'])->group(function () {
 //______________________________________________________________________________________________________________________
 //Admin
 
-Route::get('/login_admin', [LoginAdminController::class, 'showLoginForm'])->name('login_admin');
-Route::post('/login_admin', [LoginAdminController::class, 'login']);
+Route::get('/login_admin', [AuthAdmin::class, 'showLoginForm'])->name('login_admin');
+Route::post('/login_admin', [AuthAdmin::class, 'login']);
 
 //Beranda
-Route::middleware(['isAdmin'])->group(function () {
-    Route::post('/logout_admin', [LoginAdminController::class, 'logout'])->name('admin.logout');
-
-    Route::get('/Beranda_Admin', [AdminController::class, 'BerandaAdmin']
-    )->name('hal_beranda_admin');
-
-    Route::get('/Beranda_Donasi', [AdminController::class, 'BerandaDonasi']
-    )->name('hal_beranda_donasi_admin');
-
-    Route::get('/Beranda_Berita', function () {
-        return view('Admin/beranda_berita_admin');
-    })->name('hal_beranda_berita_admin');
-
-    Route::get('/Beranda_Program', function () {
-        return view('Admin/beranda_program_admin');
-    })->name('hal_beranda_program_admin');
-
-    // Route::get('/admin/create_admin', function () {
-    //     return view('Admin/create_admin');
-    // })->name('create_admin.show');
-
-    // Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
-
-    // Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
-
-    // Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
-
-    // Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
-
-    // Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
-
-    // Route::get('/admin/beranda_create_admin', function () {
-    //     return view('Admin/beranda_create_admin');
-    // })->name('beranda_create_admin');
+Route::middleware(['CheckAdminAccess'])->group(function () {
+    Route::post('/logout_admin', [AuthAdmin::class, 'logout'])->name('admin.logout');
+    Route::get('/beranda_admin', [AdminController::class, 'BerandaAdmin'])->name('hal_beranda_admin');
+    Route::get('/Beranda_Donasi', [AdminController::class, 'BerandaDonasi'])->name('hal_beranda_donasi_admin');
+    Route::get('/Beranda_Berita', function () {return view('Admin/beranda_berita_admin');})->name('hal_beranda_berita_admin');
+    Route::get('/Beranda_Program', function () {return view('Admin/beranda_program_admin');})->name('hal_beranda_program_admin');
 });
 
 
 //Program
-Route::middleware(['isAdmin'])->group(function () {
-    Route::get('/input_program', function () {
-        return view('Admin/input_program');
-    })->name('insert-program');
+Route::middleware(['CheckAdminAccess'])->group(function () {
+    Route::get('/input_program', function () {return view('Admin/input_program');})->name('insert-program');
     Route::get('/list_program', [ProgramPantiController::class, 'AmbilDataProgram_Admin'])->name('list-program');
     Route::post('/input_program', [ProgramPantiController::class, 'store'])->name('program.insert');
     Route::put('/list_program', [ProgramPantiController::class, 'update'])->name('program.update');
@@ -206,14 +138,14 @@ Route::middleware(['isAdmin'])->group(function () {
 });
 
 //Jasa
-Route::middleware(['isAdmin'])->group(function () {
+Route::middleware(['CheckAdminAccess'])->group(function () {
     Route::get('/donasi_jasa/{id}', [DonasiJasaController::class, 'show']);
     Route::put('/donasi_jasa/{id}', [DonasiJasaController::class, 'UpdateDataJasa'])->name('jasa.update');
     Route::delete('/donasi_jasa/{id}', [DonasiJasaController::class, 'HapusDataJasa'])->name('jasa.delete');
 
     Route::get('/beranda_jasa_admin', function () {
         return view('Admin/beranda_jasa_admin');
-    })->name('hal_beranda_jasa_admin')->middleware('isAdmin');;
+    })->name('hal_beranda_jasa_admin')->middleware('CheckAdminAccess');;
 
     Route::get('/input_jasa', function () {
         return view('Admin/input_jasa');
@@ -224,7 +156,7 @@ Route::middleware(['isAdmin'])->group(function () {
 });
 
 //Barang
-Route::middleware(['isAdmin'])->group(function () {
+Route::middleware(['CheckAdminAccess'])->group(function () {
     Route::get('/donasi_barang/{id}', [DonasiBarangController::class, 'detail']);
     Route::put('/donasi_barang/{id}', [DonasiBarangController::class, 'update_status'])->name('barang.status');
     Route::delete('/donasi_barang/{id}', [DonasiBarangController::class, 'destroy'])->name('barang.delete');
@@ -232,7 +164,7 @@ Route::middleware(['isAdmin'])->group(function () {
 });
 
 //Berita
-Route::middleware(['isAdmin'])->group(function () {
+Route::middleware(['CheckAdminAccess'])->group(function () {
 
     Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
@@ -246,13 +178,13 @@ Route::middleware(['isAdmin'])->group(function () {
 });
 
 //Uang
-Route::middleware(['isAdmin'])->group(function () {
+Route::middleware(['CheckAdminAccess'])->group(function () {
 
 
 });
 
 //Data Panti
-Route::middleware(['isAdmin'])->group(function () {
+Route::middleware(['CheckAdminAccess'])->group(function () {
 
     Route::get('/Beranda_DataPanti', function () {
         return view('Admin/beranda_datapanti_admin');
@@ -291,12 +223,12 @@ Route::get('/program', [ProgramPantiController::class, 'index'])->name('program.
 Route::get('/program/{id}', [ProgramPantiController::class, 'show'])->name('program.show');
 //_________________________________________________________________________________________________________________________________________
 
-Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('isAdmin');
-Route::get('admin/data_anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create')->middleware('isAdmin');
-Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store')->middleware('isAdmin');
-Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view')->middleware('isAdmin');
-Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit')->middleware('isAdmin');
-Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete')->middleware('isAdmin');
+Route::get('admin/data_anak', [dataAnakController::class, 'index'])->name('admin-data-anak')->middleware('CheckAdminAccess');
+Route::get('admin/data_anak/create', [dataAnakController::class, 'create'])->name('admin-data-anak-create')->middleware('CheckAdminAccess');
+Route::post('admin/data_anak/store', [dataAnakController::class, 'store'])->name('admin-data-anak-store')->middleware('CheckAdminAccess');
+Route::get('admin/data_anak/{id}/edit', [dataAnakController::class, 'updateView'])->name('admin-data-anak-edit-view')->middleware('CheckAdminAccess');
+Route::post('admin/data_anak/{id}', [dataAnakController::class, 'update'])->name('admin-data-anak-edit')->middleware('CheckAdminAccess');
+Route::delete('admin/data_anak/{id}', [dataAnakController::class, 'destroy'])->name('admin-data-anak-delete')->middleware('CheckAdminAccess');
 
 // Route::get('/Beranda_Donasi_Admin', function () {
 //     return view('Admin/beranda_donasi_admin');
@@ -307,24 +239,14 @@ Route::get('/Detail_Barang', function () {
     return view('Admin/detail_barang', compact('donasi_barang'));
 });
 
-Route::middleware(['isManager'])->group(function () {
-    Route::get('/admin/create_admin', function () {
-        return view('Admin/create_admin');
-    })->name('create_admin.show');
-
+Route::middleware(['CheckManagerAccess'])->group(function () {
+    Route::get('/admin/create_admin', function () {return view('Admin/create_admin');})->name('create_admin.show');
     Route::post('/admin/create_admin', [AdminController::class, 'store'])->name('create_admin.insert');
-
     Route::get('/admin/list_akun_admin', [AdminController::class, 'listAdmins'])->name('admin.list');
-
     Route::put('/admin/update_admin/{email}', [AdminController::class, 'update'])->name('admin.update');
-
     Route::delete('/admin/delete_admin/{email}', [AdminController::class, 'delete'])->name('admin.delete');
-
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
-
-    Route::get('/admin/beranda_create_admin', function () {
-        return view('Admin/beranda_create_admin');
-    })->name('beranda_create_admin');
+    Route::get('/admin/beranda_create_admin', function () {return view('Admin/beranda_create_admin');})->name('beranda_create_admin');
 });
 
 Route::post('/donasi-barang', [DonasiController::class, 'donasi_barang'])->name('post.donasi.barang');

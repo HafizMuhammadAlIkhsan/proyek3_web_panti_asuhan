@@ -86,12 +86,12 @@
             <h2>Create an Account</h2>
             <form method="POST" action="{{ route('register.step1.post') }}">
                 @csrf
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-                <input type="text" name="kontak" placeholder="No Handphone" required>
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password_confirmation" placeholder="Confirm Password">
+                <input type="text" name="kontak" placeholder="No Handphone">
                 <button type="submit" class="btn btn-register btn-block btn-success">Buat Akun!</button>
-                <a href="Login">Sudah Memiliki Akun? Log in</a>
+                <a href="login">Sudah Memiliki Akun? Log in</a>
             </form>
         </div>
     </div>

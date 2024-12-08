@@ -39,7 +39,7 @@
                 <img src="{{ asset ('image/user.png')}}" alt="" >
                 <span >
                     <p>selamat datang</p>
-                    {{-- <h4>{{ $profileData['email'] }}</h4> --}}
+                    <h4>{{ $donatur->username }}</h4>
                 </span>
                 <span class="arrow">&gt;</span>
             </a>

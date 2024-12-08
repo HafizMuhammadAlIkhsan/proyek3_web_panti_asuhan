@@ -134,28 +134,32 @@
                     @csrf
                     <div class="mb-3">
                         <label for="email_admin" class="form-label">Email Admin</label>
-                        <input type="email" class="form-control" id="email_admin" name="email_admin" placeholder="Email Admin" required>
+                        <input type="text" class="form-control" id="email_admin" name="email_admin" placeholder="Email Admin" >
                     </div>
                 
                     <div class="mb-3">
                         <label for="nama_pengurus" class="form-label">Nama Admin</label>
-                        <input type="text" class="form-control" id="nama_pengurus" name="nama_pengurus" placeholder="Nama Admin" required>
+                        <input type="text" class="form-control" id="nama_pengurus" name="nama_pengurus" placeholder="Nama Admin">
                     </div>
                 
                     <div class="mb-3">
                         <label for="password_admin" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password_admin" name="password_admin" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password_admin" name="password_admin" placeholder="Password">
                     </div>
                 
                     <div class="mb-3">
                         <label for="password_admin_confirmation" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="password_admin_confirmation" name="password_admin_confirmation" placeholder="Confirm Password" required>
+                        <input type="password" class="form-control" id="password_admin_confirmation" name="password_admin_confirmation" placeholder="Confirm Password">
                     </div>
                 
                     <div class="mb-3">
                         <label for="jabatan" class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan" required>
-                    </div>
+                        <select class="form-select" id="jabatan" name="jabatan">
+                            <option value="" disabled selected>Pilih Jabatan</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>                    
                 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -190,6 +194,15 @@
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 confirmButtonText: 'OK'
+            });
+        </script>
+    @elseif (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                showConfirmButton: true
             });
         </script>
     @endif

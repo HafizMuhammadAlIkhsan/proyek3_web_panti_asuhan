@@ -80,18 +80,9 @@
             <h2>Complete Your Profile</h2>
             <form method="POST" action="{{ route('register.step2.post') }}">
                 @csrf
-                <input type="hidden" name="email" value="{{ $email }}">
-                
-                <!-- Nama Lengkap -->
                 <input type="text" class="form-control" name="username" placeholder="Username">
-
-                <!-- Alamat -->
-                <input type="text" class="form-control" name="alamat" placeholder="Alamat">
-
-                <!-- Pekerjaan -->
+                <input type="text" class="form-control" name="kota" placeholder="Alamat">
                 <input type="text" class="form-control" name="pekerjaan" placeholder="Pekerjaan">
-
-                <!-- Tanggal Lahir -->
                 <label for="tanggal-lahir">Tanggal Lahir</label>
                 <div style="display: flex; gap: 10px;">
                     <select id="tanggal" name="tanggal">
@@ -127,8 +118,6 @@
                         </script>
                     </select>
                 </div>
-
-                <!-- Jenis Kelamin -->
                 <label>Jenis Kelamin</label>
                 <div class="radio-group">
                     <input type="radio" id="laki-laki" name="gender" value="1">
@@ -138,21 +127,12 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Selesai</button>
-                {{-- <a href="{{ route('beranda_donatur') }}" class="btn btn-secondary">Lewati</a> --}}
-                @if (session('success'))
-                    <p>Flash Message Sukses: {{ session('success') }}</p>
-                @endif
-                @if (session('error'))
-                    <p>Flash Message Error: {{ session('error') }}</p>
-                @endif
-            
             </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        // SweetAlert untuk sukses
         @if (session('success'))
             Swal.fire({
                 title: 'Berhasil!',
@@ -160,17 +140,29 @@
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                window.location.href = "{{ route('login') }}"; // Redirect setelah pop-up
+                window.location.href = "{{ route('login') }}"; 
             });
         @endif
     
-        // SweetAlert untuk error
-        @if (session('error'))
+        @if ($errors->any())
+            let errorMessages = [];
+            @foreach ($errors->all() as $error)
+                errorMessages.push('{{ $error }}');
+            @endforeach
+            
             Swal.fire({
-                title: 'Gagal!',
-                text: '{{ session('error') }}',
                 icon: 'error',
-                confirmButtonText: 'Coba Lagi'
+                title: 'Kesalahan!',
+                html: errorMessages.join('<br>'),
+            });
+        @endif
+
+        @if ($errors->has('tanggal_lahir'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Kesalahan!',
+                text: '{{ $errors->first('tanggal_lahir') }}',
+                confirmButtonText: 'OK'
             });
         @endif
     </script>

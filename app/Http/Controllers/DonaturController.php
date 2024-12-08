@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Donatur;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DonaturController extends Controller
@@ -26,40 +27,47 @@ class DonaturController extends Controller
             'bulan_lahir' => $donatur->tgl_lahir_donatur ? date('m', strtotime($donatur->tgl_lahir_donatur)) : null,
             'hari_lahir' => $donatur->tgl_lahir_donatur ? date('d', strtotime($donatur->tgl_lahir_donatur)) : null,
         ];
+
         return view('Donatur.profile_donatur', compact('profileData'));
         
     }
 
-    public function showEmail()
-    {
-        $donatur = Auth::guard('donatur')->user();
-
-        if ($donatur) {
-            $profileData = [
-                'email' => $donatur->username,
-            ];
-            return view('components.sidebardonatur', compact('profileData'));
-        }
-    }
-
     public function updateProfile(Request $request)
     {
+        $gender = $request->gender === '' || $request->gender === null ? null : filter_var($request->gender, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        
         $request->merge([
             'bulan_lahir' => (int) $request->bulan_lahir,
             'hari_lahir' => (int) $request->hari_lahir,
-            'gender' => filter_var($request->gender, FILTER_VALIDATE_BOOLEAN),
+            'gender' => $gender,
         ]);
+        
         $request->validate([
             'username' => 'required|string|max:50',
-            'nama_asli' => 'nullable|string|max:50',
+            'nama_asli' => 'nullable|string|max:50|regex:/^[a-zA-Z\s]+$/',
             'nomor_handphone' => 'required|digits_between:1,12',
-            'tahun_lahir' => 'required|integer|min:1900|max:' . now()->year,
-            'bulan_lahir' => 'required|numeric|min:1|max:12',
-            'hari_lahir' => 'required|numeric|min:1|max:31',
+            'tahun_lahir' => 'nullable|numeric|min:1900|max:' . now()->year,
+            'bulan_lahir' => 'nullable|numeric',
+            'hari_lahir' => 'nullable|numeric',
             'pekerjaan' => 'nullable|string|max:50',
-            'gender' => 'required|boolean',
+            'gender' => 'nullable|boolean',
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'username.max' => 'Username maksimal 50 karakter.',
+            'nama_asli.regex' => 'Nama asli hanya boleh mengandung huruf dan spasi.',
+            'nama_asli.max' => 'Nama asli tidak boleh lebih dari 50 karakter.',
+            'nomor_handphone.required' => 'Nomor handphone harus diisi.',
+            'nomor_handphone.digits_between' => 'Nomor Handphone maksimal 12 digit.',
+            'hari_lahir.numeric' => 'Hari lahir harus berupa angka.',
+            'pekerjaan.max' => 'Nama Pekerjaan tidak boleh lebih dari 50 karakter.',
+            'gender.boolean' => 'Jenis kelamin tidak valid.',
         ]);
-    
+        
+        $tanggal_lahir = Carbon::create($request->tahun_lahir, $request->bulan_lahir, $request->hari_lahir);
+        if ($tanggal_lahir > now()) {
+            return redirect()->back()->withErrors(['tgl_lahir' => 'Tanggal lahir tidak boleh lebih dari hari ini.']);
+        }
+        
         $donatur = Donatur::where('email', Auth::guard('donatur')->user()->email)->first();
     
         if (!$donatur) {
@@ -71,13 +79,18 @@ class DonaturController extends Controller
         $donatur->kontak = $request->nomor_handphone;
         $donatur->pekerjaan = $request->pekerjaan;
         $donatur->gender = $request->gender;
-        $donatur->tgl_lahir_donatur = sprintf('%04d-%02d-%02d', $request->tahun_lahir, $request->bulan_lahir, $request->hari_lahir);
+
+        if ($request->tahun_lahir && $request->bulan_lahir && $request->hari_lahir) {
+            $donatur->tgl_lahir_donatur = sprintf('%04d-%02d-%02d', $request->tahun_lahir, $request->bulan_lahir, $request->hari_lahir);
+        } else {
+            $donatur->tgl_lahir_donatur = null;
+        }
     
         if ($donatur->save()) {
             return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
+        } else {
+            return redirect()->back()->withErrors('Gagal memperbarui profil.');
         }
-    
-        return redirect()->back()->withErrors('Terjadi kesalahan saat memperbarui profil.');
     }
     
     public function RiwayatDonasi()

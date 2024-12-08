@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Donatur;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Donatur;
 
-class LoginDonaturController extends Controller
+class AuthController extends Controller
 {
     public function showLoginForm()
     {
@@ -19,6 +20,9 @@ class LoginDonaturController extends Controller
         $request->validate([
             'email' => 'required|string',
             'password' => 'required|string',
+        ] , [
+            'email.required' => 'Email wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
         ]);
 
         $donatur = Donatur::where('email', $request->email)->first();
@@ -39,5 +43,4 @@ class LoginDonaturController extends Controller
     
         return redirect('/');
     }
-    
 }

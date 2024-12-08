@@ -18,10 +18,8 @@ class isManager
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user() instanceof Admin) {
-            if (Auth::guard('admin')->user()->jabatan === 'Manager') {
+            if (Auth::guard('admin')->user()->jabatan == 'Manager') {
                 return $next($request);
-            }  else {
-                return redirect()->route('hal_beranda_admin')->with('error', 'Anda tidak memiliki hak akses ke halaman ini.');
             }
         }
         abort(401);

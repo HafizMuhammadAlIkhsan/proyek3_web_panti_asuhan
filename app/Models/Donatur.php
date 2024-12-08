@@ -24,7 +24,8 @@ class Donatur extends Authenticatable
         'username',
         'tgl_lahir_donatur',
         'pekerjaan',
-        'gender'
+        'gender',
+        'kota'
     ];
 
     protected $hidden = [
