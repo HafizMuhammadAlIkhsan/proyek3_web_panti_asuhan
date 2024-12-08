@@ -91,7 +91,7 @@
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
                 <input type="text" name="kontak" placeholder="No Handphone" required>
                 <button type="submit" class="btn btn-register btn-block btn-success">Buat Akun!</button>
-                <a href="Login">Sudah Memiliki Akun? Log in</a>
+                <a href="login">Sudah Memiliki Akun? Log in</a>
             </form>
         </div>
     </div>
