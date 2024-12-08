@@ -83,19 +83,19 @@
             <h2>Login Admin</h2>
             <form action="{{ route('login_admin') }}" method="POST">
                 @csrf
-                <input type="text" name="email_admin" placeholder="Email atau Nama" required>
-                <input type="password" name="password_admin" placeholder="Password" required>
+                <input type="text" name="email_admin" placeholder="Email atau Nama">
+                <input type="password" name="password_admin" placeholder="Password">
                 <button type="submit">Login</button>
             </form>        
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if ($errors->has('email'))
+    @if ($errors->has('email_admin'))
         <script>
             Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan',
-                text: '{{ $errors->first('email') }}'
+                text: '{{ $errors->first('email_admin') }}'
             });
         </script>
     @endif

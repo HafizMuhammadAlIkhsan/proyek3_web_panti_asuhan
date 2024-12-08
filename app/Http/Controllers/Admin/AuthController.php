@@ -20,6 +20,9 @@ class AuthController extends Controller
         $request->validate([
             'email_admin' => 'required|string',
             'password_admin' => 'required|string',
+        ], [
+            'email_admin.required' => 'Email wajib diisi.',
+            'password_admin.required' => 'Password wajib diisi.',
         ]);
 
         $admin = Admin::where('email_admin', $request->email_admin)->first();
@@ -28,7 +31,7 @@ class AuthController extends Controller
             Auth::guard('admin')->login($admin);
             return redirect()->intended('beranda_admin');
         } else {
-            return redirect()->back()->withErrors(['email' => 'Email atau password salah']);
+            return redirect()->back()->withErrors(['email_admin' => 'Email atau password salah']);
         }
     }
 
