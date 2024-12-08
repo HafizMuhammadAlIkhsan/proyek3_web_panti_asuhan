@@ -2,64 +2,66 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\DonasiBarang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DonasiBarangController extends Controller
 {
     public function index()
     {
-        $donasi_barang = DonasiBarang::with('donatur')
-            ->orderBy('tanggal_verifikasi_barang', 'desc')
-            ->paginate(10);
+        // Mengambil data donasi barang dan relasi donatur, lalu melakukan paginasi
+        $donasiBarang = DonasiBarang::with('donatur')->paginate(10);
 
-        return view('admin.donasi_barang', compact('donasi_barang'));
+        // Mengirimkan data ke view
+        return view('Admin.detail_barang', compact('donasiBarang'));
     }
 
     public function detail($id)
     {
+        // Mengambil detail donasi barang berdasarkan ID
         $donasi = DonasiBarang::with('donatur')->findOrFail($id);
-    
+
+        // Mengembalikan detail donasi dalam format JSON
         return response()->json([
             'donatur' => $donasi->donatur->nama_asli,
             'tanggal' => $donasi->tanggal_verifikasi_barang,
             'nama_barang' => $donasi->nama_barang,
             'jumlah' => $donasi->jumlah_barang,
+            'status' => $donasi->status,
             'bukti_foto' => asset('storage/' . $donasi->bukti_foto),
         ]);
     }
 
-    public function approve($id)
+    public function update_status($id, Request $request)
     {
+        // Menyetujui donasi dan memperbarui status
         $donasi = DonasiBarang::findOrFail($id);
-        $donasi->update(['status' => 'Menunggu_pengiriman']);
-        return response()->json(['message' => 'Donasi berhasil diapprove']);
-    }
+        $donasi->update(['status' => $request->status]);
 
-    public function reject($id)
-    {
-        $donasi = DonasiBarang::findOrFail($id);
-        $donasi->update(['status' => 'Dibatalkan']);
-        return response()->json(['message' => 'Donasi berhasil dibatalkan']);
+        return response()->json(['message' => 'Donasi berhasi diubah']);
     }
 
     public function destroy($id)
     {
+        // Menghapus donasi dan foto bukti jika ada
         $donasi = DonasiBarang::findOrFail($id);
-        if($donasi->bukti_foto) {
-            Storage::disk('public')->delete($donasi->bukti_foto);
+        if ($donasi->bukti_foto) {
+            \Storage::disk('public')->delete($donasi->bukti_foto);
         }
         $donasi->delete();
+
         return response()->json(['message' => 'Donasi berhasil dihapus']);
     }
 
-    public function bulkApprove(Request $request)
+    // takeout
+    public function bulkStatus(Request $request)
     {
+        // Menyetujui banyak donasi berdasarkan ID
         $ids = $request->ids;
+        $status = $request->status;
         DonasiBarang::whereIn('id_donasi_barang', $ids)
-            ->update(['status' => 'Menunggu_pengiriman']);
+            ->update(['status' => $status]);
+
         return response()->json(['message' => 'Donasi berhasil diapprove']);
     }
 }

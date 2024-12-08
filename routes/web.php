@@ -223,7 +223,13 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::post('admin/input_jasa', [DonasiJasaController::class, 'store'])->name('jasa.insert');
 });
 
-
+//Barang
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/donasi_barang/{id}', [DonasiBarangController::class, 'detail']);
+    Route::put('/donasi_barang/{id}', [DonasiBarangController::class, 'update_status'])->name('barang.status');
+    Route::delete('/donasi_barang/{id}', [DonasiBarangController::class, 'destroy'])->name('barang.delete');
+    Route::get('/list_barang', [DonasiBarangController::class, 'index'])->name('list-barang');
+});
 
 //Berita
 Route::middleware(['isAdmin'])->group(function () {

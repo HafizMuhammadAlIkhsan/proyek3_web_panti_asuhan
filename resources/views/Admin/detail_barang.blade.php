@@ -1,333 +1,391 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>List Donasi Barang - Admin</title>
-    
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List Barang</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
         body {
             background-color: #F5F5F9;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
         }
 
-        .main-content {
+        .main {
+            width: 100%;
+            height: 100%;
             margin-left: 250px;
-            padding: 20px;
+            background-color: #F5F5F9;
         }
 
-        h1.page-title {
-            background-color: #9f5ffe; /* Background color */
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-            color: white; /* Change this to your preferred color */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #F5F5F9;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
-
-        .table-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center; /* Center align contents inside the container */
-        }
-
-        .table {
-            display: inline-table; /* Make the table centered */
-            width: auto; /* Adjust width to content */
-        }
-
-        .table th, .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .aksi-column .aksi-header {
+        .Top-Container {
+            background-color: #ffffff;
+            width: 100%;
+            height: 80px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 5px;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Adjust the width of the Approve button */
-        .btn-approve-action {
-            padding: 4px 10px; /* Adjust padding as needed */
-            font-size: 0.875rem; /* Smaller font size */
-            width: 80px; /* Set a fixed width to make the button narrower */
-            min-width: 100px; /* Ensure minimum width */
-            max-width: 100px; /* Ensure maximum width */
-            line-height: 2;
-            font-weight: 500;
-        }
-
-
-        .donatur-info {
+        .Center-Top form {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .donatur-info img {
-            width: 40px;
-            height: 40px;
+        .Mid-Container {
+            background-color: #D1B2FF;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
         }
 
-        /* Modal styles */
-        .modal-content {
-            border-radius: 15px;
+        th[colspan="Aksi"],
+        td[colspan="Aksi"] {
+            width: 20px;
+            text-align: center;
         }
 
-        .modal-header {
-            background-color: #e6e6fa;
-            border-radius: 15px 15px 0 0;
-            padding: 15px 20px;
+        .icon-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            border: none;
+            background: none;
+            color: #000;
+            transition: color 0.2s ease;
         }
 
-        .modal-body {
-            padding: 20px;
+        .icon-btn:hover {
+            color: #5628a5;
+            font-size: 1.2em;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2em;
+            width: 30px;
+            height: 30px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
         }
 
-        .form-control {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
+        .pagination a {
+            color: #5628a5;
+            margin: 0 5px;
+            padding: 8px 16px;
             border-radius: 5px;
+            border: 1px solid #D1B2FF;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
         }
 
-        .modal-footer {
-            justify-content: flex-end;
-            gap: 10px;
-            padding: 15px 20px;
+        .pagination a:hover {
+            background-color: #D1B2FF;
+            color: #fff;
         }
 
-        .btn-reject {
-            background-color: #dc3545;
-            color: white;
+        .pagination .active a {
+            background-color: #5628a5;
+            color: #fff;
+            border: 1px solid #5628a5;
         }
 
-        .btn-approve {
-            background-color: #0d6efd;
-            color: white;
+        .btn-primary {
+            background-color: #D1B2FF;
+            border-color: #D1B2FF;
+            margin: 20px;
+            margin: 20px;
+            transition: background-color 0.2s ease;
         }
 
-        .sidebar ul li:last-child {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
+        .btn-primary:hover {
+            background-color: #5628a5;
+            border-color: #5628a5;
+        }
+
+        .btn-secondary {
+            margin: 20px;
+        }
+
+        .icon {
+            font-size: 50px;
         }
     </style>
 </head>
+
 <body>
     @include('components.sidebaradmin')
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> <!--Untuk Pop Up-->
 
-    <div class="main-content" style="margin-left: 0;width: 100%">
-        <h1 class="page-title">LIST Donasi Barang</h1>
+    <div class="main">
 
-        <!-- Table and Button in Header -->
-        <div class="table-container">
+        <div class="Mid-Container">List Barang</div>
 
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Donatur</th>
+                        <th scope="col">Penanggung Jawab</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tanggal Verifikasi</th>
+                        <th scope="col">Tanggal Berakhir</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (isset($donasiBarang) && $donasiBarang->count() > 0)
+                        @foreach ($donasiBarang as $jasa)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+                                        <div class="ms-3">
+                                            <p class="mb-0">{{ $jasa->donatur->username ?? 'Tidak ada nama' }}</p>
+                                            <p class="text-muted mb-0">{{ $jasa->donatur->email ?? 'Tidak ada email' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <ion-icon name="person-circle-outline" class="icon"></ion-icon>
+                                        <div class="ms-3">
+                                            <p class="mb-0">{{ $jasa->admin->nama_pengurus ?? 'Tidak ada nama' }}</p>
+                                            <p class="text-muted mb-0">
+                                                {{ $jasa->admin->email_admin ?? 'Tidak ada email' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $jasa->nama_barang }}</td>
+                                <td>{{ $jasa->status }}</td>
+                                <td>{{ $jasa->tanggal_verifikasi_barang }}</td>
+                                <td>{{ $jasa->metode_pengiriman ?? 'Jasa Pengiriman' }}</td>
+                                <td>
+                                    <button class="icon-btn delete-btn" title="Delete"
+                                        data-id="{{ $jasa->id_donasi_barang }}"
+                                        data-nama-barang="{{ $jasa->nama_barang }}">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                    <button class="icon-btn view-details-btn" title="Edit"
+                                        data-id="{{ $jasa->id_donasi_barang }}">
+                                        <ion-icon name="brush-outline"></ion-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
-                            <th><input type="checkbox" class="form-check-input" id="selectAll"></th>
-                            <th>Donatur</th>
-                            <th>Nama Barang</th>
-                            <th>Jumlah</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th class="aksi-column">
-                                <div class="aksi-header">
-                                    Metode Pengiriman
-                                    <button class="btn btn-primary btn-approve-action" id="bulkApprove">Approve</button>
-                                </div>
-                            </th>
+                            <td colspan="7">Data tidak tersedia</td>
                         </tr>
-                    </thead>
-                    <tbody id="donationList">
-                        @if(isset($donasi_barang) && count($donasi_barang) > 0)
-                            @foreach($donasi_barang as $donasi)
-                            <tr>
-                                <td><input type="checkbox" class="form-check-input"></td>
-                                <td>
-                                    <div class="donatur-info">
-                                        <!-- <img src="{{ asset("storage/$donasi->bukti_foto") }}" alt="Profile"> -->
-                                        <div>
-                                            <div>{{ $donasi->nama_asli }}</div>
-                                            <small>{{ $donasi->email }}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ $donasi->nama_barang }}</td>
-                                <td>{{ $donasi->jumlah_barang }} Buah</td>
-                                <td>{{ $donasi->status }}</td>
-                                <td>{{ $donasi->tanggal_verifikasi_barang }}</td>
-                                <td class="aksi-column">
-                                    {{ $donasi->metode_pengiriman }}
-                                    <button class="btn-detail">Detail</button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="7" class="text-center">Tidak ada data donasi</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                    @endif
+                </tbody>
+            </table>
 
-    <!-- Donation Detail Modal -->
-    <div class="modal fade" id="detailModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detail Donasi Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Donatur</label>
-                                <input type="text" class="form-control" id="detailDonatur" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Verifikasi</label>
-                                <div class="border p-2">
-                                    <img id="detailVerifikasi" src="" alt="Bukti Donasi" class="img-fluid">
+            <!-- Pop Up Edit -->
+            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalNamaBarang">Nama Barang</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="modalStatus" class="form-label">Status</label>
+                                    <select id="modalStatus" class="form-select">
+                                        <option value="Diproses">Diproses</option>
+                                        <option value="Diterima">Diterima</option>
+                                        <option value="Dibatalkan">Dibatalkan</option>
+                                    </select>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Tanggal</label>
-                                <input type="text" class="form-control" id="detailTanggal" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nama Barang</label>
-                                <input type="text" class="form-control" id="detailNamaBarang" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Jumlah Barang</label>
-                                <input type="text" class="form-control" id="detailJumlahBarang" readonly>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                            <button type="button" id="confirmButton" class="btn btn-primary">Konfirmasi</button>
                         </div>
-                    </div>
-                    <div class="text-end mt-3">
-                        <button type="button" class="btn btn-reject" id="btnReject">Reject</button>
-                        <button type="button" class="btn btn-approve" id="btnApprove">Approve</button>
                     </div>
                 </div>
             </div>
+
+            <!-- Pop Up Konfirmasi Delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Warning</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Apakah Anda yakin ingin menghapus jasa <strong id="deleteNamaBarang"></strong>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" id="confirmDeleteButton"
+                                class="btn btn-danger">Konfirmasi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination-container">
+                @if ($donasiBarang->onFirstPage())
+                    <button class="btn btn-secondary" disabled>Previous Page</button>
+                @else
+                    <a href="{{ $donasiBarang->previousPageUrl() }}" class="btn btn-primary">Previous Page</a>
+                @endif
+
+                <span>Page {{ $donasiBarang->currentPage() }} of {{ $donasiBarang->lastPage() }}</span>
+
+                @if ($donasiBarang->hasMorePages())
+                    <a href="{{ $donasiBarang->nextPageUrl() }}" class="btn btn-primary">Next Page</a>
+                @else
+                    <button class="btn btn-secondary" disabled>Next Page</button>
+                @endif
+            </div>
+
         </div>
     </div>
 
-    <!-- jQuery and AJAX Script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Load donations dynamically
-        function loadDonations() {
-            $.ajax({
-                url: '/admin/donasi-barang',  // Adjust the endpoint based on your route
-                method: 'GET',
-                success: function(response) {
-                    $('#donationList').html(''); // Clear existing rows
-                    response.donasi_barang.forEach(function(donasi) {
-                        $('#donationList').append(`
-                            <tr>
-                                <td><input type="checkbox" class="form-check-input"></td>
-                                <td>
-                                    <div class="donatur-info">
-                                        <img src="${donasi.profile_image}" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%;">
-                                        <div>
-                                            <div>${donasi.nama_asli}</div>
-                                            <small>${donasi.email}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>${donasi.nama_barang}</td>
-                                <td>${donasi.jumlah_barang} Buah</td>
-                                <td>${donasi.status}</td>
-                                <td>${donasi.tanggal_verifikasi_barang}</td>
-                                <td class="aksi-column">${donasi.metode_pengiriman}</td>
-                            </tr>
-                        `);
-                    });
-                }
+        const modal = new bootstrap.Modal(document.getElementById("detailModal"));
+        let currentId = null; // Variabel global untuk menyimpan ID yang sedang diedit
+
+        document.querySelectorAll(".view-details-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                currentId = this.getAttribute("data-id"); // Simpan ID ke variabel global
+                console.log("Editing ID ", currentId);
+
+                fetch(`/donasi_barang/${currentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        // Mengisi data modal
+                        document.getElementById("modalNamaBarang").textContent = data.nama_barang;
+                        const modalStatus = document.getElementById("modalStatus");
+                        modalStatus.value = data.status;
+                        modalStatus.dispatchEvent(new Event('change'));
+
+                        // Menampilkan modal
+                        modal.show();
+                    })
+                    .catch(error => console.error("Error fetching data:", error));
             });
-        }
-
-        // Load donations on page load
-        $(document).ready(function() {
-            // loadDonations();
         });
 
-        // Show details in the modal
-        $(document).on('click', '.btn-detail', function() {
-            $('#detailModal').modal('show');
-            // const id = $(this).data('id');
-            // $.ajax({
-            //     url: `/admin/donasi-barang/${id}/detail`,
-            //     method: 'GET',
-            //     success: function(response) {
-            //         $('#detailDonatur').val(response.donatur);
-            //         $('#detailTanggal').val(response.tanggal);
-            //         $('#detailNamaBarang').val(response.nama_barang);
-            //         $('#detailJumlahBarang').val(response.jumlah + ' Buah');
-            //         $('#detailVerifikasi').attr('src', response.bukti_foto);
+        // Tombol Konfirmasi
+        document.getElementById("confirmButton").addEventListener("click", function() {
+            const status = document.getElementById("modalStatus").value;
+            console.log("Editing ID konfirm:", currentId);
 
-            //         $('#btnApprove, #btnReject').data('id', id);
-            //     }
-            // });
+            fetch(`/donasi_barang/${currentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        status: status,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    modal.hide();
+                    location.reload();
+                })
+                .catch(error => console.error("Error updating data:", error));
         });
+    </script>
 
-        // Approve/Reject Handlers
-        $('#btnApprove').click(function() {
-            const id = $(this).data('id');
-            approveReject(id, 'Diterima');
-        });
+    <script>
+        // modal hapus barang
+        const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+        let currentDeleteId = null;
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                currentDeleteId = this.getAttribute("data-id");
+                const namaBarang = this.getAttribute("data-nama-barang");
 
-        $('#btnReject').click(function() {
-            const id = $(this).data('id');
-            approveReject(id, 'Dibatalkan');
-        });
-
-        function approveReject(id, status) {
-            $.ajax({
-                url: `/admin/donasi-barang/${id}/${status.toLowerCase()}`,
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function() {
-                    $('#detailModal').modal('hide');
-                    loadDonations(); // Reload donations after approval/rejection
-                }
+                // Tampilkan nama barang di modal
+                document.getElementById("deleteNamaBarang").textContent = namaBarang;
+                deleteModal.show();
             });
-        }
+        });
+
+        // ajax hapus barang
+        document.getElementById("confirmDeleteButton").addEventListener("click", function() {
+            if (currentDeleteId) {
+                fetch(`/donasi_barang/${currentDeleteId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message || "Data berhasil dihapus");
+                        deleteModal.hide();
+                        location.reload();
+                    })
+                    .catch(error => console.error("Error deleting data:", error));
+            }
+        });
     </script>
 </body>
+
 </html>

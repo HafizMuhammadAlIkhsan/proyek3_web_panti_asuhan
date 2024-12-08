@@ -169,8 +169,7 @@
                     <div class="feature-card">
                         <ion-icon name="bag-check-outline" class="icon"></ion-icon>
                         <h4>Donasi Barang</h4>
-                        <button class="btn btn-primary" onclick="window.location.href={{ route('list-uang') }}'">Detail Donasi</button>
-                        {{-- <button class="btn btn-primary" onclick="window.location.href='{{ route('hal_donasi_barang_admin')">Detail Donasi</button> --}}
+                        <button class="btn btn-primary" onclick="window.location.href='{{ route('list-barang') }}'">Detail Donasi</button>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -182,8 +181,3 @@
                 </div>
             </div>
         </main>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

@@ -8,7 +8,7 @@ class DonasiBarang extends Model
 {
     protected $table = 'donasi_barang';
     protected $primaryKey = 'id_donasi_barang';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'email_admin',
@@ -26,14 +26,15 @@ class DonasiBarang extends Model
         'jumlah_barang' => 'integer'
     ];
 
+    // Relasi dengan model Donatur
     public function donatur()
     {
-        return $this->belongsTo(Donatur::class, 'email', 'email');
+        return $this->belongsTo(Donatur::class, 'email','email');
     }
 
+    // Relasi dengan model Admin
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'email_admin', 'email_admin');
     }
-    
 }

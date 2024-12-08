@@ -109,4 +109,12 @@ class AdminController extends Controller
         return view('Admin/beranda_donasi_admin', compact('ProfileAdmin'));
         
     }
+    public function showDonasiBarang()
+        {
+            // Ambil data barang dengan paginasi (10 barang per halaman)
+            $donasiBarang = DonasiBarang::paginate(10);
+
+            // Kirim data ke view
+            return view('Admin.detail_barang', compact('donasiBarang'));
+        }
 }
