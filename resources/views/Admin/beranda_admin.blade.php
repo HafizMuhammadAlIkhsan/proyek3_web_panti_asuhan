@@ -256,15 +256,13 @@
                         <h3>Rekap Donasi</h3>
                         <div class="donation-stats">
                             <div class="approved">
-                                <strong>Approved</strong><br> 151 Donasi
+                                <strong>Donasi Diterima: </strong> {{ $donasiDiterima ?? 'Data tidak tersedia' }}
                             </div>
                             <div class="pending">
-                                <strong>Pending</strong><br>
-                                100 Donasi
+                                <strong>Donasi Pending: </strong> {{ $donasiPending ?? 'Data tidak tersedia' }}
                             </div>
                             <div class="total">
-                                <strong>Jumlah Donasi</strong><br>
-                                251 Donasi
+                                <strong>Total Donasi: </strong> {{ $totalDonasi ?? 'Data tidak tersedia'}}
                             </div>
                         </div>
                     </div>
