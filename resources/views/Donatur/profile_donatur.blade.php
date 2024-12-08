@@ -330,24 +330,25 @@
                             <label>Tanggal Lahir</label>
                             <div class="date-select">
                                 <select name="tahun_lahir" id="year" disabled>
+                                    <option value="-1" {{ is_null($profileData['tahun_lahir']) ? 'selected' : '' }} disabled>Tahun</option>
                                     @for ($y = now()->year; $y >= 1950; $y--)
-                                        <option value="{{ $y }}"
-                                            {{ $y == $profileData['tahun_lahir'] ? 'selected' : '' }}>
-                                            {{ $y }}</option>
+                                        <option value="{{ $y }}" {{ $y == $profileData['tahun_lahir'] ? 'selected' : '' }}>
+                                            {{ $y }}
+                                        </option>
                                     @endfor
                                 </select>
                                 <select name="bulan_lahir" id="month" disabled>
+                                    <option value="-1" {{ is_null($profileData['bulan_lahir']) ? 'selected' : '' }} disabled>Bulan</option>
                                     @for ($m = 1; $m <= 12; $m++)
-                                        <option value="{{ $m }}"
-                                            {{ (int) $m === (int) $profileData['bulan_lahir'] ? 'selected' : '' }}>
+                                        <option value="{{ $m }}" {{ (int)$m === (int)$profileData['bulan_lahir'] ? 'selected' : '' }}>
                                             {{ str_pad($m, 2, '0', STR_PAD_LEFT) }}
                                         </option>
                                     @endfor
                                 </select>
                                 <select name="hari_lahir" id="day" disabled>
+                                    <option value="-1" {{ is_null($profileData['hari_lahir']) ? 'selected' : '' }} disabled>Hari</option>
                                     @for ($d = 1; $d <= 31; $d++)
-                                        <option value="{{ $d }}"
-                                            {{ (int) $d === (int) $profileData['hari_lahir'] ? 'selected' : '' }}>
+                                        <option value="{{ $d }}" {{ (int)$d === (int)$profileData['hari_lahir'] ? 'selected' : '' }}>
                                             {{ str_pad($d, 2, '0', STR_PAD_LEFT) }}
                                         </option>
                                     @endfor
@@ -361,10 +362,13 @@
                         <div class="input-field">
                             <label>Gender</label>
                             <select name="gender" id="gender" disabled>
+                                <option value="" {{ is_null($profileData['gender']) ? 'selected' : '' }} disabled>Pilih Jenis Kelamin</option>
                                 <option value="true" {{ $profileData['gender'] === true ? 'selected' : '' }}>
-                                    Laki-laki</option>
+                                    Laki-laki
+                                </option>
                                 <option value="false" {{ $profileData['gender'] === false ? 'selected' : '' }}>
-                                    Perempuan</option>
+                                    Perempuan
+                                </option>
                             </select>
                         </div>
                     </div>
